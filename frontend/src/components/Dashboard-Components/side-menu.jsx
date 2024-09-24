@@ -33,7 +33,7 @@ function SideMenu() {
                     {/* Reportings Link */}
                     <div className="dash-menu-items">
                         <i className="fa-solid fa-message icon-size"></i>
-                        <Link to="#" className="dash-menu-links" id="2">Reportings</Link>
+                        <Link to="report" className="dash-menu-links" id="2">Reportings</Link>
                     </div>
 
                     {/* Track Link */}

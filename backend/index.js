@@ -6,11 +6,12 @@ const { default: mongoose } = require("mongoose")
 const app = express()
 
 const DelManagerModel = require('./models/delManagerModel')
+const DelPersonModel = require('./models/delPersonModel')
 
 app.use(express.json())
 app.use(cors())
 
-
+//DeliveryManager
 app.post('/register', (req, res) => {
     DelManagerModel.create(req.body)
     .then(delManager => res.json(delManager))
@@ -34,6 +35,32 @@ app.post('/login', (req, res) => {
 
 })
 
+//DeliveryPerson
+app.post('/delPersonRegister', (req, res) => {
+    DelPersonModel.create(req.body)
+    .then(delPerson => res.json(delPerson))
+    .catch(err => res.json(err))
+})
+
+app.post('/delPersonLogin', (req, res) => {
+    const {email, password} = req.body;
+    DelPersonModel.findOne({email: email})
+    .then(user => {
+        if(user) {
+            if(user.password === password) {
+                res.json("Success")
+            } else {
+                res.json("Incorrect Password")
+            }
+        } else {
+            res.json("No record available")
+        }
+    })
+
+})
+
+
+//DB Connection
 const PORT=process.env.PORT||8020
 
 mongoose.connect("mongodb+srv://chirath:1234@cluster0.794yb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
