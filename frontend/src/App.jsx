@@ -10,8 +10,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import DelManagerSignUp from './components/Account/delManagerReg';
 import DelManagerLogin from './components/Account/delManagerLogin';
-import DeliveryManagerDashboard from './components/deliveryManager-dashboard';
+import DeliveryManagerDashboard from './components/DelManagementComponents/DelManager/deliveryManager-dashboard';
 import DelPersonSignUp from './components/Account/delPersonReg';
+import DeliveryPersonDashboard from './components/DelManagementComponents/DeLPerson/deliveryPersonDashboard';
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
           <Route path='/delManagerReg' element={<DelManagerSignUp />} />
           <Route path='/delManagerLogin' element={<DelManagerLogin />} />
           <Route path='/delPersonReg' element={<DelPersonSignUp />} />
-          <Route path='/home/*' element={<DeliveryManagerDashboard />} />
+          <Route path='/deliveryManager/*' element={<DeliveryManagerDashboard />} />
+          <Route path='/deliveryPerson/*' element={<DeliveryPersonDashboard/>} />
         </Routes>
       </Router>
     </div>

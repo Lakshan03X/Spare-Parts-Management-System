@@ -15,7 +15,7 @@ function DelManagerLogin() {
       .then((result) => {
         console.log(result);
         if (result.data === "Success") {
-          navigate("/home");
+          navigate("/deliveryPersonDashbaord");
         } else {
           alert("Invalid ! Pleace check again");
         }

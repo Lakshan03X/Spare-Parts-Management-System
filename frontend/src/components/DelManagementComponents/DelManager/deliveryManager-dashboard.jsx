@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import Dashboard from "./Dashboard-Components/dashboard";
-import SideMenu from "./Dashboard-Components/side-menu";
-import Order from "./Dashboard-Components/order";
-import Report from "./Dashboard-Components/report";
+import Dashboard from "./dashboard";
+import SideMenu from "./side-menu";
+import Order from "./order";
+import Report from "./report";
 
-import "../App.css";
+import "../../../App.css";
 
 function DeliveryManagerDashboard() {
   return (
