@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main_container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.left_side {
+  background-color: #03010e;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left_side h1 {
+  color: white;
+  text-align: center;
+  font-size: 64px;
+}
+
+.right_side {
+  width: 50%;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right_side form {
+  background-color: white;
+  width: 80%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.right_side form label {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.right_side form input[type="email"],
+.right_side form input[type="password"] {
+  padding: 10px;
+  background-color: #d9d9d9;
+  height: 35px;
+  margin-bottom: 20px;
+  border: none;
+  font-size: medium;
+}
+
+.right_side form input::placeholder {
+  color: dimgrey;
+}
+
+.right_side form input:focus {
+  outline: green;
+  border-left: 5px solid green;
+}
+
+.right_side form input:invalid {
+  border-left: 5px solid red;
+}
+
+.right_side form button {
+  background-color: #2c2c2c;
+  color: white;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: large;
+}
+
+.right_side form a {
+  color: #6a0dad;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.right_side form a:hover {
+  text-decoration: underline;
+}
