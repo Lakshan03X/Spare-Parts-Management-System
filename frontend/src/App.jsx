@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import DelManagerSignUp from './components/Account/delManagerReg';
