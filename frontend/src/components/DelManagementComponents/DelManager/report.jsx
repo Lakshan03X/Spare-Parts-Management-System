@@ -51,7 +51,7 @@ function Report() {
                                     <td>{delIssue.userEmail}</td>
                                     <td>{delIssue.issue}</td>
                                     <td>
-                                        <button>Resolved</button>
+                                        <button >Resolved</button>
                                         <button>Pending</button>
                                     </td>
                                 </tr>
