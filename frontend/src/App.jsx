@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+
 import DelManagerSignUp from './components/Account/delManagerReg';
 import DelManagerLogin from './components/Account/delManagerLogin';
 import DeliveryManagerDashboard from './components/DelManagementComponents/DelManager/deliveryManager-dashboard';

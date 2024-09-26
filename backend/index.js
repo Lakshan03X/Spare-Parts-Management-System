@@ -7,6 +7,7 @@ const app = express()
 
 const DelManagerModel = require('./models/delManagerModel')
 const DelPersonModel = require('./models/delPersonModel')
+const delReportModel = require("./models/delReportModel")
 
 app.use(express.json())
 app.use(cors())
@@ -58,6 +59,20 @@ app.post('/delPersonLogin', (req, res) => {
     })
 
 })
+
+//Reporting ---> Delivery Person
+app.post('/addReport',(req,res) => {
+    delReportModel.create(req.body)
+    .then(delIssue => res.json(delIssue))
+    .catch(err => res.json(err))
+})
+
+app.get('/readReport', (req,res) => {
+    delReportModel.find()
+    .then(delIssue => res.json(delIssue))
+    .catch(err => res.json(err))
+})
+
 
 
 //DB Connection
