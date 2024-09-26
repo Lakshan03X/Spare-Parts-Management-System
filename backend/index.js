@@ -7,7 +7,10 @@ const app = express();
 const DelManagerModel = require("./models/delManagerModel");
 const DelPersonModel = require("./models/delPersonModel");
 const ItemDataModel = require("./models/sup_mg_model/mg_model");
-const delReportModel = require("./models/delReportModel")
+const delReportModel = require("./models/delReportModel");
+
+app.use(express.json());
+app.use(cors());
 
 //DeliveryManager crud section ...................................................................
 app.post("/register", (req, res) => {
@@ -61,19 +64,19 @@ app.get("/supplierReport", (req, res) => {
 });
 
 //Reporting ---> Delivery Person
-app.post('/addReport',(req,res) => {
-    delReportModel.create(req.body)
-    .then(delIssue => res.json(delIssue))
-    .catch(err => res.json(err))
-})
+app.post("/addReport", (req, res) => {
+  delReportModel
+    .create(req.body)
+    .then((delIssue) => res.json(delIssue))
+    .catch((err) => res.json(err));
+});
 
-app.get('/readReport', (req,res) => {
-    delReportModel.find()
-    .then(delIssue => res.json(delIssue))
-    .catch(err => res.json(err))
-})
-
-
+app.get("/readReport", (req, res) => {
+  delReportModel
+    .find()
+    .then((delIssue) => res.json(delIssue))
+    .catch((err) => res.json(err));
+});
 
 app.get("/view_item", (req, res) => {
   ItemDataModel.find({})
