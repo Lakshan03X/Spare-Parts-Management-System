@@ -1,0 +1,32 @@
+
+
+
+
+
+.report-sec {
+    margin: 50px;
+    max-width: 40%;
+}
+
+.report-input {
+    height: 50px;
+    padding: 10px;
+}
+
+.report-issue {
+    padding: 10px;
+}
+
+.report-sum-btn {
+    width: 100px;
+    height: 30px;
+    background-color: var(--dash-side-bg);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+}
+
+.report-sum-btn:hover {
+    background-color: #03010e6d;
+}
+

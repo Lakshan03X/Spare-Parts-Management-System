@@ -8,8 +8,14 @@ const DelManagerModel = require("./models/delManagerModel");
 const DelPersonModel = require("./models/delPersonModel");
 const ItemDataModel = require("./models/sup_mg_model/mg_model");
 
+<<<<<<< HEAD
 app.use(express.json());
 app.use(cors());
+=======
+const DelManagerModel = require('./models/delManagerModel')
+const DelPersonModel = require('./models/delPersonModel')
+const delReportModel = require("./models/delReportModel")
+>>>>>>> ee25674428888c8c11c80e8b3850ba703b063e7d
 
 //DeliveryManager crud section ...................................................................
 app.post("/register", (req, res) => {
@@ -62,11 +68,28 @@ app.get("/supplierReport", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+<<<<<<< HEAD
 app.get("/supplierinv", (req, res) => {
   ItemDataModel.find({})
     .then((items) => res.json(items))
     .catch((err) => res.json(err));
 });
+=======
+//Reporting ---> Delivery Person
+app.post('/addReport',(req,res) => {
+    delReportModel.create(req.body)
+    .then(delIssue => res.json(delIssue))
+    .catch(err => res.json(err))
+})
+
+app.get('/readReport', (req,res) => {
+    delReportModel.find()
+    .then(delIssue => res.json(delIssue))
+    .catch(err => res.json(err))
+})
+
+
+>>>>>>> ee25674428888c8c11c80e8b3850ba703b063e7d
 
 app.get("/view_item", (req, res) => {
   ItemDataModel.find({})

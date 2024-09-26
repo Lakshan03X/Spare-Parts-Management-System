@@ -5,8 +5,38 @@
 
 import  { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Report() {
+    const [userName, setUserName] = useState()
+    const [userEmail, setUserEmail] = useState()
+    const [issue, setIssue] = useState()
+
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (userName && userEmail && issue) {  
+            axios.post('http://localhost:8020/addReport', { userName, userEmail, issue })
+                .then(result => {
+                    toast("Issue Submitted !!!")
+                    setUserName('');
+                    setUserEmail('');
+                    setIssue('');
+                    navigate('/deliveryPerson/report');
+                })
+                .catch(err => {
+                    toast("Failed to Submit!!")
+                    console.log(err);
+                });
+        } else {
+            toast("Please fill in all fields!")
+        }
+    };
+
     return (
         <div>
             <div className="dash-header">
@@ -17,51 +47,42 @@ function Report() {
             <div>
                 <h1 className="heading1">Reports</h1>
             </div>
-            
-            <div className="order-area">
-                <h3 className="heading1">Issues and Reports</h3>
-                <div className="order-area-layout">
-                <table className="order-table">
-    <tr>
-        <th>Issue ID</th>
-        <th>Delivery Person Name</th>
-        <th>Issue Description</th>
-        <th>Action</th>
-    </tr>
 
-    <tr>
-        <td>is0001</td>
-        <td>John Doe</td>
-        <td>Damaged during transport</td>
-        <td>
-            <button>Resolved</button>
-            <button>Pending</button>
-        </td>
-    </tr>
-    <tr>
-        <td>is0002</td>
-        <td>Jane Smith</td>
-        <td>Missing parts</td>
-        <td>
-            <button>Resolved</button>
-            <button>Pending</button>
-        </td>
-    </tr>
-    <tr>
-        <td>is0003</td>
-        <td>Mike Johnson</td>
-        <td>Incorrect size</td>
-        <td>
-            <button>Resolved</button>
-            <button>Pending</button>
-        </td>
-    </tr>
-</table>
+            <div className="report-sec">
+            <form method='post' onSubmit={handleSubmit}>
+                <label htmlFor="userName">User Name</label>
+                <input type="text"
+                className='report-input'
+                 name="userName"
+                 id="userName"
+                 placeholder='Enter Username'
+                 value={userName}
+                 onChange={(e) => setUserName(e.target.value)} />
 
+                <label htmlFor="userEmail">User Email</label>
+                <input type="email"
+                className='report-input'
+                 name="userEmail"
+                 id="userEmail"
+                 value={userEmail}
+                 placeholder='Enter Email'
+                 onChange={(e) => setUserEmail(e.target.value)} />
 
-                <img className="dash-img" src="./src/assets/dash-img.svg" alt="" srcset="" />
-                </div>
+                <label htmlFor="issue">Issue</label>
+                <textarea 
+                className='report-issue'
+                name="issue"
+                 id="issue"
+                 value={issue}
+                 placeholder='Enter Your Issue Here...'
+                 onChange={(e) => setIssue(e.target.value)}/>
+
+                 <button type="submit"  className='report-sum-btn'>Send</button>
+
+            </form>
             </div>
+                
+            <ToastContainer />
         </div>
     );
 }

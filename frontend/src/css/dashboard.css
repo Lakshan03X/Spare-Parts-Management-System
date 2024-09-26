@@ -2,6 +2,9 @@
 
 
 
+@import url("./delPersonReport.css");
+
+
 
 /*-----------------Dashboard Sec 1---------------------------------*/
 .page {
@@ -162,6 +165,20 @@
     width: 300px;
     margin-left: 10px;
 }
+
+
+/*********Report*************/
+.report-table {
+    color: #000;
+    width: 800px;
+    margin: 50px;
+}
+
+.report-table-head {
+    background-color: var(--dash-side-bg);
+    color: white;
+}
+
 
 /* -----------Util--------- */
 ul {

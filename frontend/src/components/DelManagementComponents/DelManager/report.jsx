@@ -3,10 +3,22 @@
 
 
 
-import  { useState } from 'react'
+import axios from 'axios'
+import  { useEffect, useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 
 function Report() {
+
+    const [delIssue, setDelIssue] = useState([]); // Initialize as an empty array
+
+    useEffect(() => {
+        axios.get('http://localhost:8020/readReport')
+            .then(response => {
+                setDelIssue(response.data); // Set the state with the data from response
+            })
+            .catch(err => console.log(err));
+    }, []);
+
     return (
         <div>
             <div className="dash-header">
@@ -21,41 +33,32 @@ function Report() {
             <div className="order-area">
                 <h3 className="heading1">Issues and Reports</h3>
                 <div className="order-area-layout">
-                <table className="order-table">
-    <tr>
-        <th>Issue ID</th>
-        <th>Delivery Person Name</th>
-        <th>Issue Description</th>
-        <th>Action</th>
-    </tr>
+                <table className="report-table">
+                    <thead className='report-table-head'>
+                        <tr>
+                            <th>Issue ID</th>
+                            <th>Delivery Person Name</th>
+                            <th>Issue Description</th>
+                            <th>Action</th>
+                         </tr>
+                    </thead>
 
-    <tr>
-        <td>is0001</td>
-        <td>John Doe</td>
-        <td>Damaged during transport</td>
-        <td>
-            <button>Resolved</button>
-            <button>Pending</button>
-        </td>
-    </tr>
-    <tr>
-        <td>is0002</td>
-        <td>Jane Smith</td>
-        <td>Missing parts</td>
-        <td>
-            <button>Resolved</button>
-            <button>Pending</button>
-        </td>
-    </tr>
-    <tr>
-        <td>is0003</td>
-        <td>Mike Johnson</td>
-        <td>Incorrect size</td>
-        <td>
-            <button>Resolved</button>
-            <button>Pending</button>
-        </td>
-    </tr>
+                    <tbody className='report-table-body'>
+                    {
+                            delIssue.map((delIssue) => {
+                                return <tr>
+                                    <td>{delIssue.userName}</td>
+                                    <td>{delIssue.userEmail}</td>
+                                    <td>{delIssue.issue}</td>
+                                    <td>
+                                        <button>Resolved</button>
+                                        <button>Pending</button>
+                                    </td>
+                                </tr>
+                            })
+                        }
+                    </tbody>
+   
 </table>
 
 

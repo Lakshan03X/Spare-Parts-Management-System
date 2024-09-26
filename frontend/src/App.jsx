@@ -13,6 +13,15 @@ import UpdateItem from "./components/Supplier/sup_inventory/sup_inv_update";
 import SupplierReport from "./components/Supplier/sup_report/sup_rept";
 import SupplierDashboard from './components/Supplier/sup_dashboad/sup_dashboard';
 
+<<<<<<< HEAD
+=======
+
+import DelManagerSignUp from './components/Account/delManagerReg';
+import DelManagerLogin from './components/Account/delManagerLogin';
+import DeliveryManagerDashboard from './components/DelManagementComponents/DelManager/deliveryManager-dashboard';
+import DelPersonSignUp from './components/Account/delPersonReg';
+import DeliveryPersonDashboard from './components/DelManagementComponents/DeLPerson/deliveryPersonDashboard';
+>>>>>>> ee25674428888c8c11c80e8b3850ba703b063e7d
 
 function App() {
   return (
