@@ -68,28 +68,11 @@ app.get("/supplierReport", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-<<<<<<< HEAD
 app.get("/supplierinv", (req, res) => {
   ItemDataModel.find({})
     .then((items) => res.json(items))
     .catch((err) => res.json(err));
 });
-=======
-//Reporting ---> Delivery Person
-app.post('/addReport',(req,res) => {
-    delReportModel.create(req.body)
-    .then(delIssue => res.json(delIssue))
-    .catch(err => res.json(err))
-})
-
-app.get('/readReport', (req,res) => {
-    delReportModel.find()
-    .then(delIssue => res.json(delIssue))
-    .catch(err => res.json(err))
-})
-
-
->>>>>>> ee25674428888c8c11c80e8b3850ba703b063e7d
 
 app.get("/view_item", (req, res) => {
   ItemDataModel.find({})
