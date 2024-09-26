@@ -56,13 +56,6 @@ app.post("/delPersonLogin", (req, res) => {
   });
 });
 
-// supplier manager crud section ...................................................................
-app.get("/supplierReport", (req, res) => {
-  ItemDataModel.find({})
-    .then((items) => res.json(items))
-    .catch((err) => res.json(err));
-});
-
 //Reporting ---> Delivery Person
 app.post("/addReport", (req, res) => {
   delReportModel
@@ -75,6 +68,19 @@ app.get("/readReport", (req, res) => {
   delReportModel
     .find()
     .then((delIssue) => res.json(delIssue))
+    .catch((err) => res.json(err));
+});
+
+// supplier manager crud section ...................................................................
+app.get("/supplierReport", (req, res) => {
+  ItemDataModel.find({})
+    .then((items) => res.json(items))
+    .catch((err) => res.json(err));
+});
+
+app.get("/supplierinv", (req, res) => {
+  ItemDataModel.find({})
+    .then((items) => res.json(items))
     .catch((err) => res.json(err));
 });
 
