@@ -7,7 +7,6 @@ const app = express();
 const DelManagerModel = require("./models/delManagerModel");
 const DelPersonModel = require("./models/delPersonModel");
 const ItemDataModel = require("./models/sup_mg_model/mg_model");
-
 const delReportModel = require("./models/delReportModel")
 
 //DeliveryManager crud section ...................................................................
