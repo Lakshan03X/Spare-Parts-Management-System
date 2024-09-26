@@ -7,15 +7,9 @@ const app = express();
 const DelManagerModel = require("./models/delManagerModel");
 const DelPersonModel = require("./models/delPersonModel");
 const ItemDataModel = require("./models/sup_mg_model/mg_model");
-
-<<<<<<< HEAD
-app.use(express.json());
-app.use(cors());
-=======
 const DelManagerModel = require('./models/delManagerModel')
 const DelPersonModel = require('./models/delPersonModel')
 const delReportModel = require("./models/delReportModel")
->>>>>>> ee25674428888c8c11c80e8b3850ba703b063e7d
 
 //DeliveryManager crud section ...................................................................
 app.post("/register", (req, res) => {
