@@ -1,0 +1,23 @@
+#table_container {
+  padding: 5px;
+  min-width: 20%;
+}
+
+table {
+  max-width: 81%;
+}
+
+#search_function{
+    margin-left: 280px;
+    width: 85%;
+}
+
+#search_bar{
+    margin-top: 20px;
+    margin-left: 800px;
+    margin-bottom: 10px;
+}
+
+#pdf_btn{
+    margin-left: 1060px;
+}

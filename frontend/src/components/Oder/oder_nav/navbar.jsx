@@ -4,7 +4,7 @@ import  "../oder_nav/navbar.css";
 
 function navbar() {
   return (
-    <div className="sidebar">
+    <div id="sidebar">
       <h2>The Racers Edge</h2>
       <ul>
         <Link to="/" className="link">

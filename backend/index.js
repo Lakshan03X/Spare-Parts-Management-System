@@ -1,11 +1,9 @@
 const express = require("express");
-require('dotenv').config();
-
-
+require("dotenv").config();
 
 const cors = require("cors");
-const mongoose = require("mongoose")
-const jwt = require('jsonwebtoken')
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 
@@ -20,62 +18,69 @@ app.use(cors());
 
 //Creating token
 const createToken = (_id) => {
-  return jwt.sign({_id}, process.env.SECRET, {expiresIn: '3d'})
-}
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+};
 
 //DeliveryManager crud section ...................................................................
-app.post('/register', (req, res) => {
+app.post("/register", (req, res) => {
   DelManagerModel.create(req.body)
     .then((delManager) => {
       const token = createToken(delManager._id);
       res.json({ delManager, token });
     })
     .catch((err) => {
-      console.error(err); 
-      res.status(400).json({ error: 'Failed to create the delivery manager', details: err.message });
+      console.error(err);
+      res.status(400).json({
+        error: "Failed to create the delivery manager",
+        details: err.message,
+      });
     });
 });
 
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
-  DelManagerModel.findOne({ email: email }).then((user) => {
-    if (user) {
-      if (user.password === password) {
-        const token = createToken(user._id);
-        
-        // Send user data in the response
-        res.json({
-          message: "Success",
-          user: {
-            id: user._id,
-            username: user.name, // Include the username here
-            email: user.email,
-            token: token // Optionally include a token if you use it for authentication
-          }
-        });
+  DelManagerModel.findOne({ email: email })
+    .then((user) => {
+      if (user) {
+        if (user.password === password) {
+          const token = createToken(user._id);
+
+          // Send user data in the response
+          res.json({
+            message: "Success",
+            user: {
+              id: user._id,
+              username: user.name, // Include the username here
+              email: user.email,
+              token: token, // Optionally include a token if you use it for authentication
+            },
+          });
+        } else {
+          res.status(401).json({ error: "Incorrect Password" }); // Use status codes for errors
+        }
       } else {
-        res.status(401).json({ error: "Incorrect Password" }); // Use status codes for errors
+        res.status(404).json({ error: "No record available" }); // Use status codes for errors
       }
-    } else {
-      res.status(404).json({ error: "No record available" }); // Use status codes for errors
-    }
-  }).catch(err => {
-    console.error(err); // Log the error
-    res.status(500).json({ error: "Internal server error" }); // Handle unexpected errors
-  });
+    })
+    .catch((err) => {
+      console.error(err); // Log the error
+      res.status(500).json({ error: "Internal server error" }); // Handle unexpected errors
+    });
 });
 
-
 //DeliveryPerson
-app.post('/delPersonRegister', (req, res) => {
+app.post("/delPersonRegister", (req, res) => {
   DelPersonModel.create(req.body)
     .then((delPerson) => {
       const token = createToken(delPerson._id);
       res.json({ delPerson, token });
     })
     .catch((err) => {
-      console.error(err); 
-      res.status(400).json({ error: 'Failed to create the delivery person', details: err.message });
+      console.error(err);
+      res.status(400).json({
+        error: "Failed to create the delivery person",
+        details: err.message,
+      });
     });
 });
 
@@ -97,8 +102,8 @@ app.post("/delPersonLogin", (req, res) => {
               id: user._id,
               username: user.name, // Include the username here
               email: user.email,
-              token: token // Include a token if you use it for authentication
-            }
+              token: token, // Include a token if you use it for authentication
+            },
           });
         } else {
           res.status(401).json({ message: "Incorrect Password" }); // Send 401 Unauthorized
@@ -107,7 +112,7 @@ app.post("/delPersonLogin", (req, res) => {
         res.status(404).json({ message: "No record available" }); // Send 404 Not Found
       }
     })
-    .catch(err => {
+    .catch((err) => {
       console.error("Error during login:", err);
       res.status(500).json({ message: "Internal Server Error" }); // Send 500 Internal Server Error
     });
@@ -134,16 +139,17 @@ app.get("/readReport", (req, res) => {
 app.put("/delReportupdate/:id", (req, res) => {
   const id = req.params.id;
 
-  delReportModel.findByIdAndUpdate(
-    id, 
-    {
-      userName: req.body.userName,
-      userEmail: req.body.userEmail,
-      issue: req.body.issue,
-      status: req.body.status
-    },
-    { new: true }
-  )
+  delReportModel
+    .findByIdAndUpdate(
+      id,
+      {
+        userName: req.body.userName,
+        userEmail: req.body.userEmail,
+        issue: req.body.issue,
+        status: req.body.status,
+      },
+      { new: true }
+    )
     .then((updatedReport) => {
       if (!updatedReport) {
         return res.status(404).json({ message: "Report not found" });
@@ -156,17 +162,18 @@ app.put("/delReportupdate/:id", (req, res) => {
 //Get Items for id
 app.get("/getDelReport/:id", (req, res) => {
   const id = req.params.id;
-  delReportModel.findById({ _id: id })
+  delReportModel
+    .findById({ _id: id })
     .then((items) => res.json(items))
     .catch((err) => res.json(err));
 });
-
 
 //Delete Report
 app.delete("/delReportDelete/:id", (req, res) => {
   const id = req.params.id;
 
-  delReportModel.findByIdAndDelete(id)
+  delReportModel
+    .findByIdAndDelete(id)
     .then((deletedReport) => {
       if (!deletedReport) {
         return res.status(404).json({ message: "Report not found" });
@@ -175,7 +182,6 @@ app.delete("/delReportDelete/:id", (req, res) => {
     })
     .catch((err) => res.status(500).json({ error: err.message }));
 });
-
 
 // supplier manager crud section ...................................................................
 app.get("/supplierReport", (req, res) => {
@@ -198,6 +204,12 @@ app.get("/home_inventory_view", (req, res) => {
 
 app.get("/home_add_cart/:id", (req, res) => {
   ItemDataModel.find({})
+    .then((items) => res.json(items))
+    .catch((err) => res.json(err));
+});
+
+app.get("/get_order_dash", (req, res) => {
+  OderDataModel.find({})
     .then((items) => res.json(items))
     .catch((err) => res.json(err));
 });
@@ -240,6 +252,13 @@ app.put("/item_update/:id", (req, res) => {
 app.delete("/delete_item/:id", (req, res) => {
   const id = req.params.id;
   ItemDataModel.findOneAndDelete({ _id: id })
+    .then((items) => res.json(items))
+    .catch((err) => res.json(err));
+});
+
+app.delete("/delete_order/:id", (req, res) => {
+  const id = req.params.id;
+  OderDataModel.findOneAndDelete({ _id: id })
     .then((items) => res.json(items))
     .catch((err) => res.json(err));
 });
