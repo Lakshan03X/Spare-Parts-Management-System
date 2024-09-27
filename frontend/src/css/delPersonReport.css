@@ -2,10 +2,19 @@
 
 
 
-
+.reports {
+    display: flex;
+    width: 100%;
+}
 .report-sec {
     margin: 50px;
-    max-width: 40%;
+    flex: 1;
+    min-width:10%;
+}
+
+.report-table-sec {
+    
+    flex: 1;
 }
 
 .report-input {

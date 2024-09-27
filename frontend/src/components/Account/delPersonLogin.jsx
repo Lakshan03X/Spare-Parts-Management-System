@@ -13,9 +13,12 @@ function DelManagerLogin() {
     axios
       .post("http://localhost:8020/delPersonlogin", { email, password })
       .then((result) => {
+        const userData = result.data.user; 
+          console.log(userData);
         console.log(result);
-        if (result.data === "Success") {
-          navigate("/deliveryPersonDashbaord");
+        if (result.data.message === "Success") {
+          localStorage.setItem('user', JSON.stringify(userData));
+          navigate("/deliveryPerson");
         } else {
           alert("Invalid ! Pleace check again");
         }
@@ -36,8 +39,8 @@ function DelManagerLogin() {
 
         <div className="right_side">
           <form method="post" onSubmit={handleSubmit}>
-            <h3>Delivery Manager Login</h3>
-            <label htmlFor="delManagerEmail">Email </label>
+            <h3>Delivery Person Login</h3>
+            <label htmlFor="delPersonEmail">Email </label>
             <input
               type="email"
               placeholder="Enter Your Email"
@@ -45,7 +48,7 @@ function DelManagerLogin() {
               onChange={(e) => setEmail(e.target.value)}
             />
 
-            <label htmlFor="delManagerPass">Password</label>
+            <label htmlFor="delPersonPass">Password</label>
             <input
               type="password"
               placeholder="*************"

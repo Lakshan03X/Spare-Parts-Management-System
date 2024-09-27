@@ -10,18 +10,28 @@ function DelManagerLogin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     axios
       .post("http://localhost:8020/login", { email, password })
       .then((result) => {
-        console.log(result);
-        if (result.data === "Success") {
-          navigate("/deliveryManager");
-        } else {
-          alert("Invalid ! Pleace check again");
-        }
+          const userData = result.data.user; // Access the user data from the response
+          console.log(userData); // Log user data for debugging
+
+          // Check if login was successful based on the message
+          if (result.data.message === "Success") {
+              localStorage.setItem('user', JSON.stringify(userData)); // Store user data in local storage
+              navigate("/deliveryManager");
+          } else {
+              alert(result.data.error || "Invalid! Please check again."); // Show appropriate error
+          }
       })
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => {
+          console.log(err);
+          alert("An error occurred during login. Please try again.");
+      });
+};
+
+
 
   return (
     <>

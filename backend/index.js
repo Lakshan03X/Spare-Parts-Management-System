@@ -41,36 +41,75 @@ app.post("/login", (req, res) => {
     if (user) {
       if (user.password === password) {
         const token = createToken(user._id);
-        res.json("Success");
+        
+        // Send user data in the response
+        res.json({
+          message: "Success",
+          user: {
+            id: user._id,
+            username: user.name, // Include the username here
+            email: user.email,
+            token: token // Optionally include a token if you use it for authentication
+          }
+        });
       } else {
-        res.json("Incorrect Password");
+        res.status(401).json({ error: "Incorrect Password" }); // Use status codes for errors
       }
     } else {
-      res.json("No record available");
+      res.status(404).json({ error: "No record available" }); // Use status codes for errors
     }
+  }).catch(err => {
+    console.error(err); // Log the error
+    res.status(500).json({ error: "Internal server error" }); // Handle unexpected errors
   });
 });
 
+
 //DeliveryPerson
-app.post("/delPersonRegister", (req, res) => {
+app.post('/delPersonRegister', (req, res) => {
   DelPersonModel.create(req.body)
-    .then((delPerson) => res.json(delPerson))
-    .catch((err) => res.json(err));
+    .then((delPerson) => {
+      const token = createToken(delPerson._id);
+      res.json({ delPerson, token });
+    })
+    .catch((err) => {
+      console.error(err); 
+      res.status(400).json({ error: 'Failed to create the delivery person', details: err.message });
+    });
 });
 
 app.post("/delPersonLogin", (req, res) => {
   const { email, password } = req.body;
-  DelPersonModel.findOne({ email: email }).then((user) => {
-    if (user) {
-      if (user.password === password) {
-        res.json("Success");
+
+  // Find the user by email
+  DelPersonModel.findOne({ email: email })
+    .then((user) => {
+      if (user) {
+        // Check if the password matches
+        if (user.password === password) {
+          const token = createToken(user._id); // Create token if you use it for authentication
+
+          // Send user data in the response
+          res.json({
+            message: "Success",
+            user: {
+              id: user._id,
+              username: user.name, // Include the username here
+              email: user.email,
+              token: token // Include a token if you use it for authentication
+            }
+          });
+        } else {
+          res.status(401).json({ message: "Incorrect Password" }); // Send 401 Unauthorized
+        }
       } else {
-        res.json("Incorrect Password");
+        res.status(404).json({ message: "No record available" }); // Send 404 Not Found
       }
-    } else {
-      res.json("No record available");
-    }
-  });
+    })
+    .catch(err => {
+      console.error("Error during login:", err);
+      res.status(500).json({ message: "Internal Server Error" }); // Send 500 Internal Server Error
+    });
 });
 
 //Reporting ---> Delivery Person

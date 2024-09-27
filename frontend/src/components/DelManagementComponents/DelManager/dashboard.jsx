@@ -7,11 +7,19 @@ import {useNavigate} from 'react-router-dom'
 
 
 function Dashboard() {
+
+    // Get user data from local storage
+    const delManager = JSON.parse(localStorage.getItem('delManager'));
+    
+    // Access the username
+    const username = delManager ? delManager.username : null;
+
     return (
         <div>
             <div className="dash-header">
                 <button className="btn">+ New Order</button>
                 <a href=""><i class="fa-regular fa-bell icon-size"></i></a>
+                <div>Hi , {username}</div>
                 <a href=""><i class="fa-solid fa-user icon-size profile-bg"></i> </a>
             </div>
             <div>
