@@ -15,10 +15,10 @@ function Home_navbar() {
                 <Link to="/home_inventory" className="link"><li>Inventory</li></Link>
                 <Link to="/home_feedback" className="link"><li>Feedbacks</li></Link>
                 <Link to="/home_contact" className="link"><li>Contact Us</li></Link>
-                //about us
+                {/* //about us */}
             </ul>
-            //Profile 
-            //User logout
+            {/* //Profile 
+            //User logout */}
         </nav>
     </header>
    </>
