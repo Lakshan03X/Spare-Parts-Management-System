@@ -12,6 +12,7 @@ const DelPersonModel = require("./models/delPersonModel");
 const ItemDataModel = require("./models/sup_mg_model/mg_model");
 const delReportModel = require("./models/delReportModel");
 const OderDataModel = require("./models/order_mg_model/order_mg_model");
+const UserModel = require("./models/user_mg_model/User_mg_model");
 
 app.use(express.json());
 app.use(cors());
@@ -285,6 +286,51 @@ app.post("/add_order", (req, res) => {
 //     res.status(500).json({ error: "Failed to get the count" });
 //   }
 // });
+
+//usermanager section..................................................................
+app.get("/user_dash", (req, res) => {
+  UserModel.find({})
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
+app.get("/getUser/:id", (req, res) => {
+  const id = req.params.id;
+  UserModel.findById({ _id: id })
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
+app.put("/UpdateUser/:id", (req, res) => {
+  const id = req.params.id;
+  UserModel.findByIdAndUpdate(
+    { _id: id },
+    {
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+      age: req.body.age,
+      address: req.body.address,
+      contact_no: req.body.contact_no,
+      user_type: req.body.user_type,
+    }
+  )
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
+app.delete("/deleteUser/:id", (req, res) => {
+  const id = req.params.id;
+  UserModel.findOneAndDelete({ _id: id })
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
+app.post("/createUser", (req, res) => {
+  UserModel.create(req.body)
+    .then((users) => res.json(users))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
 //DB Connection ...................................................................
 const PORT = process.env.PORT || 8020;

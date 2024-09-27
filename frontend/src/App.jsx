@@ -6,8 +6,7 @@ import DeliveryManagerDashboard from "./components/DelManagementComponents/DelMa
 import DelPersonSignUp from "./components/Account/delPersonReg";
 import DelPersonLogin from "./components/Account/delPersonLogin";
 import DeliveryPersonDashboard from "./components/DelManagementComponents/DeLPerson/deliveryPersonDashboard";
-import DelReportUpdate from "./components/DelManagementComponents/DeLPerson/report_util/delReportUpdate"
-
+import DelReportUpdate from "./components/DelManagementComponents/DeLPerson/report_util/delReportUpdate";
 
 //importing supplier components
 import SupplierInventory from "./components/Supplier/sup_inventory/sup_inv";
@@ -23,6 +22,7 @@ import HomeInventory from "./components/User_Home_Sec/Home_inventory/Home_invent
 import HomeOrder from "./components/User_Home_Sec/Home_Oders/Home_oder";
 import Home_AboutUs from "./components/User_Home_Sec/Home_AboutUs/Home_AboutUs";
 import Home_Contact from "./components/User_Home_Sec/Home_Contact/Home_Contact";
+import Home_feedback from "./components/User_Home_Sec/Home_feedback/Home_feedback";
 
 function App() {
   return (
@@ -43,12 +43,7 @@ function App() {
             element={<DeliveryPersonDashboard />}
           />
 
-          <Route
-            path="/delReportUpdate/:id"
-            element={<DelReportUpdate/>}
-          />
-
-          
+          <Route path="/delReportUpdate/:id" element={<DelReportUpdate />} />
 
           {/* this is supplier router paths */}
           <Route path="/supplierInv" element={<SupplierInventory />} />
@@ -62,8 +57,9 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/home_inventory" element={<HomeInventory />} />
           <Route path="/home_order/:id" element={<HomeOrder />} />
-          <Route path="/home_aboutUs" element={<Home_AboutUs/>}/>
-          <Route path="/home_contact" element={<Home_Contact/>}/>
+          <Route path="/home_aboutUs" element={<Home_AboutUs />} />
+          <Route path="/home_contact" element={<Home_Contact />} />
+          <Route path="/home_feedback" element={<Home_feedback />} />
         </Routes>
       </Router>
     </div>
