@@ -42,6 +42,8 @@ function App() {
             element={<DelReportUpdate/>}
           />
 
+          
+
           {/* this is supplier router paths */}
           <Route path="/supplierInv" element={<SupplierInventory />} />
           <Route path="/view_item/:id" element={<ViewItems />} />

@@ -53,6 +53,16 @@ function Report() {
             .catch(err => console.log(err));
     }, []);
 
+    const handleDelete = (id) => {
+        axios
+          .delete("http://localhost:8020/delReportDelete/" + id)
+          .then((res) => {
+            console.log(res);
+            window.location.reload();
+          })
+          .catch((err) => console.log(err));
+      };
+
     const filteredReports = delIssue.filter(report => report.userEmail === loggedUserName);
 
     return (
@@ -128,7 +138,7 @@ function Report() {
                                     <td>
                                         <Link to={`/delReportupdate/${report._id}`}><i class="fa-solid fa-pen  i-color-green"></i></Link>
 
-                                        <Link to="/delete-report"><i class="fa-solid fa-trash space i-color-red"></i></Link>
+                                        <Link onClick={() => handleDelete(report._id)}><i class="fa-solid fa-trash space i-color-red"></i></Link>
                                     </td>
                                 </tr>
                             ))

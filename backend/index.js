@@ -113,6 +113,7 @@ app.post("/delPersonLogin", (req, res) => {
 });
 
 //Reporting ---> Delivery Person
+//Add Report
 app.post("/addReport", (req, res) => {
   delReportModel
     .create(req.body)
@@ -120,6 +121,7 @@ app.post("/addReport", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+//Read Report
 app.get("/readReport", (req, res) => {
   delReportModel
     .find()
@@ -127,33 +129,52 @@ app.get("/readReport", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+//Update Report
 app.put("/delReportupdate/:id", (req, res) => {
   const id = req.params.id;
+
   delReportModel.findByIdAndUpdate(
-      id, 
-      {
-          userName: req.body.userName,
-          userEmail: req.body.userEmail,
-          issue: req.body.issue,
-          status: req.body.status
-      },
-      { new: true } 
+    id, 
+    {
+      userName: req.body.userName,
+      userEmail: req.body.userEmail,
+      issue: req.body.issue,
+      status: req.body.status
+    },
+    { new: true }
   )
-      .then((updatedReport) => {
-          if (!updatedReport) {
-              return res.status(404).json({ message: "Report not found" });
-          }
-          res.json(updatedReport);
-      })
-      .catch((err) => res.status(500).json({ error: err.message }));
+    .then((updatedReport) => {
+      if (!updatedReport) {
+        return res.status(404).json({ message: "Report not found" });
+      }
+      res.json(updatedReport);
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
 });
 
+//Get Items for id
 app.get("/getDelReport/:id", (req, res) => {
   const id = req.params.id;
   delReportModel.findById({ _id: id })
-    .then((reports) => res.json(reports))
+    .then((items) => res.json(items))
     .catch((err) => res.json(err));
 });
+
+
+//Delete Report
+app.delete("/delReportDelete/:id", (req, res) => {
+  const id = req.params.id;
+
+  delReportModel.findByIdAndDelete(id)
+    .then((deletedReport) => {
+      if (!deletedReport) {
+        return res.status(404).json({ message: "Report not found" });
+      }
+      res.json({ message: "Report deleted successfully" });
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
 
 // supplier manager crud section ...................................................................
 app.get("/supplierReport", (req, res) => {

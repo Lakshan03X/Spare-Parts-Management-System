@@ -32,6 +32,17 @@ function Report() {
             
             <div className="order-area">
                 <h3 className="heading1">Issues and Reports</h3>
+
+                <div className="search-bar">
+                    <input type="text"
+                     name="searchID" 
+                     id="searchID" 
+                     className='search-input'
+                     placeholder='Enter Email'
+                     />
+                     <i class="fa-solid fa-magnifying-glass i-color-blue"></i>
+                </div>
+
                 <div className="order-area-layout">
                 <table className="report-table">
                     <thead className='report-table-head'>

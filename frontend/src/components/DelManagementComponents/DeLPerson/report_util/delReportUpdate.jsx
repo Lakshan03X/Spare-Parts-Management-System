@@ -11,9 +11,10 @@ import axios from 'axios';
 function DelReportUpdate() {
 
     const { id } = useParams();
-    const [userName, setUserName] = useState()
-    const [userEmail, setUserEmail] = useState()
-    const [issue, setIssue] = useState()
+    const [userName, setUserName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [issue, setIssue] = useState('');
+
 
     const navigate = useNavigate();
 
@@ -22,12 +23,14 @@ function DelReportUpdate() {
           .get("http://localhost:8020/getDelReport/" + id)
           .then((result) => {
             console.log(result);
-            setUserName(result.data.userName)
-            setUserEmail(result.data.userEmail)
+            setUserName(result.data.userName),
+            setUserEmail(result.data.userEmail),
             setIssue(result.data.issue)
           })
           .catch((err) => console.log(err));
       }, [id]);
+    
+  
     
     const Update = (e) => {
         e.preventDefault();
