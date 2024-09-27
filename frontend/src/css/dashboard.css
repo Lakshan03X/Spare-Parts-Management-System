@@ -76,6 +76,8 @@
 }
 /* -------------------Dashboard-Side-Nav-------------------- */
 .dash-nav {
+    display: flex;
+    flex-direction: column;
     background-color: var(--dash-side-bg);
     color: var(--dash-text-color);
     padding: 10px;
