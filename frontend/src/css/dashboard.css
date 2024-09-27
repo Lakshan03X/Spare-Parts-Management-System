@@ -179,6 +179,19 @@
     color: white;
 }
 
+.search-bar {
+    margin: 20px 20px;
+    display: flex;
+    gap: 20px;
+    justify-content: end;
+    align-items: center;
+}
+
+.search-input {
+    height: 40px;
+    width: 200px;
+    padding: 10px;
+}
 
 /* -----------Util--------- */
 ul {
@@ -236,8 +249,20 @@ button {
     color: #35d22a;
 }
 
+.i-color-red {
+    color: #d22a2a;
+}
+
 .i-color-blue {
     color: #2a7bd2;
+}
+
+.space {
+    margin-left: 10px;
+}
+
+.remove-text-decor {
+    text-decoration: none;
 }
 
 table {

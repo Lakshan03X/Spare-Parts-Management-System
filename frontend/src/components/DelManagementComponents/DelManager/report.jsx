@@ -10,14 +10,29 @@ import {useNavigate} from 'react-router-dom'
 function Report() {
 
     const [delIssue, setDelIssue] = useState([]); // Initialize as an empty array
+    const [searchKey, setSearchKey] = useState();
+    const [filteredItems, setFilteredItems] = useState([]);
 
     useEffect(() => {
         axios.get('http://localhost:8020/readReport')
             .then(response => {
-                setDelIssue(response.data); // Set the state with the data from response
+                console.log(response.data);
+                setDelIssue(response.data);
+                setFilteredItems(response.data);
             })
             .catch(err => console.log(err));
     }, []);
+
+    const handleSearch = () => {
+        if (searchKey.trim() === "") {
+            setFilteredItems(delIssue);
+        } else {
+            const filteredData = delIssue.filter(issue => 
+                issue.userEmail && issue.userEmail.toLowerCase().includes(searchKey.toLowerCase())
+            );
+            setFilteredItems(filteredData);
+        }
+    };
 
     return (
         <div>
@@ -32,6 +47,19 @@ function Report() {
             
             <div className="order-area">
                 <h3 className="heading1">Issues and Reports</h3>
+
+                <div className="search-bar">
+                    <input type="text"
+                     name="searchID" 
+                     id="searchID" 
+                     value={searchKey}
+                     onChange={(e) => setSearchKey(e.target.value)} 
+                     className='search-input'
+                     placeholder='Enter Email'
+                     />
+                     <i class="fa-solid fa-magnifying-glass i-color-blue" onClick={handleSearch}></i>
+                </div>
+
                 <div className="order-area-layout">
                 <table className="report-table">
                     <thead className='report-table-head'>
@@ -45,7 +73,7 @@ function Report() {
 
                     <tbody className='report-table-body'>
                     {
-                            delIssue.map((delIssue) => {
+                            filteredItems.map((delIssue) => {
                                 return <tr>
                                     <td>{delIssue.userName}</td>
                                     <td>{delIssue.userEmail}</td>

@@ -1,7 +1,12 @@
 const express = require("express");
+require('dotenv').config();
+
+
 
 const cors = require("cors");
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
+const jwt = require('jsonwebtoken')
+
 const app = express();
 
 const DelManagerModel = require("./models/delManagerModel");
@@ -13,11 +18,22 @@ const OderDataModel = require("./models/order_mg_model/order_mg_model");
 app.use(express.json());
 app.use(cors());
 
+//Creating token
+const createToken = (_id) => {
+  return jwt.sign({_id}, process.env.SECRET, {expiresIn: '3d'})
+}
+
 //DeliveryManager crud section ...................................................................
-app.post("/register", (req, res) => {
+app.post('/register', (req, res) => {
   DelManagerModel.create(req.body)
-    .then((delManager) => res.json(delManager))
-    .catch((err) => res.json(err));
+    .then((delManager) => {
+      const token = createToken(delManager._id);
+      res.json({ delManager, token });
+    })
+    .catch((err) => {
+      console.error(err); 
+      res.status(400).json({ error: 'Failed to create the delivery manager', details: err.message });
+    });
 });
 
 app.post("/login", (req, res) => {
@@ -25,39 +41,80 @@ app.post("/login", (req, res) => {
   DelManagerModel.findOne({ email: email }).then((user) => {
     if (user) {
       if (user.password === password) {
-        res.json("Success");
+        const token = createToken(user._id);
+        
+        // Send user data in the response
+        res.json({
+          message: "Success",
+          user: {
+            id: user._id,
+            username: user.name, // Include the username here
+            email: user.email,
+            token: token // Optionally include a token if you use it for authentication
+          }
+        });
       } else {
-        res.json("Incorrect Password");
+        res.status(401).json({ error: "Incorrect Password" }); // Use status codes for errors
       }
     } else {
-      res.json("No record available");
+      res.status(404).json({ error: "No record available" }); // Use status codes for errors
     }
+  }).catch(err => {
+    console.error(err); // Log the error
+    res.status(500).json({ error: "Internal server error" }); // Handle unexpected errors
   });
 });
 
+
 //DeliveryPerson
-app.post("/delPersonRegister", (req, res) => {
+app.post('/delPersonRegister', (req, res) => {
   DelPersonModel.create(req.body)
-    .then((delPerson) => res.json(delPerson))
-    .catch((err) => res.json(err));
+    .then((delPerson) => {
+      const token = createToken(delPerson._id);
+      res.json({ delPerson, token });
+    })
+    .catch((err) => {
+      console.error(err); 
+      res.status(400).json({ error: 'Failed to create the delivery person', details: err.message });
+    });
 });
 
 app.post("/delPersonLogin", (req, res) => {
   const { email, password } = req.body;
-  DelPersonModel.findOne({ email: email }).then((user) => {
-    if (user) {
-      if (user.password === password) {
-        res.json("Success");
+
+  // Find the user by email
+  DelPersonModel.findOne({ email: email })
+    .then((user) => {
+      if (user) {
+        // Check if the password matches
+        if (user.password === password) {
+          const token = createToken(user._id); // Create token if you use it for authentication
+
+          // Send user data in the response
+          res.json({
+            message: "Success",
+            user: {
+              id: user._id,
+              username: user.name, // Include the username here
+              email: user.email,
+              token: token // Include a token if you use it for authentication
+            }
+          });
+        } else {
+          res.status(401).json({ message: "Incorrect Password" }); // Send 401 Unauthorized
+        }
       } else {
-        res.json("Incorrect Password");
+        res.status(404).json({ message: "No record available" }); // Send 404 Not Found
       }
-    } else {
-      res.json("No record available");
-    }
-  });
+    })
+    .catch(err => {
+      console.error("Error during login:", err);
+      res.status(500).json({ message: "Internal Server Error" }); // Send 500 Internal Server Error
+    });
 });
 
 //Reporting ---> Delivery Person
+//Add Report
 app.post("/addReport", (req, res) => {
   delReportModel
     .create(req.body)
@@ -65,12 +122,60 @@ app.post("/addReport", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+//Read Report
 app.get("/readReport", (req, res) => {
   delReportModel
     .find()
     .then((delIssue) => res.json(delIssue))
     .catch((err) => res.json(err));
 });
+
+//Update Report
+app.put("/delReportupdate/:id", (req, res) => {
+  const id = req.params.id;
+
+  delReportModel.findByIdAndUpdate(
+    id, 
+    {
+      userName: req.body.userName,
+      userEmail: req.body.userEmail,
+      issue: req.body.issue,
+      status: req.body.status
+    },
+    { new: true }
+  )
+    .then((updatedReport) => {
+      if (!updatedReport) {
+        return res.status(404).json({ message: "Report not found" });
+      }
+      res.json(updatedReport);
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+//Get Items for id
+app.get("/getDelReport/:id", (req, res) => {
+  const id = req.params.id;
+  delReportModel.findById({ _id: id })
+    .then((items) => res.json(items))
+    .catch((err) => res.json(err));
+});
+
+
+//Delete Report
+app.delete("/delReportDelete/:id", (req, res) => {
+  const id = req.params.id;
+
+  delReportModel.findByIdAndDelete(id)
+    .then((deletedReport) => {
+      if (!deletedReport) {
+        return res.status(404).json({ message: "Report not found" });
+      }
+      res.json({ message: "Report deleted successfully" });
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
 
 // supplier manager crud section ...................................................................
 app.get("/supplierReport", (req, res) => {

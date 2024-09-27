@@ -1,6 +1,21 @@
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+
+
+
+
+
+
+
+
+import { Link,useNavigate } from 'react-router-dom';
 
 function SideMenu() {
+
+    const userData = JSON.parse(localStorage.getItem('user'));
+    const navigate = useNavigate()
+    const logOut = () => {
+        localStorage.clear()
+        navigate('/delPersonLogin')
+    }
 
     return <>
         <nav className="dash-nav">
@@ -40,7 +55,8 @@ function SideMenu() {
                     <hr/>
                     <div className="dash-menu-items">
                         <i className="fa-solid fa-right-from-bracket icon-size"></i>
-                        <Link to="#" className="dash-menu-links">Log Out</Link>
+                        
+                        <button onClick={logOut}>Log Out</button>
                     </div>
                 </div>
             </div>

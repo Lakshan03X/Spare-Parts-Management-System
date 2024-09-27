@@ -18,14 +18,26 @@ import "../../css/delManagerLog.css";
 
         const navigate = useNavigate()
 
-        const handleSubmit = (e) => {
-            e.preventDefault()
-            axios.post('http://localhost:8020/delPersonRegister', {name, email, phone, address, vehicleType,password})
-            .then(result => {console.log(result)
-              navigate('/delManagerLogin')
-            })
-            .catch(err => console.log(err))
-        }
+        const handleSubmit = async (e) => {
+          e.preventDefault();
+    
+  
+          try {
+              const response = await axios.post('http://localhost:8020/delPersonRegister', {
+                  name,
+                  email,
+                  phone,
+                  address,
+                  vehicleType,
+                  password,
+              });
+  
+              console.log(response.data); 
+              navigate('/delPersonLogin');
+          } catch (err) {
+              console.error(err);
+          } 
+      };
 
     return (
         <>

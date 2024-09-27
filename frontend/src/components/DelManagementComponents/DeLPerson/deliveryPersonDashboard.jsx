@@ -11,7 +11,7 @@ import Report from "./report";
 
 function DeliveryPersonDashboard() {
   return (
-    <div className="main">
+    <div id="main">
       <SideMenu />
       <Routes>
         <Route path="/" element={<Dashboard/>} />

@@ -4,7 +4,11 @@ import DelManagerSignUp from "./components/Account/delManagerReg";
 import DelManagerLogin from "./components/Account/delManagerLogin";
 import DeliveryManagerDashboard from "./components/DelManagementComponents/DelManager/deliveryManager-dashboard";
 import DelPersonSignUp from "./components/Account/delPersonReg";
+import DelPersonLogin from "./components/Account/delPersonLogin";
 import DeliveryPersonDashboard from "./components/DelManagementComponents/DeLPerson/deliveryPersonDashboard";
+import DelReportUpdate from "./components/DelManagementComponents/DeLPerson/report_util/delReportUpdate"
+
+
 //importing supplier components
 import SupplierInventory from "./components/Supplier/sup_inventory/sup_inv";
 import ViewItems from "./components/Supplier/sup_inventory/view_item";
@@ -27,6 +31,7 @@ function App() {
           <Route path="/delManagerReg" element={<DelManagerSignUp />} />
           <Route path="/delManagerLogin" element={<DelManagerLogin />} />
           <Route path="/delPersonReg" element={<DelPersonSignUp />} />
+          <Route path="/delPersonLogin" element={<DelPersonLogin />} />
           <Route
             path="/deliveryManager/*"
             element={<DeliveryManagerDashboard />}
@@ -35,6 +40,13 @@ function App() {
             path="/deliveryPerson/*"
             element={<DeliveryPersonDashboard />}
           />
+
+          <Route
+            path="/delReportUpdate/:id"
+            element={<DelReportUpdate/>}
+          />
+
+          
 
           {/* this is supplier router paths */}
           <Route path="/supplierInv" element={<SupplierInventory />} />

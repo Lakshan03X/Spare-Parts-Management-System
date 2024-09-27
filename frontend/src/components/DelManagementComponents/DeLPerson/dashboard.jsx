@@ -8,10 +8,16 @@ import {useNavigate} from 'react-router-dom'
 
 
 function Dashboard() {
+
+    // Get user data from local storage
+    const user = JSON.parse(localStorage.getItem('user'));
+    // Access the username
+    const username = user ? user.username : null;
+
     return (
         <div>
             <div className="dash-header">
-                Hello Chirath
+            <div>Hi , {username}</div>
                 <a href=""><i class="fa-regular fa-bell icon-size"></i></a>
                 <a href=""><i class="fa-solid fa-user icon-size profile-bg"></i> </a>
             </div>
