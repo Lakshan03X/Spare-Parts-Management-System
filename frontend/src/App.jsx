@@ -27,7 +27,7 @@ function App() {
     <div className="main">
       <Router>
         <Routes>
-          <Route path="/" element={<DelManagerLogin />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/delManagerReg" element={<DelManagerSignUp />} />
           <Route path="/delManagerLogin" element={<DelManagerLogin />} />
           <Route path="/delPersonReg" element={<DelPersonSignUp />} />

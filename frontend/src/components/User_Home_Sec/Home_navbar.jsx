@@ -13,10 +13,12 @@ function Home_navbar() {
             <ul class="nav-links">
                 <Link to="/home" className="link"><li>Home</li></Link>
                 <Link to="/home_inventory" className="link"><li>Inventory</li></Link>
-                <Link to="/home_feedback" className="link"><li>Suppliers</li></Link>
-                <Link to="/home_orders" className="link"><li>Orders</li></Link>
+                <Link to="/home_feedback" className="link"><li>Feedbacks</li></Link>
                 <Link to="/home_contact" className="link"><li>Contact Us</li></Link>
+                //about us
             </ul>
+            //Profile 
+            //User logout
         </nav>
     </header>
    </>
