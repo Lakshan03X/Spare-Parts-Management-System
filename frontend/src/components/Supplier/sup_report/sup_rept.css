@@ -89,7 +89,7 @@ td {
   margin-left: 200px;
 }
 
-.pdf_btn{
+.pdf_btn {
   margin-left: 1080px;
   padding: 5px;
   margin-top: 2px;
@@ -110,4 +110,3 @@ td {
 .search_bar_btn:hover {
   background-color: #0056b3; /* Darker shade on hover */
 }
-

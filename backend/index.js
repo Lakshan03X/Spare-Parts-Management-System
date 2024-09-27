@@ -8,6 +8,7 @@ const DelManagerModel = require("./models/delManagerModel");
 const DelPersonModel = require("./models/delPersonModel");
 const ItemDataModel = require("./models/sup_mg_model/mg_model");
 const delReportModel = require("./models/delReportModel");
+const OderDataModel = require("./models/order_mg_model/order_mg_model");
 
 app.use(express.json());
 app.use(cors());
@@ -84,6 +85,18 @@ app.get("/supplierinv", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+app.get("/home_inventory_view", (req, res) => {
+  ItemDataModel.find({})
+    .then((items) => res.json(items))
+    .catch((err) => res.json(err));
+});
+
+app.get("/home_add_cart/:id", (req, res) => {
+  ItemDataModel.find({})
+    .then((items) => res.json(items))
+    .catch((err) => res.json(err));
+});
+
 app.get("/view_item", (req, res) => {
   ItemDataModel.find({})
     .then((items) => res.json(items))
@@ -129,6 +142,12 @@ app.delete("/delete_item/:id", (req, res) => {
 //add methord
 app.post("/item_create", (req, res) => {
   ItemDataModel.create(req.body)
+    .then((item) => res.json(item))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+app.post("/add_order", (req, res) => {
+  OderDataModel.create(req.body)
     .then((item) => res.json(item))
     .catch((err) => res.status(400).json("Error: " + err));
 });

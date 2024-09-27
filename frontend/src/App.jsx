@@ -11,8 +11,12 @@ import ViewItems from "./components/Supplier/sup_inventory/view_item";
 import AddItems from "./components/Supplier/sup_inventory/sup_inv_add";
 import UpdateItem from "./components/Supplier/sup_inventory/sup_inv_update";
 import SupplierReport from "./components/Supplier/sup_report/sup_rept";
-import SupplierDashboard from './components/Supplier/sup_dashboad/sup_dashboard';
-
+import SupplierDashboard from "./components/Supplier/sup_dashboad/sup_dashboard";
+//importing order components
+import OderDash from "./components/Oder/oder_dash/OderDash";
+import HomePage from "./components/User_Home_Sec/Home_page/Home_page";
+import HomeInventory from "./components/User_Home_Sec/Home_inventory/Home_inventory";
+import HomeOrder from "./components/User_Home_Sec/Home_Oders/Home_oder";
 
 function App() {
   return (
@@ -39,6 +43,11 @@ function App() {
           <Route path="/supplierReport" element={<SupplierReport />} />
           <Route path="/item_update/:id" element={<UpdateItem />} />
           <Route path="/supplierDashboard" element={<SupplierDashboard />} />
+
+          <Route path="/oder_dash" element={<OderDash />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/home_inventory" element={<HomeInventory />} />
+          <Route path="/home_order/:id" element={<HomeOrder />} />
         </Routes>
       </Router>
     </div>
