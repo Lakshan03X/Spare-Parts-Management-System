@@ -1,0 +1,69 @@
+.about-hero {
+    position: relative; /* Set position to relative to position the overlay */
+    text-align: center;
+    padding: 150px 100px;
+    color: white;
+}
+
+.about-hero::before {
+    content: ''; /* Create a pseudo-element */
+    position: absolute; /* Position it absolutely */
+    top: 0; /* Align it to the top */
+    left: 0; /* Align it to the left */
+    right: 0; /* Stretch to the right */
+    bottom: 0; /* Stretch to the bottom */
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay with 50% opacity */
+    z-index: 1; /* Ensure it is above the background but below the text */
+}
+
+.about-hero > * {
+    position: relative; /* Ensure text is above the overlay */
+    z-index: 2; /* Text is on top of the overlay */
+}
+
+/* Background image styling */
+.about-hero {
+    background: url('https://images.unsplash.com/photo-1625047509248-ec889cbff17f?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center; /* Center the background */
+    background-size: cover; /* Cover the entire area */
+}
+
+.about-us-content {
+    text-align: center;
+    padding: 50px 400px;
+}
+
+
+.contact-sec {
+    padding: 30px;
+    display: flex;
+    width: 100vw;
+    justify-content: space-around;
+    align-items: center;
+
+
+}
+
+.contacr-sec-right {
+    width: 30%;
+    border:1px solid blue;
+    padding: 30px;
+}
+
+.contacr-sec-left {
+    display: flex;
+    flex-direction: column;
+
+    padding: 30px;
+    gap: 20px;
+}
+
+.contact-us-mini {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.con-input {
+    height: 40px;
+    width: 300px;
+}

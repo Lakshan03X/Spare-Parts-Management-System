@@ -21,6 +21,8 @@ import OderDash from "./components/Oder/oder_dash/OderDash";
 import HomePage from "./components/User_Home_Sec/Home_page/Home_page";
 import HomeInventory from "./components/User_Home_Sec/Home_inventory/Home_inventory";
 import HomeOrder from "./components/User_Home_Sec/Home_Oders/Home_oder";
+import Home_AboutUs from "./components/User_Home_Sec/Home_AboutUs/Home_AboutUs";
+import Home_Contact from "./components/User_Home_Sec/Home_Contact/Home_Contact";
 
 function App() {
   return (
@@ -60,6 +62,8 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/home_inventory" element={<HomeInventory />} />
           <Route path="/home_order/:id" element={<HomeOrder />} />
+          <Route path="/home_aboutUs" element={<Home_AboutUs/>}/>
+          <Route path="/home_contact" element={<Home_Contact/>}/>
         </Routes>
       </Router>
     </div>

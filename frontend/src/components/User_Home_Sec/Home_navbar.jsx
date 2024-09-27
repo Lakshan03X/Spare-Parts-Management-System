@@ -15,10 +15,13 @@ function Home_navbar() {
                 <Link to="/home_inventory" className="link"><li>Inventory</li></Link>
                 <Link to="/home_feedback" className="link"><li>Feedbacks</li></Link>
                 <Link to="/home_contact" className="link"><li>Contact Us</li></Link>
-                {/* //about us */}
+                <Link to="/home_aboutUs" className='link'><li>About Us</li></Link>
             </ul>
-            {/* //Profile 
-            //User logout */}
+            <div className="profile-sec">
+                <span>Hi, Chamika</span>
+                <a href=""><i class="fa-solid fa-user icon-size profile-bg"></i> </a>
+            </div>
+            
         </nav>
     </header>
    </>
