@@ -8,7 +8,7 @@ import "../../../App.css";
 
 function DeliveryManagerDashboard() {
   return (
-    <div className="main">
+    <div id="main">
       <SideMenu />
       <Routes>
         <Route path="/" element={<Dashboard />} />
