@@ -237,6 +237,7 @@ button {
 .heading1 {
     margin-top: 10px;
     margin-left: 20px;
+    text-align: left;
 }
 
 .i-color-purple {

@@ -15,6 +15,7 @@ function DeliveryPersonDashboard() {
       <SideMenu />
       <Routes>
         <Route path="/" element={<Dashboard/>} />
+        <Route path="dashboard" element={<Dashboard/>} />
         <Route path="report" element={<Report/>}/>
       </Routes>
     </div>
