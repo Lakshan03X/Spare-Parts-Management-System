@@ -1,5 +1,5 @@
 import  { useState, useEffect } from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Link} from 'react-router-dom'
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,6 +19,7 @@ function Report() {
     const username = user ? user.username : null;
 
     const navigate = useNavigate();
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -107,8 +108,8 @@ function Report() {
                 <table className="report-table">
                     <thead className='report-table-head'>
                         <tr>
-                            <th>Issue ID</th>
                             <th>Delivery Person Name</th>
+                            <th>Delivery Person Email</th>
                             <th>Issue Description</th>
                             <th>Status</th>
                          </tr>
@@ -123,6 +124,11 @@ function Report() {
                                     <td>{report.issue}</td>
                                     <td>
                                         <button>{report.status}</button>
+                                    </td>
+                                    <td>
+                                        <Link to={`/delReportupdate/${report._id}`}><i class="fa-solid fa-pen  i-color-green"></i></Link>
+
+                                        <Link to="/delete-report"><i class="fa-solid fa-trash space i-color-red"></i></Link>
                                     </td>
                                 </tr>
                             ))

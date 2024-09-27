@@ -127,6 +127,34 @@ app.get("/readReport", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+app.put("/delReportupdate/:id", (req, res) => {
+  const id = req.params.id;
+  delReportModel.findByIdAndUpdate(
+      id, 
+      {
+          userName: req.body.userName,
+          userEmail: req.body.userEmail,
+          issue: req.body.issue,
+          status: req.body.status
+      },
+      { new: true } 
+  )
+      .then((updatedReport) => {
+          if (!updatedReport) {
+              return res.status(404).json({ message: "Report not found" });
+          }
+          res.json(updatedReport);
+      })
+      .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+app.get("/getDelReport/:id", (req, res) => {
+  const id = req.params.id;
+  delReportModel.findById({ _id: id })
+    .then((reports) => res.json(reports))
+    .catch((err) => res.json(err));
+});
+
 // supplier manager crud section ...................................................................
 app.get("/supplierReport", (req, res) => {
   ItemDataModel.find({})

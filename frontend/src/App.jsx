@@ -6,6 +6,7 @@ import DeliveryManagerDashboard from "./components/DelManagementComponents/DelMa
 import DelPersonSignUp from "./components/Account/delPersonReg";
 import DelPersonLogin from "./components/Account/delPersonLogin";
 import DeliveryPersonDashboard from "./components/DelManagementComponents/DeLPerson/deliveryPersonDashboard";
+import DelReportUpdate from "./components/DelManagementComponents/DeLPerson/report_util/delReportUpdate"
 
 
 //importing supplier components
@@ -34,6 +35,11 @@ function App() {
           <Route
             path="/deliveryPerson/*"
             element={<DeliveryPersonDashboard />}
+          />
+
+          <Route
+            path="/delReportUpdate/:id"
+            element={<DelReportUpdate/>}
           />
 
           {/* this is supplier router paths */}

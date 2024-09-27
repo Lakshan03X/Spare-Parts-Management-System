@@ -236,8 +236,20 @@ button {
     color: #35d22a;
 }
 
+.i-color-red {
+    color: #d22a2a;
+}
+
 .i-color-blue {
     color: #2a7bd2;
+}
+
+.space {
+    margin-left: 10px;
+}
+
+.remove-text-decor {
+    text-decoration: none;
 }
 
 table {
