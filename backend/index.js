@@ -1,7 +1,12 @@
 const express = require("express");
+require('dotenv').config();
+
+
 
 const cors = require("cors");
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
+const jwt = require('jsonwebtoken')
+
 const app = express();
 
 const DelManagerModel = require("./models/delManagerModel");
@@ -12,11 +17,22 @@ const delReportModel = require("./models/delReportModel");
 app.use(express.json());
 app.use(cors());
 
+//Creating token
+const createToken = (_id) => {
+  return jwt.sign({_id}, process.env.SECRET, {expiresIn: '3d'})
+}
+
 //DeliveryManager crud section ...................................................................
-app.post("/register", (req, res) => {
+app.post('/register', (req, res) => {
   DelManagerModel.create(req.body)
-    .then((delManager) => res.json(delManager))
-    .catch((err) => res.json(err));
+    .then((delManager) => {
+      const token = createToken(delManager._id);
+      res.json({ delManager, token });
+    })
+    .catch((err) => {
+      console.error(err); 
+      res.status(400).json({ error: 'Failed to create the delivery manager', details: err.message });
+    });
 });
 
 app.post("/login", (req, res) => {
@@ -24,6 +40,7 @@ app.post("/login", (req, res) => {
   DelManagerModel.findOne({ email: email }).then((user) => {
     if (user) {
       if (user.password === password) {
+        const token = createToken(user._id);
         res.json("Success");
       } else {
         res.json("Incorrect Password");
