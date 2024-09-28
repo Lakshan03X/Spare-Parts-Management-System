@@ -23,6 +23,9 @@ import HomeOrder from "./components/User_Home_Sec/Home_Oders/Home_oder";
 import Home_AboutUs from "./components/User_Home_Sec/Home_AboutUs/Home_AboutUs";
 import Home_Contact from "./components/User_Home_Sec/Home_Contact/Home_Contact";
 import Home_feedback from "./components/User_Home_Sec/Home_feedback/Home_feedback";
+import AddUser from "./components/Account/user_manager/add_user";
+import UserReport from "./components/Account/user_manager/user_rept";
+import UserUpdate from "./components/Account/user_manager/Update_user";
 
 function App() {
   return (
@@ -60,6 +63,10 @@ function App() {
           <Route path="/home_aboutUs" element={<Home_AboutUs />} />
           <Route path="/home_contact" element={<Home_Contact />} />
           <Route path="/home_feedback" element={<Home_feedback />} />
+          {/* //user manager */}
+          <Route path="/createUser" element={<AddUser />} />
+          <Route path="/user_rept" element={<UserReport />} />
+          <Route path="/user_update/:id" element={<UserUpdate />} />
         </Routes>
       </Router>
     </div>

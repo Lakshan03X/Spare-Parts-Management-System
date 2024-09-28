@@ -301,7 +301,13 @@ app.get("/getUser/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-app.put("/UpdateUser/:id", (req, res) => {
+app.get("/get_user", (req, res) => {
+  UserModel.find({})
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
+app.put("/user_update/:id", (req, res) => {
   const id = req.params.id;
   UserModel.findByIdAndUpdate(
     { _id: id },
@@ -327,6 +333,7 @@ app.delete("/deleteUser/:id", (req, res) => {
 });
 
 app.post("/createUser", (req, res) => {
+  console.log(req.body); // Log the request body
   UserModel.create(req.body)
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json("Error: " + err));

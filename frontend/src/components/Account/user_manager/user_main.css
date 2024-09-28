@@ -1,0 +1,111 @@
+/* seach and pdf button css ............................................................. */
+#column_70 {
+  #hh {
+    text-align: center;
+    color: blueviolet;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  #add_btn {
+    text-decoration: none;
+    border: 2px solid #c388f6;
+    font-weight: bold;
+    color: #c388f6;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    top: -36px;
+    margin-left: 8px;
+  }
+
+  #input_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -90px;
+    margin-left: 850px;
+
+    #search_bar {
+      padding: 10px 90px 10px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 8px;
+      background-color: transparent;
+      border: 2px solid #c388f6;
+    }
+
+    #search_bar_btn {
+      width: 50px;
+      height: 40px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 2px solid #c388f6;
+      background-color: #c388f6;
+      margin-left: 8px;
+    }
+  }
+
+  #user_pdf_btn {
+    text-decoration: none;
+    border: 2px solid #c388f6;
+    font-weight: bold;
+    color: #c388f6;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    top: -86px;
+    margin-left: 1020px;
+  }
+}
+
+/* table css ............................................................. */
+#main_div {
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+#tr {
+  background-color: white;
+}
+
+/* First column 30% */
+#col_30 {
+  width: 0%;
+  vertical-align: top;
+}
+
+/* Second column 70% */
+#col_70 {
+  width: 80%;
+  vertical-align: top;
+}
+
+/* Ensure that the divs take the entire width of their columns */
+#column_70 {
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+}
+#column_30 {
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+#column_30 {
+  background-color: transparent;
+}
+
+#column_70 {
+  background-color: transparent;
+}
+
+/* table css ........................................................ */
+#user_Table {
+  min-width: 100%;
+  margin-top: -80px;
+}
