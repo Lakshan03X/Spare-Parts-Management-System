@@ -1,0 +1,136 @@
+#feedback_form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  min-width: 500px;
+  margin: auto;
+  text-align: left;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  margin-left: 280px;
+
+  h3 {
+    text-align: left;
+  }
+
+  #input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #e2e0e0;
+    border-radius: 8px;
+  }
+}
+
+#main_div {
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  border-collapse: collapse;
+  table-layout: fixed;
+  padding: 5px;
+}
+
+/* First column 30% */
+#col_30 {
+  width: 30%;
+  vertical-align: top;
+}
+
+/* Second column 70% */
+#col_70 {
+  width: 80%;
+  vertical-align: top;
+}
+
+/* Ensure that the divs take the entire width of their columns */
+#column_30,
+#column_70 {
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+#column_30 {
+  background-color: lightblue;
+}
+
+#column_70 {
+  background-color: lightcoral;
+  margin-right: 300px;
+}
+
+/* Star rating */
+#star_rating {
+  direction: rtl; /* Align stars from right to left */
+}
+
+#star_rating input {
+  display: none; /* Hide radio buttons */
+}
+
+#star_rating label {
+  font-size: 2.5rem;
+  color: lightgray;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+/* Change the color of stars on hover */
+#star_rating label:hover,
+#star_rating label:hover ~ label {
+  color: rgb(233, 198, 3);
+}
+
+/* Change the color when selected */
+#star_rating input:checked ~ label {
+  color: rgb(240, 204, 0);
+}
+
+#feedback_display {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: auto;
+  text-align: left;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* User rating stars */
+#user_rating span {
+  font-size: 2rem;
+  color: lightgray;
+}
+
+/* Filled stars */
+.filled {
+  color: gold;
+}
+
+/* Feedback message */
+#feedback_message {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+#feedback {
+  resize: none;
+  padding: 10px;
+  border: none;
+  background-color: #e2e0e0;
+  border-radius: 8px;
+}
+
+#column_70::-webkit-scrollbar {
+  width: 8px;
+}
+
+#column_70::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+#column_70::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}

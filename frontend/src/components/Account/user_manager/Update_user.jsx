@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 function Update_user() {
   const { id } = useParams(); // Get the id from the URL
@@ -49,7 +49,6 @@ function Update_user() {
       .then((result) => {
         console.log(result);
         setTimeout(() => {
-          toast.success("User updated successfully!");
           navigate("/user_rept"); // Redirect to home after success
         }, 1500); // Optional delay
       })
