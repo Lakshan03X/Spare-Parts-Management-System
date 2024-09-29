@@ -1,21 +1,17 @@
 import { Routes, Route } from "react-router-dom";
 
-
-
-
-
 import NavBar from "./navbar";
 import Survey from "./survay";
 import SurDashboard from "./surDashboard";
 
-function  SurMangerDashboard() {
+function SurMangerDashboard() {
   return (
     <div>
-        <NavBar/>
-        <Routes>
+      <NavBar />
+      <Routes>
         <Route path="/" element={<SurDashboard />} />
-        <Route path="dashboard" element={<SurDashboard />} />
-        <Route path="surveys" element={<Survey />} />
+        <Route path="/dashboard" element={<SurDashboard />} />
+        <Route path="/surveys" element={<Survey />} />
       </Routes>
     </div>
   );

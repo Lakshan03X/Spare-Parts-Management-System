@@ -1,73 +1,106 @@
-.surDash {
-    display: flex;
-    padding: 100px;
-}
+/* Survey Dashboard CSS */
 
-.sur-head {
-    text-align: start;
-    color: white;
-}
-
-
-.surveys-mini {
-    background-color: #2b2e34;
-    margin: 30px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-
-}
-
+/* General button styling */
 .button-40 {
-  background-color: #111827;
-  border: 1px solid transparent;
-  border-radius: .75rem;
-  box-sizing: border-box;
-  color: #FFFFFF;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  flex: 0 0 auto;
-  font-size: .8rem;
-  text-align: center;
-  text-decoration: none #6B7280 solid;
-  text-decoration-thickness: auto;
-  transition-duration: .2s;
-  transition-property: background-color,border-color,color,fill,stroke;
-  transition-timing-function: cubic-bezier(.4, 0, 0.2, 1);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  width: 100px;
-  height: 30px;
-  text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 .button-40:hover {
-  background-color: #374151;
-}
-
-.button-40:focus {
-  box-shadow: none;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.surveys {
-    background-color: #9298ec;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 30px;
-    padding: 20px;
-}
-
-.options {
-    display: flex;
-    gap: 20px;
+  background-color: #0056b3;
 }
 
 .padding-30 {
-    margin: 30px;
+  padding: 30px;
+}
+
+/* Survey Dashboard Container */
+.surDash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+/* Individual survey card */
+.surveys {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.surveys:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Survey Title */
+.sur-head {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+}
+
+/* Survey Action Buttons */
+.surveys-mini {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.options {
+  display: flex;
+  gap: 15px;
+}
+
+.options i {
+  font-size: 18px;
+  color: #007bff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.options i:hover {
+  color: #0056b3;
+}
+
+/* Empty Survey Message */
+.surDash p {
+  font-size: 16px;
+  color: #777;
+}
+
+/* Link button (for "View" and "Edit") */
+.surveys-mini a button {
+  padding: 8px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.surveys-mini a button:hover {
+  background-color: #218838;
 }

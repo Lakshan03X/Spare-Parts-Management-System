@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import '../SurManager/viewSurvey.css';
 function SurveyView() {
     const { id } = useParams(); 
     const [survey, setSurvey] = useState(null);
