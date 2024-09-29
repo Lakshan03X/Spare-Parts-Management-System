@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-// import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../Home_navbar";
 import Footer from "../Home_nav_footers/home_footer";
 import "./home_feedback.css";
@@ -173,8 +173,8 @@ function Home_feedback() {
                     {" "}
                     {feedback.fed_full_name} : Thank you for your feedback!
                   </h2>
-                  <p>{feedback.fed_item_name}</p>
-                  <p>{feedback.fed_item_id}</p>
+                  <p>Item Name : {feedback.fed_item_name}</p>
+                  <p>Item ID : {feedback.fed_item_id}</p>
                   <p>Your feedback</p>
                   <div id="user_rating">
                     <textarea
@@ -186,13 +186,13 @@ function Home_feedback() {
                       readOnly
                     ></textarea>
                   </div>
-                  <p id="feedback_message">Your rating: 5 out of 4</p>
-                  {/* <Link to={`/feedback_update/${item._id}`}>
+                  <p id="feedback_message">Rating - 5 out of {feedback.fed_rating}</p>
+                  <Link to={`/feedback_update/${feedback._id}`}>
                     <button className="edit_btn">
                       <i className="fa fa-pencil-square">&ensp;</i>
                       Edit
                     </button>
-                  </Link> */}
+                  </Link>
 
                   <br />
                   <button

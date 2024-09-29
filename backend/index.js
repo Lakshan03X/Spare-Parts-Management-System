@@ -348,10 +348,33 @@ app.get("/get_feedback", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+app.get("/get_feedbacks/:id", (req, res) => {
+  const id = req.params.id;
+  FeedbackModel.findById({ _id: id })
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
 app.delete("/delete_feedback/:id", (req, res) => {
   const id = req.params.id;
   FeedbackModel.findOneAndDelete({ _id: id })
     .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
+app.put("/feedback_update/:id", (req, res) => {
+  const id = req.params.id;
+  FeedbackModel.findByIdAndUpdate(
+    { _id: id },
+    {
+      fed_full_name: req.body.fed_full_name,
+      fed_item_name: req.body.fed_item_name,
+      fed_item_id: req.body.fed_item_id,
+      fed_rating: req.body.fed_rating,
+      fed_feedback: req.body.fed_feedback,
+    }
+  )
+    .then((items) => res.json(items))
     .catch((err) => res.json(err));
 });
 

@@ -28,6 +28,8 @@ import UserReport from "./components/Account/user_manager/user_rept";
 import UserUpdate from "./components/Account/user_manager/Update_user";
 
 
+//importing feedback components
+import FeedbackUpdate from "./components/User_Home_Sec/Home_feedback/home_feedback_update";
 //Survey Manager
 import SurMangerDashboard from "./components/SurManager/surManagerDashboard";
 import SurManagerLogin from "./components/Account/survey_manager/surManagerLogin";
@@ -77,6 +79,8 @@ function App() {
           <Route path="/createUser" element={<AddUser />} />
           <Route path="/user_rept" element={<UserReport />} />
           <Route path="/user_update/:id" element={<UserUpdate />} />
+          {/* //feedback */}
+          <Route path="/feedback_update/:id" element={<FeedbackUpdate />} />
 
           {/* Survet Manager */}
           <Route path="/surManager/*" element={<SurMangerDashboard />} />

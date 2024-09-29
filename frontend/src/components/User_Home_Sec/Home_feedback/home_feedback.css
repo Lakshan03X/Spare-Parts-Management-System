@@ -1,5 +1,5 @@
 #feedback_form {
-  background-color: white;
+  background-color: #f4faf5;
   padding: 20px;
   border-radius: 10px;
   min-width: 500px;
@@ -90,7 +90,7 @@
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  max-width: 450px;
+  max-width: 500px;
   margin: auto;
   text-align: left;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -118,6 +118,7 @@
   resize: none;
   padding: 10px;
   border: none;
+  width: 100%;  
   background-color: #e2e0e0;
   border-radius: 8px;
 }
@@ -133,4 +134,10 @@
 
 #column_70::-webkit-scrollbar-thumb:hover {
   background-color: #555;
+}
+
+#feedback_message{
+  color: gold;
+  font-weight: bold;
+  font-size: 15px;
 }
