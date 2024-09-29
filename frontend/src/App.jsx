@@ -27,6 +27,16 @@ import AddUser from "./components/Account/user_manager/add_user";
 import UserReport from "./components/Account/user_manager/user_rept";
 import UserUpdate from "./components/Account/user_manager/Update_user";
 
+
+//Survey Manager
+import SurMangerDashboard from "./components/SurManager/surManagerDashboard";
+import SurManagerLogin from "./components/Account/survey_manager/surManagerLogin";
+import SurManagerSignUp from "./components/Account/survey_manager/surManagerReg";
+import AddSurvey from "./components/SurManager/addServey";
+import SurveyView from "./components/SurManager/viewServey";
+import UpdateSurvey from "./components/SurManager/updateServay";
+
+
 function App() {
   return (
     <div className="main">
@@ -67,6 +77,15 @@ function App() {
           <Route path="/createUser" element={<AddUser />} />
           <Route path="/user_rept" element={<UserReport />} />
           <Route path="/user_update/:id" element={<UserUpdate />} />
+
+          {/* Survet Manager */}
+          <Route path="/surManager/*" element={<SurMangerDashboard />} />
+          <Route path="/surManagerLogin" element={<SurManagerLogin/>} />
+          <Route path="/surManagerReg" element={<SurManagerSignUp/>} />
+          <Route path="/addSurvey" element={<AddSurvey/>} />
+          <Route path="/survey/view/:id" element={<SurveyView />} />
+          <Route path="/survey/edit/:id" element={<UpdateSurvey />} />
+
         </Routes>
       </Router>
     </div>
