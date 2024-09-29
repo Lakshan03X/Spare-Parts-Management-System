@@ -14,7 +14,8 @@ const delReportModel = require("./models/delReportModel");
 const OderDataModel = require("./models/order_mg_model/order_mg_model");
 const UserModel = require("./models/user_mg_model/User_mg_model");
 const SurManagerModel = require("./models/sur_mg_model/surManagerModel");
-const SurveyModel = require("./models/sur_mg_model/SurveyModel")
+const SurveyModel = require("./models/sur_mg_model/SurveyModel");
+const FeedbackModel = require("./models/feedback_mg_model/feedMgModel");
 
 app.use(express.json());
 app.use(cors());
@@ -334,6 +335,26 @@ app.delete("/deleteUser/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+//Feedback Section
+app.post("/addFeedback", (req, res) => {
+  FeedbackModel.create(req.body)
+    .then((feedback) => res.json(feedback))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+app.get("/get_feedback", (req, res) => {
+  FeedbackModel.find({})
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
+app.delete("/delete_feedback/:id", (req, res) => {
+  const id = req.params.id;
+  FeedbackModel.findOneAndDelete({ _id: id })
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
 app.post("/createUser", (req, res) => {
   console.log(req.body); // Log the request body
   UserModel.create(req.body)
@@ -389,43 +410,41 @@ app.post("/surManregister", (req, res) => {
 });
 
 app.post("/addSurvey", (req, res) => {
-  console.log(req.body); 
+  console.log(req.body);
   SurveyModel.create(req.body)
     .then((survey) => res.json(survey))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-app.get('/getSurveys', (req, res) => {
+app.get("/getSurveys", (req, res) => {
   SurveyModel.find()
     .then((surveys) => res.json(surveys))
-    .catch((err) => res.status(400).json('Error: ' + err));
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
-app.get('/getSurveys/:id', (req, res) => {
+app.get("/getSurveys/:id", (req, res) => {
   const { id } = req.params; // Get the ID from the request parameters
   SurveyModel.findById(id) // Use findById to get the specific survey
     .then((survey) => {
       if (!survey) {
-        return res.status(404).json('Survey not found');
+        return res.status(404).json("Survey not found");
       }
       res.json(survey);
     })
-    .catch((err) => res.status(400).json('Error: ' + err));
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
-app.delete('/surveys/:id', (req, res) => {
+app.delete("/surveys/:id", (req, res) => {
   SurveyModel.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Survey deleted.'))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .then(() => res.json("Survey deleted."))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
-app.put('/updateSurvey/:id', (req, res) => {
+app.put("/updateSurvey/:id", (req, res) => {
   SurveyModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((updatedSurvey) => res.json(updatedSurvey))
-    .catch((err) => res.status(400).json('Error: ' + err));
+    .catch((err) => res.status(400).json("Error: " + err));
 });
-
-
 
 //DB Connection ...................................................................
 const PORT = process.env.PORT || 8020;
