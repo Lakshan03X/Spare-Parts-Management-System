@@ -144,6 +144,16 @@ function Home_oder() {
                 value={formData.cardName}
                 onChange={handleChange}
               />
+              <label htmlFor="cardName">Card No:</label>
+              <input
+                type="number"
+                id="input_view"
+                name="CardNo"
+                //lenth max 16
+                min="0000000000000000"
+                max="8"
+                onChange={handleChange}
+              />
 
               <label htmlFor="expireDate">Expiration Date:</label>
               <input
@@ -159,7 +169,7 @@ function Home_oder() {
                 type="number"
                 id="input_view"
                 name="cvv"
-                min="100"
+                min="000"
                 max="999"
                 value={formData.cvv}
                 onChange={handleChange}
