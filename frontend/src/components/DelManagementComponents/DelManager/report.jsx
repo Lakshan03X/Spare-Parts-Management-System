@@ -5,11 +5,11 @@
 
 import axios from 'axios'
 import  { useEffect, useState } from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Link} from 'react-router-dom'
 
 function Report() {
 
-    const [delIssue, setDelIssue] = useState([]); // Initialize as an empty array
+    const [delIssue, setDelIssue] = useState([]); 
     const [searchKey, setSearchKey] = useState();
     const [filteredItems, setFilteredItems] = useState([]);
 
@@ -32,6 +32,26 @@ function Report() {
             );
             setFilteredItems(filteredData);
         }
+    };
+
+    const handleDelete = (id) => {
+        axios
+          .delete("http://localhost:8020/delReportDelete/" + id)
+          .then((res) => {
+            console.log(res);
+            window.location.reload();
+          })
+          .catch((err) => console.log(err));
+    };
+
+    const handleResolve = (id) => {
+        axios.put(`http://localhost:8020/delReportupdate/${id}`, { status: 'Resolved' })
+            .then(response => {
+                setFilteredItems(filteredItems.map(item => 
+                    item._id === id ? { ...item, status: 'Resolved' } : item
+                ));
+            })
+            .catch(err => console.log(err));
     };
 
     return (
@@ -64,8 +84,8 @@ function Report() {
                 <table className="report-table">
                     <thead className='report-table-head'>
                         <tr>
-                            <th>Issue ID</th>
                             <th>Delivery Person Name</th>
+                            <th>Delivery Person Email</th>
                             <th>Issue Description</th>
                             <th>Action</th>
                          </tr>
@@ -79,8 +99,16 @@ function Report() {
                                     <td>{delIssue.userEmail}</td>
                                     <td>{delIssue.issue}</td>
                                     <td>
-                                        <button >Resolved</button>
-                                        <button>Pending</button>
+                                    <button 
+                                            className='delIssuebtn'
+                                            onClick={() => handleResolve(delIssue._id)}
+                                            disabled={delIssue.status === 'Resolved'}
+                                        >
+                                            {delIssue.status === 'Resolved' ? 'Resolved' : 'Resolve'}
+                                        </button>
+                                    </td>
+                                    <td>
+                                    <Link onClick={() => handleDelete(delIssue._id)}><i className="fa-solid fa-trash space i-color-red"></i></Link>
                                     </td>
                                 </tr>
                             })
