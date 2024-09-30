@@ -1,14 +1,19 @@
-.supplier-container {
+#supplier-container {
   display: flex;
   flex-direction: column;
   height: 100vh; /* Full height of the viewport */
 }
-header {
+#head {
   display: flex;
   margin-left: 374px;
   margin-top: 22px;
   height: 50px;
   z-index: 1;
+  background-color: transparent;
+}
+
+#hh2{
+  color: black;
 }
 
 .add_btn{
@@ -238,3 +243,21 @@ h3 {
   }
 }
 
+
+#search_bar2 {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc; /* Adjust border styles as needed */
+  border-radius: 4px; /* Rounded corners */
+  margin-right: 5px; /* Spacing between input and buttons */
+  margin-left: 200px;
+}
+
+#search_bar_btn2 {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white;
+  cursor: pointer;
+}

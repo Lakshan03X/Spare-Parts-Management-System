@@ -36,21 +36,21 @@ function sup_inv() {
   return (
     <>
       <Navbar />
-      <div className="supplier-container">
-        <header>
+      <div id="supplier-container">
+        <header id="head">
           <Link to="/item_create" className="add_btn">
             Add Item&ensp;<i class="fa fa-plus" aria-hidden="true"></i>{" "}
           </Link>
-          <h2>Supplier Inventory</h2>
+          <h2 id="hh2">Supplier Inventory</h2>
           <div className="input_wrapper">
             <input
               type="search"
               value={searchKey}
               onChange={(e) => setSearchKey(e.target.value)} // Update search key
               placeholder="Search here . . ."
-              className="search_bar"
+              id="search_bar2"
             />
-            <button className="search_bar_btn" onClick={handleSearch}>
+            <button id="search_bar_btn2" onClick={handleSearch}>
               Search &ensp; <i className="fa fa-search"></i>
             </button>
           </div>

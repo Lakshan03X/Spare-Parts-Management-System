@@ -19,14 +19,14 @@ import SupplierDashboard from "./components/Supplier/sup_dashboad/sup_dashboard"
 import OderDash from "./components/Oder/oder_dash/OderDash";
 import HomePage from "./components/User_Home_Sec/Home_page/Home_page";
 import HomeInventory from "./components/User_Home_Sec/Home_inventory/Home_inventory";
-import HomeOrder from "./components/User_Home_Sec/Home_Oders/Home_oder";
+import HomeOrder from "./components/User_Home_Sec/Home_Oders/home_oder";
+// import HomeOrder from "./components/User_Home_Sec/Home_Oders/Home_oder";
 import Home_AboutUs from "./components/User_Home_Sec/Home_AboutUs/Home_AboutUs";
 import Home_Contact from "./components/User_Home_Sec/Home_Contact/Home_Contact";
 import Home_feedback from "./components/User_Home_Sec/Home_feedback/Home_feedback";
 import AddUser from "./components/Account/user_manager/add_user";
 import UserReport from "./components/Account/user_manager/user_rept";
 import UserUpdate from "./components/Account/user_manager/Update_user";
-
 
 //importing feedback components
 import FeedbackUpdate from "./components/User_Home_Sec/Home_feedback/home_feedback_update";
@@ -37,7 +37,6 @@ import SurManagerSignUp from "./components/Account/survey_manager/surManagerReg"
 import AddSurvey from "./components/SurManager/addServey";
 import SurveyView from "./components/SurManager/viewServey";
 import UpdateSurvey from "./components/SurManager/updateServay";
-
 
 function App() {
   return (
@@ -84,12 +83,11 @@ function App() {
 
           {/* Survet Manager */}
           <Route path="/surManager/*" element={<SurMangerDashboard />} />
-          <Route path="/surManagerLogin" element={<SurManagerLogin/>} />
-          <Route path="/surManagerReg" element={<SurManagerSignUp/>} />
-          <Route path="/addSurvey" element={<AddSurvey/>} />
+          <Route path="/surManagerLogin" element={<SurManagerLogin />} />
+          <Route path="/surManagerReg" element={<SurManagerSignUp />} />
+          <Route path="/addSurvey" element={<AddSurvey />} />
           <Route path="/survey/view/:id" element={<SurveyView />} />
           <Route path="/survey/edit/:id" element={<UpdateSurvey />} />
-
         </Routes>
       </Router>
     </div>

@@ -83,6 +83,7 @@ function Home_oder() {
             id="input_view"
             placeholder="Enter your full name"
             onChange={(e) => setfullname(e.target.value)}
+            required
           />
           <input
             type="text"
@@ -107,6 +108,7 @@ function Home_oder() {
             onChange={(e) => setQuantity(e.target.value)}
             id="input_view"
             placeholder="Enter quantity"
+            required
           />
           <input
             type="text"
@@ -141,18 +143,21 @@ function Home_oder() {
                 type="text"
                 id="input_view"
                 name="cardName"
-                value={formData.cardName}
+                value={formData.cardName || ""}
                 onChange={handleChange}
+                required
               />
-              <label htmlFor="cardName">Card No:</label>
+              <label htmlFor="cardNumber">Card No:</label>
               <input
-                type="number"
+                type="text"
                 id="input_view"
-                name="CardNo"
-                //lenth max 16
-                min="0000000000000000"
-                max="8"
+                name="cardNumber"
+                value={formData.cardNumber || ""}
+                pattern="\d{16}" // Enforces exactly 16 digits
+                title="Card number must be 16 digits long"
+                maxLength="16" // Limits input to 16 digits
                 onChange={handleChange}
+                required
               />
 
               <label htmlFor="expireDate">Expiration Date:</label>
@@ -160,19 +165,22 @@ function Home_oder() {
                 type="month"
                 id="input_view"
                 name="expireDate"
-                value={formData.expireDate}
+                value={formData.expireDate || ""}
                 onChange={handleChange}
+                required
               />
 
               <label htmlFor="cvv">CVV:</label>
               <input
-                type="number"
+                type="text"
                 id="input_view"
                 name="cvv"
-                min="000"
-                max="999"
-                value={formData.cvv}
+                value={formData.cvv || ""}
+                pattern="\d{3}" // Enforces exactly 3 digits
+                title="CVV must be 3 digits long"
+                maxLength="3" // Limits input to 3 digits
                 onChange={handleChange}
+                required
               />
             </div>
           )}
