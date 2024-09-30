@@ -4,14 +4,16 @@
 
 
 import axios from 'axios'
-import  { useEffect, useState } from 'react'
+import  { useEffect, useState, useRef } from 'react'
 import {useNavigate, Link} from 'react-router-dom'
+import { useReactToPrint } from "react-to-print";
 
 function Report() {
 
     const [delIssue, setDelIssue] = useState([]); 
     const [searchKey, setSearchKey] = useState();
     const [filteredItems, setFilteredItems] = useState([]);
+    const componentPDF = useRef();
 
     useEffect(() => {
         axios.get('http://localhost:8020/readReport')
@@ -54,6 +56,19 @@ function Report() {
             .catch(err => console.log(err));
     };
 
+    const generatePDF = useReactToPrint({
+        content: () => {
+          if (!componentPDF.current) {
+            console.error("componentPDF is not defined!"); // Log if the ref is not defined
+            return null;
+          }
+          return componentPDF.current; // Return the ref for printing
+        },
+        documentTitle: "Supplier Report",
+        onAfterPrint: () => alert("PDF generated successfully"),
+        onPrintError: (err) => console.error("PDF generation error:", err), // Added error logging
+      });
+
     return (
         <div>
             <div className="dash-header">
@@ -80,8 +95,12 @@ function Report() {
                      <i class="fa-solid fa-magnifying-glass i-color-blue" onClick={handleSearch}></i>
                 </div>
 
+                <button onClick={generatePDF} className="pdf_btn">
+                    Download Report &ensp; <i className="fa fa-download"></i>
+                </button>
+
                 <div className="order-area-layout">
-                <table className="report-table">
+                <table className="report-table" ref={componentPDF}>
                     <thead className='report-table-head'>
                         <tr>
                             <th>Delivery Person Name</th>
