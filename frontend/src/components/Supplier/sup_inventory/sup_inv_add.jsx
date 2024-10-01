@@ -1,56 +1,83 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function sup_inv_add() {
-  const [item_name, setitemName] = React.useState();
-  const [item_quantity, setitemQty] = React.useState();
-  const [item_model, setitemModel] = React.useState();
-  const [item_price, setitemPrice] = React.useState();
-  const [item_weight, setitemWeight] = React.useState();
-  const [supplier_id, setsupplierId] = React.useState();
-  const [supplier_company, setsupplierCompany] = React.useState();
-  const [item_description, setitem_description] = React.useState();
+function SupInvAdd() {
+  const [item_name, setItemName] = useState("");
+  const [item_quantity, setItemQty] = useState("");
+  const [item_model, setItemModel] = useState("");
+  const [item_price, setItemPrice] = useState("");
+  const [item_weight, setItemWeight] = useState("");
+  const [supplier_id, setSupplierId] = useState("");
+  const [supplier_company, setSupplierCompany] = useState("");
+  const [item_description, setItemDescription] = useState("");
 
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  // Validation logic
+  const validate = () => {
+    let formErrors = {};
+
+    if (!item_name) formErrors.item_name = "Item name is required";
+    if (!item_quantity || isNaN(item_quantity) || item_quantity <= 0)
+      formErrors.item_quantity = "Valid item quantity is required";
+    if (!item_model) formErrors.item_model = "Item model is required";
+    if (!item_price || isNaN(item_price) || item_price <= 0)
+      formErrors.item_price = "Valid item price is required";
+    if (!item_weight) formErrors.item_weight = "Item weight is required";
+    if (!supplier_id) formErrors.supplier_id = "Supplier ID is required";
+    if (!supplier_company)
+      formErrors.supplier_company = "Supplier company is required";
+    if (!item_description)
+      formErrors.item_description = "Item description is required";
+
+    return formErrors;
+  };
 
   const Submit = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8020/item_create", {
-        item_name,
-        item_quantity,
-        item_model,
-        item_price,
-        item_weight,
-        supplier_id,
-        supplier_company,
-        item_description,
-      })
-      .then((result) => {
-        console.log(result);
-        alert("added");
-        setTimeout(() => {
-          navigate("/supplierInv");
-        }, 2000); // Show success notification
-        // navigate('/'); // Navigate to the homepage after adding the user
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const formErrors = validate();
+
+    if (Object.keys(formErrors).length === 0) {
+      // No validation errors
+      axios
+        .post("http://localhost:8020/item_create", {
+          item_name,
+          item_quantity,
+          item_model,
+          item_price,
+          item_weight,
+          supplier_id,
+          supplier_company,
+          item_description,
+        })
+        .then((result) => {
+          console.log(result);
+          alert("Item added successfully");
+          setTimeout(() => {
+            navigate("/supplierInv");
+          }, 2000);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      // Set errors to display validation messages
+      setErrors(formErrors);
+    }
   };
 
   return (
     <>
       <form className="add_form" onSubmit={Submit}>
         <Link to="/supplierInv" className="">
-          <i className="fa fa-arrow-left">&ensp;</i>
-          back
+          <i className="fa fa-arrow-left">&ensp;</i> back
         </Link>
         <h3>Add Item Details</h3>
-        <div class="item_add_div">
-          <div class="left-column">
+        <div className="item_add_div">
+          <div className="left-column">
             <label htmlFor="item_name" className="item_add_form_lable">
               Item Name
             </label>
@@ -58,8 +85,10 @@ function sup_inv_add() {
               type="text"
               name="item_name"
               id="item_name"
-              onChange={(e) => setitemName(e.target.value)}
+              value={item_name}
+              onChange={(e) => setItemName(e.target.value)}
             />
+            {errors.item_name && <p className="error">{errors.item_name}</p>}
 
             <label htmlFor="itemQty" className="item_add_form_lable">
               Item Quantity
@@ -67,9 +96,13 @@ function sup_inv_add() {
             <input
               type="number"
               name="itemQty"
-              id="itemName"
-              onChange={(e) => setitemQty(e.target.value)}
+              id="itemQty"
+              value={item_quantity}
+              onChange={(e) => setItemQty(e.target.value)}
             />
+            {errors.item_quantity && (
+              <p className="error">{errors.item_quantity}</p>
+            )}
 
             <label htmlFor="itemModel" className="item_add_form_lable">
               Item Model
@@ -77,9 +110,11 @@ function sup_inv_add() {
             <input
               type="text"
               name="itemModel"
-              id="itemName"
-              onChange={(e) => setitemModel(e.target.value)}
+              id="itemModel"
+              value={item_model}
+              onChange={(e) => setItemModel(e.target.value)}
             />
+            {errors.item_model && <p className="error">{errors.item_model}</p>}
 
             <label htmlFor="itemPrice" className="item_add_form_lable">
               Item Price
@@ -87,20 +122,26 @@ function sup_inv_add() {
             <input
               type="text"
               name="itemPrice"
-              id="itemName"
-              onChange={(e) => setitemPrice(e.target.value)}
+              id="itemPrice"
+              value={item_price}
+              onChange={(e) => setItemPrice(e.target.value)}
             />
+            {errors.item_price && <p className="error">{errors.item_price}</p>}
           </div>
-          <div class="right-column">
+          <div className="right-column">
             <label htmlFor="itemWeight" className="item_add_form_lable">
               Item Weight
             </label>
             <input
               type="text"
               name="itemWeight"
-              id="itemName"
-              onChange={(e) => setitemWeight(e.target.value)}
+              id="itemWeight"
+              value={item_weight}
+              onChange={(e) => setItemWeight(e.target.value)}
             />
+            {errors.item_weight && (
+              <p className="error">{errors.item_weight}</p>
+            )}
 
             <label htmlFor="supplierID" className="item_add_form_lable">
               Supplier ID
@@ -108,29 +149,45 @@ function sup_inv_add() {
             <input
               type="text"
               name="supplierID"
-              id="itemName"
-              onChange={(e) => setsupplierId(e.target.value)}
+              id="supplierID"
+              value={supplier_id}
+              onChange={(e) => setSupplierId(e.target.value)}
             />
+            {errors.supplier_id && (
+              <p className="error">{errors.supplier_id}</p>
+            )}
 
-            <label htmlFor="suplierCompany" className="item_add_form_lable">
+            <label htmlFor="supplierCompany" className="item_add_form_lable">
               Supplier Company
             </label>
             <input
               type="text"
-              name="suplierCompany"
-              id="itemName"
-              onChange={(e) => setsupplierCompany(e.target.value)}
+              name="supplierCompany"
+              id="supplierCompany"
+              value={supplier_company}
+              onChange={(e) => setSupplierCompany(e.target.value)}
             />
+            {errors.supplier_company && (
+              <p className="error">{errors.supplier_company}</p>
+            )}
 
-            <label htmlFor="suplierDescription" className="item_add_form_lable">
-              Suplier Description
+            <label
+              htmlFor="supplierDescription"
+              className="item_add_form_lable"
+            >
+              Supplier Description
             </label>
             <input
               type="text"
-              name="suplierDescription"
-              id="suplierDescription"
-              onChange={(e) => setitem_description(e.target.value)}
+              name="supplierDescription"
+              id="supplierDescription"
+              value={item_description}
+              onChange={(e) => setItemDescription(e.target.value)}
             />
+            {errors.item_description && (
+              <p className="error">{errors.item_description}</p>
+            )}
+
             <button type="submit">Add Item</button>
           </div>
         </div>
@@ -139,4 +196,4 @@ function sup_inv_add() {
   );
 }
 
-export default sup_inv_add;
+export default SupInvAdd;

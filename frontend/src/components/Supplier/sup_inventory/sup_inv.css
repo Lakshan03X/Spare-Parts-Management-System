@@ -12,6 +12,10 @@
   background-color: transparent;
 }
 
+.error{
+  color: red;
+}
+
 #hh2{
   color: black;
 }
