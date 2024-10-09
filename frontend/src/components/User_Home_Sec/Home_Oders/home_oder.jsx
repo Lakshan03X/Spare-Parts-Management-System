@@ -5,12 +5,12 @@ import Navbar from "../Home_navbar";
 import "./home_oder.css";
 
 function Home_oder() {
-
-   // Get user data from local storage
-   const user = JSON.parse(localStorage.getItem('user'));
-   // Access the username
-   const username = user ? user.username : null;
-   console.log(user.address)
+  // Get user data from local storage
+  const user = JSON.parse(localStorage.getItem("user"));
+  // Access the username
+  const username = user ? user.username : null;
+  const address = user ? user.address : null;
+  console.log(user.address);
 
   const { id } = useParams();
   const navigate = useNavigate(); // Initialize navigate
@@ -88,8 +88,14 @@ function Home_oder() {
           <input
             type="text"
             id="input_view"
-            value={username}
-            placeholder="Enter your full name"
+            value={"Name : " + username}
+            onChange={(e) => setfullname(e.target.value)}
+            readOnly
+          />
+          <input
+            type="text"
+            id="input_view"
+            value={"Address : " + address}
             onChange={(e) => setfullname(e.target.value)}
             readOnly
           />
