@@ -69,20 +69,20 @@ function SupRept() {
     <>
       <Navbar />
       <div className="report_section">
-        <header>
-          <Link to="/item_create" className="add_btn">
-            Create User&ensp;<i className="fa fa-plus" aria-hidden="true"></i>
+        <header id="head_rept">
+          <Link to="/item_create" id="add_btn1">
+            Add Item&ensp;<i className="fa fa-plus" aria-hidden="true"></i>
           </Link>
-          <h2>Manage Customers</h2>
-          <div className="input_wrapper">
+          <h2 id="h22">Manage Items</h2>
+          <div id="input_wrapper1">
             <input
               type="search"
               value={searchKey}
               onChange={(e) => setSearchKey(e.target.value)} // Update search key
               placeholder="Search here . . ."
-              className="search_bar"
+              id="search_bar1"
             />
-            <button className="search_bar_btn" onClick={handleSearch}>
+            <button id="search_bar_btn1" onClick={handleSearch}>
               Search &ensp; <i className="fa fa-search"></i>
             </button>
           </div>
