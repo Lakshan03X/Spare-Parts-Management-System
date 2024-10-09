@@ -38,6 +38,10 @@ import AddSurvey from "./components/SurManager/addServey";
 import SurveyView from "./components/SurManager/viewServey";
 import UpdateSurvey from "./components/SurManager/updateServay";
 
+//Customer
+import CustomerLogin from "./components/Account/customer/customerLogin";
+import CustomerSignUp from "./components/Account/customer/customerReg";
+
 function App() {
   return (
     <div className="main">
@@ -88,6 +92,11 @@ function App() {
           <Route path="/addSurvey" element={<AddSurvey />} />
           <Route path="/survey/view/:id" element={<SurveyView />} />
           <Route path="/survey/edit/:id" element={<UpdateSurvey />} />
+
+          {/* Customer */}
+          <Route path="/customerLogin" element={<CustomerLogin/>} />
+          <Route path="/customerReg" element={<CustomerSignUp/>} />
+
         </Routes>
       </Router>
     </div>

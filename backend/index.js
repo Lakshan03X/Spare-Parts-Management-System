@@ -16,6 +16,7 @@ const UserModel = require("./models/user_mg_model/User_mg_model");
 const SurManagerModel = require("./models/sur_mg_model/surManagerModel");
 const SurveyModel = require("./models/sur_mg_model/SurveyModel");
 const FeedbackModel = require("./models/feedback_mg_model/feedMgModel");
+const CustomerModel = require("./models/customer_model/customerModel")
 
 app.use(express.json());
 app.use(cors());
@@ -467,6 +468,55 @@ app.put("/updateSurvey/:id", (req, res) => {
   SurveyModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((updatedSurvey) => res.json(updatedSurvey))
     .catch((err) => res.status(400).json("Error: " + err));
+});
+
+
+//Customer
+app.post("/customerLogin", (req, res) => {
+  const { email, password } = req.body;
+  CustomerModel.findOne({ email: email })
+    .then((user) => {
+      if (user) {
+        if (user.password === password) {
+          const token = createToken(user._id);
+
+          // Send user data in the response
+          res.json({
+            message: "Success",
+            user: {
+              id: user._id,
+              username: user.name, 
+              address: user.address,
+              email: user.email,
+              token: token, 
+            },
+          });
+        } else {
+          res.status(401).json({ error: "Incorrect Password" }); // Use status codes for errors
+        }
+      } else {
+        res.status(404).json({ error: "No record available" }); // Use status codes for errors
+      }
+    })
+    .catch((err) => {
+      console.error(err); // Log the error
+      res.status(500).json({ error: "Internal server error" }); // Handle unexpected errors
+    });
+});
+
+app.post("/customerRegister", (req, res) => {
+  CustomerModel.create(req.body)
+    .then((customer) => {
+      const token = createToken(customer._id);
+      res.json({ customer, token });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(400).json({
+        error: "Failed to create an account",
+        details: err.message,
+      });
+    });
 });
 
 //DB Connection ...................................................................

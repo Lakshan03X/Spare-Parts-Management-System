@@ -1,16 +1,30 @@
 import React from "react";
 import "./Home_navbar.css";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Home_navbar() {
+  const navigate = useNavigate(); 
+
+  // Get user data from local storage
+  const user = JSON.parse(localStorage.getItem('user'));
+  // Access the username
+  const username = user ? user.username : null;
+  console.log(user.address)
+
+  // Log Out function
+  const logOut = () => {
+    localStorage.clear(); // Clear local storage
+    navigate('/customerLogin'); // Redirect to the customer login page
+  };
+
   return (
     <>
       <header>
         <nav>
-          <div class="logo">
+          <div className="logo">
             <h1>Spare Parts Management</h1>
           </div>
-          <ul class="nav-links">
+          <ul className="nav-links">
             <Link to="/home" className="link">
               <li>Home</li>
             </Link>
@@ -28,10 +42,25 @@ function Home_navbar() {
             </Link>
           </ul>
           <div className="profile-sec">
-            <span>Hi, Chamika</span>
-            <a href="">
-              <i class="fa-solid fa-user icon-size profile-bg"></i>{" "}
-            </a>
+            {username ? (
+              <>
+                <span>Hi, {username}</span>
+                <button onClick={logOut}>Log Out</button>
+              </>
+            ) : (
+              <div>
+                <Link to="/customerLogin" className="link">
+                <Link to="">
+              <i className="fa-solid fa-user icon-size profile-bg"></i>
+                </Link>
+                  <button>Login</button>
+                </Link>
+                <Link to="/customerReg" className="link">
+                  <button>Sign Up</button>
+                </Link>
+              </div>
+            )}
+            
           </div>
         </nav>
       </header>
