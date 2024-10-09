@@ -504,6 +504,7 @@ app.post("/customerLogin", (req, res) => {
     });
 });
 
+//register 
 app.post("/customerRegister", (req, res) => {
   CustomerModel.create(req.body)
     .then((customer) => {
