@@ -41,7 +41,7 @@ function Report() {
                 setDelIssue(response.data);
                 const userData = JSON.parse(localStorage.getItem('user'));
                 if (userData && userData.email) {
-                    setUserName(userData.name);
+                    setUserName(userData.username);
                     setUserEmail(userData.email);
                     setLoggedUserName(userData.email);
                 }
@@ -77,6 +77,7 @@ function Report() {
                     <form method='post' onSubmit={handleSubmit}>
                         <label htmlFor="userName">User Name</label>
                         <input type="text"
+                        readOnly
                             className='report-input'
                             name="userName"
                             id="userName"
@@ -85,7 +86,7 @@ function Report() {
 
                         <label htmlFor="userEmail">User Email</label>
                         <input type="email"
-                            disabled
+                            readOnly
                             className='report-input'
                             name="userEmail"
                             id="userEmail"
