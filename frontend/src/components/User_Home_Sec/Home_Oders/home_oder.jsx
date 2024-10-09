@@ -9,13 +9,15 @@ function Home_oder() {
   const user = JSON.parse(localStorage.getItem("user"));
   // Access the username
   const username = user ? user.username : null;
-  const address = user ? user.address : null;
-  const email = user ? user.email : null;
+  const u_address = user ? user.address : null;
+  const u_email = user ? user.email : null;
   console.log(user.address);
 
   const { id } = useParams();
   const navigate = useNavigate(); // Initialize navigate
   const [full_name, setfullname] = useState("");
+  const [email, setemail] = useState("");
+  const [address, setaddress] = useState("");
   const [item_name, setitemName] = useState("");
   const [item_price, setitemPrice] = useState(1);
   const [item_quantity, setQuantity] = useState(1);
@@ -44,10 +46,15 @@ function Home_oder() {
   const Submit = (e) => {
     e.preventDefault();
     const delivery_fee = deliveryFee; // Set delivery fee
+    const full_name = username;
+    const email = u_email;
+    const address = u_address;
 
     axios
       .post("http://localhost:8020/add_order", {
         full_name,
+        email,
+        address,
         item_name,
         item_price,
         delivery_fee,
@@ -57,6 +64,7 @@ function Home_oder() {
       })
       .then((result) => {
         alert("Order added successfully!");
+        console.log(result);
         setTimeout(() => {
           navigate("/home_inventory");
         }, 2000);
@@ -90,21 +98,18 @@ function Home_oder() {
             type="text"
             id="input_view"
             value={"Name : " + username}
-            onChange={(e) => setfullname(e.target.value)}
             readOnly
           />
           <input
             type="text"
             id="input_view"
-            value={"Email : " + email}
-            onChange={(e) => setfullname(e.target.value)}
+            value={"Email : " + u_email}
             readOnly
           />
           <input
             type="text"
             id="input_view"
-            value={"Address : " + address}
-            onChange={(e) => setfullname(e.target.value)}
+            value={"Address : " + u_address}
             readOnly
           />
           <input
