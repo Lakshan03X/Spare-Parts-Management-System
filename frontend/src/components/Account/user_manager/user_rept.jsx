@@ -33,8 +33,8 @@ function user_rept() {
 
   const generatePDF = useReactToPrint({
     content: () => componentPDF.current,
-    documentTitle: "Supplier Report",
-    onAfterPrint: () => alert("PDF generated successfully"),
+    documentTitle: "user Report",
+    // onAfterPrint: () => alert("PDF generated successfully"),
     onPrintError: (err) => console.error("PDF generation error:", err),
   });
 
