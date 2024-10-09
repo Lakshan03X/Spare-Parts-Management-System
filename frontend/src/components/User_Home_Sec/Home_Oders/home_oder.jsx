@@ -10,6 +10,7 @@ function Home_oder() {
   // Access the username
   const username = user ? user.username : null;
   const address = user ? user.address : null;
+  const email = user ? user.email : null;
   console.log(user.address);
 
   const { id } = useParams();
@@ -89,6 +90,13 @@ function Home_oder() {
             type="text"
             id="input_view"
             value={"Name : " + username}
+            onChange={(e) => setfullname(e.target.value)}
+            readOnly
+          />
+          <input
+            type="text"
+            id="input_view"
+            value={"Email : " + email}
             onChange={(e) => setfullname(e.target.value)}
             readOnly
           />
