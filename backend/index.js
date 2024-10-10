@@ -17,6 +17,7 @@ const SurManagerModel = require("./models/sur_mg_model/surManagerModel");
 const SurveyModel = require("./models/sur_mg_model/SurveyModel");
 const FeedbackModel = require("./models/feedback_mg_model/feedMgModel");
 const CustomerModel = require("./models/customer_model/customerModel")
+const delModel = require("./models/delivery_model/delivery_model")
 
 app.use(express.json());
 app.use(cors());
@@ -123,6 +124,112 @@ app.post("/delPersonLogin", (req, res) => {
     });
 });
 
+//Read Deliveries
+app.get("/readDel", (req, res) => {
+  OderDataModel
+    .find()
+    .then((dels) => res.json(dels))
+    .catch((err) => res.json(err));
+});
+
+
+app.put("/delUpdate/:id", (req, res) => {
+  const id = req.params.id;
+
+  OderDataModel
+    .findByIdAndUpdate(
+      id,
+      {
+        delivery_status: req.body.delivery_status,
+      },
+      { new: true }
+    )
+    .then((updatedDelivery) => {
+      if (!updatedDelivery) {
+        return res.status(404).json({ message: "Deliver not found" });
+      }
+      res.json(updatedDelivery);
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+//Read DeliveryPerson
+app.get("/readDelPerson", (req, res) => {
+  DelPersonModel
+    .find()
+    .then((delPerson) => res.json(delPerson))
+    .catch((err) => res.json(err));
+});
+
+
+//Deliver
+//Add Delivery
+app.post("/addDelivery", (req, res) => {
+  delModel
+    .create(req.body)
+    .then((delivery) => res.json(delivery))
+    .catch((err) => res.json(err));
+});
+
+//Read Deliveries
+app.get("/readDeliveries", (req, res) => {
+  delModel
+    .find()
+    .then((delivery) => res.json(delivery))
+    .catch((err) => res.json(err));
+});
+
+//update Delivery
+app.put("/updateDelivery/:deliveryId", (req, res) => {
+  const id = req.params.deliveryId;
+
+  delModel
+    .findByIdAndUpdate(
+      id,
+      {
+        delivery_status: req.body.delivery_status
+      },
+      { new: true }
+    )
+    .then((updatedReport) => {
+      if (!updatedReport) {
+        return res.status(404).json({ message: "Delivery not found" });
+      }
+      res.json(updatedReport);
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+//Delete Asigned Deliveries
+app.delete("/delDelete/:id", (req, res) => {
+  const id = req.params.id;
+
+  delModel
+    .findByIdAndDelete(id)
+    .then((deletedDel) => {
+      if (!deletedDel) {
+        return res.status(404).json({ message: "Report not found" });
+      }
+      res.json({ message: "Report deleted successfully" });
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+//Delete Incoming Deliveries
+app.delete("/incomingDelDelete/:id", (req, res) => {
+  const id = req.params.id;
+
+  OderDataModel
+    .findByIdAndDelete(id)
+    .then((deletedDel) => {
+      if (!deletedDel) {
+        return res.status(404).json({ message: "Report not found" });
+      }
+      res.json({ message: "Report deleted successfully" });
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
 //Reporting ---> Delivery Person
 //Add Report
 app.post("/addReport", (req, res) => {
@@ -163,6 +270,9 @@ app.put("/delReportupdate/:id", (req, res) => {
     })
     .catch((err) => res.status(500).json({ error: err.message }));
 });
+
+
+
 
 //Get Items for id
 app.get("/getDelReport/:id", (req, res) => {

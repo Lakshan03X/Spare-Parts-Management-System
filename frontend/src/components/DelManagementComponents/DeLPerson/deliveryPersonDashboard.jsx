@@ -8,6 +8,8 @@ import "../../../App.css";
 import SideMenu from "./side-menu";
 import Dashboard from "./dashboard";
 import Report from "./report";
+import Track from "./markProgress";
+
 
 function DeliveryPersonDashboard() {
   return (
@@ -17,6 +19,7 @@ function DeliveryPersonDashboard() {
         <Route path="/" element={<Dashboard/>} />
         <Route path="dashboard" element={<Dashboard/>} />
         <Route path="report" element={<Report/>}/>
+        <Route path="track" element={<Track/>} />
       </Routes>
     </div>
   );

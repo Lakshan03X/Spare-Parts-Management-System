@@ -3,8 +3,10 @@ import Dashboard from "./dashboard";
 import SideMenu from "./side-menu";
 import Order from "./order";
 import Report from "./report";
-
 import "../../../App.css";
+import DelPerson from "./delPersons";
+import Track from "./track";
+
 
 function DeliveryManagerDashboard() {
   return (
@@ -15,6 +17,8 @@ function DeliveryManagerDashboard() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="order" element={<Order />} />
         <Route path="report" element={<Report />} />
+        <Route path="delPerson" element={<DelPerson/>} />
+        <Route path="track" element={<Track/>} />
       </Routes>
     </div>
   );
