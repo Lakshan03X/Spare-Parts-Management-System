@@ -44,20 +44,23 @@ function Home_navbar() {
           <div className="profile-sec">
             {username ? (
               <>
-                <span>Hi, {username}</span>
-                <button onClick={logOut}>Log Out</button>
+                <span>Hi, {username} </span>
+                <button onClick={logOut} className="logout_btn">Log Out</button>
               </>
             ) : (
               <div>
                 <Link to="/customerLogin" className="link">
                 <Link to="">
-              <i className="fa-solid fa-user icon-size profile-bg"></i>
+              
                 </Link>
-                  <button>Login</button>
+                  <button className="login-btn">Login</button>
                 </Link>
+                &ensp;
                 <Link to="/customerReg" className="link">
-                  <button>Sign Up</button>
+                  <button className="singup-btn">Sign Up</button>
                 </Link>
+                &ensp;
+                <i className="fa-solid fa-user icon-size profile-bg"></i>
               </div>
             )}
             

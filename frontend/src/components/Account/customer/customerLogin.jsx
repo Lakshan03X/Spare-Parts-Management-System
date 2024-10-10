@@ -14,24 +14,22 @@ function CustomerLogin() {
     axios
       .post("http://localhost:8020/customerLogin", { email, password })
       .then((result) => {
-          const userData = result.data.user; 
-          console.log(userData); 
+        const userData = result.data.user;
+        console.log(userData);
 
-          // Check if login was successful based on the message
-          if (result.data.message === "Success") {
-              localStorage.setItem('user', JSON.stringify(userData)); // Store user data in local storage
-              navigate("/");
-          } else {
-              alert(result.data.error || "Invalid! Please check again."); // Show appropriate error
-          }
+        // Check if login was successful based on the message
+        if (result.data.message === "Success") {
+          localStorage.setItem("user", JSON.stringify(userData)); // Store user data in local storage
+          navigate("/");
+        } else {
+          alert(result.data.error || "Invalid! Please check again."); // Show appropriate error
+        }
       })
       .catch((err) => {
-          console.log(err);
-          alert("An error occurred during login. Please try again.");
+        console.log(err);
+        alert("An error occurred during login. Please try again.");
       });
-};
-
-
+  };
 
   return (
     <>
@@ -46,7 +44,7 @@ function CustomerLogin() {
 
         <div className="right_side">
           <form method="post" onSubmit={handleSubmit}>
-            <h3>Customer Login</h3>
+            <h2>Customer Login</h2>
             <label htmlFor="cusEmail">Email </label>
             <input
               type="email"
@@ -64,9 +62,10 @@ function CustomerLogin() {
             />
             <button type="submit">LOGIN</button>
             <br />
-            <Link to="/customerReg">
-              Don't have an account : Register here
-            </Link>
+            <span>
+              Don't have an account ? :
+              <Link to="/customerReg"> Register here</Link>
+            </span>
           </form>
         </div>
       </div>

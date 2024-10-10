@@ -45,3 +45,34 @@ nav .nav-links a {
   color: #e9d8a6;
   font-weight: bold;
 }
+
+.logout_btn{
+  background-color: #e9d8a6;
+  color: #005f73;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  border: none;
+}
+
+.login-btn{
+  background-color: #cae9ff;
+  color: #005f73;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  border: none;
+}
+
+.singup-btn{
+  background-color: #cae9ff;
+  color: #005f73;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  border: none;
+  margin-bottom: 15px;
+}
