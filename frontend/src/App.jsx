@@ -37,6 +37,7 @@ import SurManagerSignUp from "./components/Account/survey_manager/surManagerReg"
 import AddSurvey from "./components/SurManager/addServey";
 import SurveyView from "./components/SurManager/viewServey";
 import UpdateSurvey from "./components/SurManager/updateServay";
+import HomeSurvey from "./components/User_Home_Sec/Home_Survay/Home_survay";
 
 //Customer
 import CustomerLogin from "./components/Account/customer/customerLogin";
@@ -47,7 +48,7 @@ function App() {
     <div className="main">
       <Router>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/delManagerReg" element={<DelManagerSignUp />} />
           <Route path="/delManagerLogin" element={<DelManagerLogin />} />
           <Route path="/delPersonReg" element={<DelPersonSignUp />} />
@@ -96,6 +97,8 @@ function App() {
           {/* Customer */}
           <Route path="/customerLogin" element={<CustomerLogin/>} />
           <Route path="/customerReg" element={<CustomerSignUp/>} />
+
+          <Route path="/home_survey" element={<HomeSurvey />} />
 
         </Routes>
       </Router>

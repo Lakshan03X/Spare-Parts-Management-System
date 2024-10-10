@@ -1,0 +1,35 @@
+
+#scroll_container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    overflow-y: auto; /* Scroll only vertically */
+    width: 1550px;
+    height: calc(
+      100vh - 100px); /* Take the full height minus the header height */
+  }
+  
+  #item {
+    background: rgb(241, 237, 237);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    /* padding: 10px; */
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: 340px;
+    height: 340px;
+    text-align: center;
+  }
+  
+  #item img {
+    width: 300px;
+    height: 180px;
+    border: 1px solid #b83030;
+    border-radius: 8px;
+  }
+  
+  h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }

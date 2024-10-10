@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Home_navbar";
 import Footer from "../Home_nav_footers/home_footer";
-// import sparePartImage from "./";
+import sparePartImage from "./sup_assets/spare_part.jpg";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "./home_incentory.css";
 
 function Home_inventory() {
   const [items, setItems] = useState([]); // Original items
@@ -22,16 +23,18 @@ function Home_inventory() {
     <>
       <Navbar />
       <div>
-        <div class="scroll_container">
+        <div id="scroll_container">
           {filteredItems.map((item) => (
-            <div class="item" key={item.id}>
-              {/* <img src={sparePartImage} alt="V8 Engine" /> */}
+            <div id="item" key={item.id}>
+              <img src={sparePartImage} alt="V8 Engine" />
               <h3>
                 <p>{"Item Name - " + item.item_name}</p>
                 <p>{"Item Price - Rs." + item.item_price}</p>
               </h3>
               <Link to={`/home_order/${item._id}`}>
-                <button class="view-btn">Add To Cart</button>
+                <button class="view-btn">
+                  Buy Now &ensp;<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                </button>
               </Link>
             </div>
           ))}

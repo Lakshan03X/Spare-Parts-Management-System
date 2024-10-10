@@ -2,7 +2,7 @@ import React from "react";
 import Homenav from "../Home_navbar";
 import Footer from "../Home_nav_footers/home_footer";
 import "./Home_page.css";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 function Home_page() {
   return (
@@ -54,7 +54,7 @@ function Home_page() {
           <a href="#">Generate Reports</a>
         </div>
       </section>
-      <Link to="/home_contact" className="floating-btn">
+      <Link to="/home_survey" className="floating-btn">
         <span class="floating-btn-icon">
           <i className="fa fa-plus-circle"></i>
         </span>

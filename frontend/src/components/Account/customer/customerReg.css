@@ -1,0 +1,111 @@
+#main_container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  #left_side {
+    background-color: #065e60;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #left_side h1 {
+    color: white;
+    text-align: center;
+    font-size: 64px;
+  }
+  
+  #right_side {
+    width: 50%;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  #right_side form {
+    background-color: white;
+    width: 80%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  
+  #right_side form input[type="text"],
+  #right_side form input[type="email"],
+  #right_side form input[type="phone"],
+  #right_side form input[type="password"] {
+    padding: 5px;
+    background-color: #d9d9d9;
+    height: 35px;
+    margin-bottom: 5px;
+    border: none;
+    font-size: medium;
+  }
+  
+  #right_side form input::placeholder {
+    color: dimgrey;
+  }
+  
+  #right_side form input:focus {
+    outline: green;
+    border-left: 5px solid green;
+  }
+  
+  #right_side form input:invalid {
+    border-left: 5px solid red;
+  }
+  
+  #right_side form button,#logbtn {
+    background-color: #2c2c2c;
+    color: white;
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+  }
+  
+  #right_side form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  right_side button {
+    background-color: #6a0dad;
+    color: white;
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: large;
+    margin-top: 20px;
+    width: 80%;
+  }
+  
+  .right_side button a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    text-align: center;
+  }
+  
+  .right_side button:hover {
+    background-color: #4b0082;
+  }
+  
+  .right_side button:active {
+    background-color: #5d008d;
+  }
+  
+  div.error {
+    color: red;
+    margin-top: 10px;
+  }

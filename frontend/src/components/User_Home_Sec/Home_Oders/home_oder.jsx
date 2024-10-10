@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
 import Navbar from "../Home_navbar";
+import Footer from "../Home_nav_footers/home_footer";
 import "./home_oder.css";
 
 function Home_oder() {
@@ -11,7 +12,6 @@ function Home_oder() {
   const username = user ? user.username : null;
   const u_address = user ? user.address : null;
   const u_email = user ? user.email : null;
-  console.log(user.address);
 
   const { id } = useParams();
   const navigate = useNavigate(); // Initialize navigate
@@ -216,6 +216,7 @@ function Home_oder() {
           Place Order
         </button>
       </form>
+      <Footer />
     </>
   );
 }
