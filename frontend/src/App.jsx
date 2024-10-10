@@ -38,6 +38,7 @@ import AddSurvey from "./components/SurManager/addServey";
 import SurveyView from "./components/SurManager/viewServey";
 import UpdateSurvey from "./components/SurManager/updateServay";
 import HomeSurvey from "./components/User_Home_Sec/Home_Survay/Home_survay";
+import HomeSurveyView from "./components/User_Home_Sec/Home_Survay/Home_survay_view";
 
 //Customer
 import CustomerLogin from "./components/Account/customer/customerLogin";
@@ -99,6 +100,7 @@ function App() {
           <Route path="/customerReg" element={<CustomerSignUp/>} />
 
           <Route path="/home_survey" element={<HomeSurvey />} />
+          <Route path="/home_survey/view_survey" element={<HomeSurveyView />} />
 
         </Routes>
       </Router>
