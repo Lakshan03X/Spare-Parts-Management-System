@@ -45,7 +45,7 @@ function DelPerson() {
             console.log('Delivery created:', response.data);
 
             // After successfully creating the delivery, delete the order
-            return axios.delete(`http://localhost:8020/incomingDelDelete/${order._id}`); // Use the order ID
+            return axios.delete(`http://localhost:8020/incomingDelDelete/${order._id}`); 
         })
         .then(() => {
             console.log('Order deleted successfully');
@@ -53,7 +53,7 @@ function DelPerson() {
         })
         .catch(err => {
             console.error(err);
-            // Optionally show an error message to the user
+            
         });
 
 
@@ -67,7 +67,7 @@ function DelPerson() {
                 <a href=""><i className="fa-solid fa-user icon-size profile-bg"></i> </a>
             </div>
             <div>
-                <h1 className="heading1">Deliver Perons</h1>
+                <h1 className="heading1">Deliver Persons</h1>
             </div>
             
             <div className="order-area">
@@ -96,7 +96,9 @@ function DelPerson() {
                                         <td>{del.address}</td>
                                         <td>
                                             {/* Action buttons or links */}
-                                            <button onClick={() => handleAssign(del)}>Assign</button>
+                                            <button 
+                                            className='delIssuebtn'
+                                            onClick={() => handleAssign(del)}>Assign</button>
                                         </td>
                                     </tr>
                                 ))

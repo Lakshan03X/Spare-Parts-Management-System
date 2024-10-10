@@ -12,7 +12,7 @@ function Dashboard() {
     const delManager = JSON.parse(localStorage.getItem('user'));
     
     // Access the username
-    const username = delManager ? delManager.name : null;
+    const username = delManager ? delManager.username : null;
 
     return (
         <div>

@@ -58,7 +58,9 @@ function SideMenu() {
                     <hr/>
                     <div className="dash-menu-items">
                         <i className="fa-solid fa-right-from-bracket icon-size"></i>
-                        <button onClick={logOut}>Log Out</button>
+                        <button 
+                         class="boton-elegante" 
+                        onClick={logOut}>Log Out</button>
                     </div>
                 </div>
             </div>

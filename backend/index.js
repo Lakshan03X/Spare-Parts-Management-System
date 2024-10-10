@@ -179,7 +179,7 @@ app.get("/readDeliveries", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-//update Delivery
+//update Assign Delivery
 app.put("/updateDelivery/:deliveryId", (req, res) => {
   const id = req.params.deliveryId;
 
