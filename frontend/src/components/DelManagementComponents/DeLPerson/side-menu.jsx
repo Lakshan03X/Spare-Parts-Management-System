@@ -47,7 +47,7 @@ function SideMenu() {
                     {/* Track Link */}
                     <div className="dash-menu-items">
                         <i className="fa-solid fa-map-location-dot icon-size"></i>
-                        <Link to="#" className="dash-menu-links" id="3">Mark Progress</Link>
+                        <Link to="track" className="dash-menu-links" id="3">Mark Progress</Link>
                     </div>
                 </div>
 
@@ -56,7 +56,9 @@ function SideMenu() {
                     <div className="dash-menu-items">
                         <i className="fa-solid fa-right-from-bracket icon-size"></i>
                         
-                        <button onClick={logOut}>Log Out</button>
+                        <button 
+                         class="boton-elegante" 
+                        onClick={logOut}>Log Out</button>
                     </div>
                 </div>
             </div>

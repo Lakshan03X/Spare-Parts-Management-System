@@ -44,6 +44,7 @@ function Report() {
                     setUserName(userData.username);
                     setUserEmail(userData.email);
                     setLoggedUserName(userData.email);
+                    
                 }
             })
             .catch(err => console.log(err));
