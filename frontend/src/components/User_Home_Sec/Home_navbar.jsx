@@ -9,7 +9,7 @@ function Home_navbar() {
   const user = JSON.parse(localStorage.getItem('user'));
   // Access the username
   const username = user ? user.username : null;
-  console.log(user.address)
+  // console.log(user.address)
 
   // Log Out function
   const logOut = () => {
