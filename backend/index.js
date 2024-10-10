@@ -16,8 +16,8 @@ const UserModel = require("./models/user_mg_model/User_mg_model");
 const SurManagerModel = require("./models/sur_mg_model/surManagerModel");
 const SurveyModel = require("./models/sur_mg_model/SurveyModel");
 const FeedbackModel = require("./models/feedback_mg_model/feedMgModel");
-const CustomerModel = require("./models/customer_model/customerModel")
-const delModel = require("./models/delivery_model/delivery_model")
+const CustomerModel = require("./models/customer_model/customerModel");
+const delModel = require("./models/delivery_model/delivery_model");
 
 app.use(express.json());
 app.use(cors());
@@ -126,24 +126,21 @@ app.post("/delPersonLogin", (req, res) => {
 
 //Read Deliveries
 app.get("/readDel", (req, res) => {
-  OderDataModel
-    .find()
+  OderDataModel.find()
     .then((dels) => res.json(dels))
     .catch((err) => res.json(err));
 });
 
-
 app.put("/delUpdate/:id", (req, res) => {
   const id = req.params.id;
 
-  OderDataModel
-    .findByIdAndUpdate(
-      id,
-      {
-        delivery_status: req.body.delivery_status,
-      },
-      { new: true }
-    )
+  OderDataModel.findByIdAndUpdate(
+    id,
+    {
+      delivery_status: req.body.delivery_status,
+    },
+    { new: true }
+  )
     .then((updatedDelivery) => {
       if (!updatedDelivery) {
         return res.status(404).json({ message: "Deliver not found" });
@@ -155,12 +152,10 @@ app.put("/delUpdate/:id", (req, res) => {
 
 //Read DeliveryPerson
 app.get("/readDelPerson", (req, res) => {
-  DelPersonModel
-    .find()
+  DelPersonModel.find()
     .then((delPerson) => res.json(delPerson))
     .catch((err) => res.json(err));
 });
-
 
 //Deliver
 //Add Delivery
@@ -187,7 +182,7 @@ app.put("/updateDelivery/:deliveryId", (req, res) => {
     .findByIdAndUpdate(
       id,
       {
-        delivery_status: req.body.delivery_status
+        delivery_status: req.body.delivery_status,
       },
       { new: true }
     )
@@ -219,8 +214,7 @@ app.delete("/delDelete/:id", (req, res) => {
 app.delete("/incomingDelDelete/:id", (req, res) => {
   const id = req.params.id;
 
-  OderDataModel
-    .findByIdAndDelete(id)
+  OderDataModel.findByIdAndDelete(id)
     .then((deletedDel) => {
       if (!deletedDel) {
         return res.status(404).json({ message: "Report not found" });
@@ -271,9 +265,6 @@ app.put("/delReportupdate/:id", (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
-
-
-
 //Get Items for id
 app.get("/getDelReport/:id", (req, res) => {
   const id = req.params.id;
@@ -297,7 +288,6 @@ app.delete("/delReportDelete/:id", (req, res) => {
     })
     .catch((err) => res.status(500).json({ error: err.message }));
 });
-
 // supplier manager crud section ...................................................................
 app.get("/supplierReport", (req, res) => {
   ItemDataModel.find({})
@@ -580,7 +570,6 @@ app.put("/updateSurvey/:id", (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-
 //Customer
 app.post("/customerLogin", (req, res) => {
   const { email, password } = req.body;
@@ -595,10 +584,10 @@ app.post("/customerLogin", (req, res) => {
             message: "Success",
             user: {
               id: user._id,
-              username: user.name, 
+              username: user.name,
               address: user.address,
               email: user.email,
-              token: token, 
+              token: token,
             },
           });
         } else {
@@ -614,7 +603,7 @@ app.post("/customerLogin", (req, res) => {
     });
 });
 
-//register 
+//register
 app.post("/customerRegister", (req, res) => {
   CustomerModel.create(req.body)
     .then((customer) => {
