@@ -37,6 +37,7 @@ function Home_survay_view() {
                     type="text"
                     value={"Name : " + username}
                     id="abcinput"
+                    name="name"
                     readOnly
                   />
                   <br />
