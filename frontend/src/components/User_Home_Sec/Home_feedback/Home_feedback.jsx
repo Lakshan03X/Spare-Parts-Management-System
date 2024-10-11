@@ -7,22 +7,31 @@ import Footer from "../Home_nav_footers/home_footer";
 import "./home_feedback.css";
 
 function Home_feedback() {
-  const [fed_full_name, setfed_full_name] = React.useState();
-  const [fed_item_name, setfed_item_name] = React.useState();
-  const [fed_item_id, setfed_item_id] = React.useState();
-  const [fed_rating, setfed_rating] = React.useState();
-  const [fed_feedback, setfed_feedback] = React.useState();
+  // Get user data from local storage
+  const user = JSON.parse(localStorage.getItem("user"));
+  // Access the username and email
+  const username = user ? user.username : null;
+  const u_email = user ? user.email : null;
 
-  const [feedbacks, setfeedbacks] = useState([]); // Original items
-  const [filteredfeedbacks, setFilteredfeedbacks] = useState([]); // Filtered items
+  // State variables to handle form inputs
+  const [fed_item_name, setfed_item_name] = useState("");
+  const [fed_item_id, setfed_item_id] = useState("");
+  const [fed_rating, setfed_rating] = useState("");
+  const [fed_feedback, setfed_feedback] = useState("");
+
+  // State variables for feedback list
+  const [feedbacks, setfeedbacks] = useState([]); // Original feedbacks
+  const [filteredfeedbacks, setFilteredfeedbacks] = useState([]); // Filtered feedbacks
 
   const navigate = useNavigate();
 
   const Submit = (e) => {
     e.preventDefault();
+
     axios
       .post("http://localhost:8020/addFeedback", {
-        fed_full_name,
+        fed_full_name: username,
+        fed_email: u_email, // Ensure consistency with the schema
         fed_item_name,
         fed_item_id,
         fed_rating,
@@ -30,11 +39,11 @@ function Home_feedback() {
       })
       .then((result) => {
         console.log(result);
-        alert("added");
+        alert("Feedback added successfully!");
+        window.location.reload();
         setTimeout(() => {
           navigate("/home_feedback");
-        }, 2000); // Show success notification
-        // navigate('/'); // Navigate to the homepage after adding the user
+        }, 1000); // Redirect after submission
       })
       .catch((err) => {
         console.log(err);
@@ -46,7 +55,7 @@ function Home_feedback() {
       .get("http://localhost:8020/get_feedback")
       .then((result) => {
         setfeedbacks(result.data); // Store original data
-        setFilteredfeedbacks(result.data); // Initialize filteredItems with the same data
+        setFilteredfeedbacks(result.data); // Initialize filtered feedback
       })
       .catch((err) => console.log(err));
   }, []);
@@ -56,7 +65,7 @@ function Home_feedback() {
       .delete("http://localhost:8020/delete_feedback/" + id)
       .then((res) => {
         console.log(res);
-        window.location.reload(); // optional one for reload page
+        window.location.reload(); // Reload page after deletion
       })
       .catch((err) => console.log(err));
   };
@@ -71,11 +80,11 @@ function Home_feedback() {
               <form action="" id="feedback_form" onSubmit={Submit}>
                 <label htmlFor="">
                   <h3>- Name -</h3>
-                  <input
-                    type="text"
-                    id="input"
-                    onChange={(e) => setfed_full_name(e.target.value)}
-                  />
+                  <input type="text" id="input" value={username} readOnly />
+                </label>
+                <label htmlFor="">
+                  <h3>- Email -</h3>
+                  <input type="text" id="input" value={u_email} readOnly />
                 </label>
                 <label htmlFor="">
                   <h3>- Item Name -</h3>
@@ -169,10 +178,11 @@ function Home_feedback() {
             <div id="column_70">
               {filteredfeedbacks.map((feedback, index) => (
                 <div id="feedback_display" key={index}>
-                  <h2>
+                  <h3>
                     {" "}
-                    {feedback.fed_full_name} : Thank you for your feedback!
-                  </h2>
+                    {feedback.fed_full_name} ! Thank you for your feedback!
+                  </h3>
+                  <h4>{u_email}</h4>
                   <p>Item Name : {feedback.fed_item_name}</p>
                   <p>Item ID : {feedback.fed_item_id}</p>
                   <p>Your feedback</p>
@@ -186,7 +196,9 @@ function Home_feedback() {
                       readOnly
                     ></textarea>
                   </div>
-                  <p id="feedback_message">Rating - 5 out of {feedback.fed_rating}</p>
+                  <p id="feedback_message">
+                    Rating - 5 out of {feedback.fed_rating}
+                  </p>
                   <Link to={`/feedback_update/${feedback._id}`}>
                     <button className="edit_btn">
                       <i className="fa fa-pencil-square">&ensp;</i>
@@ -205,7 +217,7 @@ function Home_feedback() {
                 </div>
               ))}
               <div id="feedback_display">
-                <h2>Thank you for your feedback!</h2>
+                <h3>Thank you for your feedback!</h3>
                 <p>Your feedback</p>
                 <div id="user_rating">
                   <textarea
@@ -223,6 +235,15 @@ function Home_feedback() {
           </td>
         </tr>
       </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
       <Footer />
     </>
   );

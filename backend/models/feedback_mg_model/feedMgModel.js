@@ -6,6 +6,10 @@ const feedbackSchema = new Schema({
     type: String,
     required: true,
   },
+  fed_email: {
+    type: String,
+    required: true,
+  },
   fed_item_name: {
     type: String,
     required: true,

@@ -91,7 +91,7 @@ function Home_oder() {
   return (
     <>
       <Navbar />
-      <form onSubmit={Submit} id="full_form">
+      <form id="full_form" onSubmit={Submit}>
         <div id="details_container">
           <h3>Details Form</h3>
           <input
