@@ -40,6 +40,8 @@ import UpdateSurvey from "./components/SurManager/updateServay";
 import HomeSurvey from "./components/User_Home_Sec/Home_Survay/Home_survay";
 import HomeSurveyView from "./components/User_Home_Sec/Home_Survay/Home_survay_view";
 
+import FeddbackAdmin from "./components/Feddback/fed_mg_dashboard";
+
 //Customer
 import CustomerLogin from "./components/Account/customer/customerLogin";
 import CustomerSignUp from "./components/Account/customer/customerReg";
@@ -101,6 +103,7 @@ function App() {
 
           <Route path="/home_survey" element={<HomeSurvey />} />
           <Route path="/home_survey/view_survey" element={<HomeSurveyView />} />
+          <Route path="/ " element={<FeddbackAdmin />} />
         </Routes>
       </Router>
     </div>

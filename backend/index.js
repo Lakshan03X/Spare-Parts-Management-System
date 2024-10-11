@@ -449,6 +449,12 @@ app.get("/get_feedback", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+app.get("/get_feedbackToAdmin", (req, res) => {
+  FeedbackModel.find({})
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
 app.get("/get_feedbacks/:id", (req, res) => {
   const id = req.params.id;
   FeedbackModel.findById({ _id: id })
