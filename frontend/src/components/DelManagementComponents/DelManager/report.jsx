@@ -134,7 +134,7 @@ function Report() {
                         }
                     </tbody>
    
-</table>
+                </table>
 
 
                 <img className="dash-img" src="./src/assets/dash-img.svg" alt="" srcset="" />
