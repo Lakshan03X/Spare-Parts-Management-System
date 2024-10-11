@@ -46,7 +46,6 @@ import FeddbackAdmin from "./components/Feddback/fed_mg_dashboard";
 import CustomerLogin from "./components/Account/customer/customerLogin";
 import CustomerSignUp from "./components/Account/customer/customerReg";
 
-
 //Combined Login
 import ManagersLogin from "./components/Account/managersLogin";
 
@@ -106,9 +105,9 @@ function App() {
           <Route path="/customerReg" element={<CustomerSignUp />} />
 
           <Route path="/home_survey" element={<HomeSurvey />} />
-          <Route path="/home_survey/view_survey" element={<HomeSurveyView />} />
+          <Route path="/home_survey/view_survey/:id" element={<HomeSurveyView />} />
 
-          <Route path="/mLogin" element={<ManagersLogin />}/>
+          <Route path="/mLogin" element={<ManagersLogin />} />
         </Routes>
       </Router>
     </div>

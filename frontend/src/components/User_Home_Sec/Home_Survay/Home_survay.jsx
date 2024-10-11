@@ -28,7 +28,7 @@ function Home_survay() {
             <div class="card" key={suvey.id}>
               <h2>{suvey.title}</h2>
               <h4>You can respond this survay</h4>
-              <Link to="/home_survey/view_survey" className="link">
+              <Link to={`/home_survey/view_survey/${suvey._id}`} className="link">
                 <button class="card-btn">Respond</button>
               </Link>
             </div>

@@ -558,9 +558,15 @@ app.get("/getToHomeSurveys", (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-app.get("/getToHomeSurveysToView", (req, res) => {
-  SurveyModel.find()
-    .then((surveys) => res.json(surveys))
+app.get("/getToHomeSurveysToView/:id", (req, res) => {
+  const { id } = req.params; // Get the ID from the request parameters
+  SurveyModel.findById(id) // Use findById to get the specific survey
+    .then((survey) => {
+      if (!survey) {
+        return res.status(404).json("Survey not found");
+      }
+      res.json(survey);
+    })
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
