@@ -6,7 +6,6 @@ import axios from "axios";
 
 function Home_survay_view() {
   const user = JSON.parse(localStorage.getItem("user"));
-  // Access the username
   const username = user ? user.username : null;
   const u_email = user ? user.email : null;
 
@@ -26,43 +25,53 @@ function Home_survay_view() {
   return (
     <>
       <Homenav />
-      <div>
-        {filteredSurveys.map((suvey) => (
-          <div id="survey-container">
-            <h1 id="form-title">{suvey.title}</h1>
-            <form id="survey-form">
-              <label for="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={username}
-                readOnly
-              />
+      <div className="survey-container">
+        {filteredSurveys.map((survey) => (
+          <div key={survey.id} className="survey-block">
+            {survey.questions.map((questionObj, index) => (
+              <div key={questionObj._id}>
+                <div className="survey-user-info">
+                  <h2>{survey.title}</h2>
+                  <br />
+                  <input
+                    type="text"
+                    value={"Name : " + username}
+                    id="abcinput"
+                    name="name"
+                    readOnly
+                  />
+                  <br />
+                  <input
+                    type="text"
+                    value={"Email : " + u_email}
+                    id="abcinput"
+                    readOnly
+                  />
+                  <br />
+                </div>
+                <label
+                  htmlFor={`question-${index}`}
+                  className="survey-question"
+                >
+                  {"Question : " + questionObj.question}?
+                </label>
 
-              <label for="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={u_email}
-                readOnly
-              />
-              <div key={suvey.id}>
-                <label for="age">{suvey.questions} ? </label>
-                <input
-                  type="text"
-                  id="ans"
-                  name="ans"
-                  placeholder="Enter your Ansewer"
-                  required
-                />
+                {questionObj.options &&
+                  questionObj.options.map((option, optionIndex) => (
+                    <div key={optionIndex} className="option-container">
+                      <input
+                        type={
+                          questionObj.answerType === "text" ? "text" : "radio"
+                        }
+                        id={`option-${optionIndex}`}
+                        name={`question-${index}`}
+                        value={option}
+                      />
+                      <label htmlFor={`option-${optionIndex}`}>{option}</label>
+                    </div>
+                  ))}
               </div>
-
-              <button type="submit" id="submit-btn">
-                Submit
-              </button>
-            </form>
+            ))}
           </div>
         ))}
       </div>
