@@ -33,9 +33,19 @@ function Home_survay_view() {
                 <div className="survey-user-info">
                   <h2>{survey.title}</h2>
                   <br />
-                  <input type="text" value={"Name : " + username} id="abcinput" />
+                  <input
+                    type="text"
+                    value={"Name : " + username}
+                    id="abcinput"
+                    readOnly
+                  />
                   <br />
-                  <input type="text" value={"Email : " + u_email} id="abcinput" />
+                  <input
+                    type="text"
+                    value={"Email : " + u_email}
+                    id="abcinput"
+                    readOnly
+                  />
                   <br />
                 </div>
                 <label
