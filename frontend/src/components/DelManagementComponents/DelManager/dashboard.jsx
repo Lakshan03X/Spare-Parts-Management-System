@@ -9,10 +9,9 @@ import {useNavigate} from 'react-router-dom'
 function Dashboard() {
 
     // Get user data from local storage
-    const delManager = JSON.parse(localStorage.getItem('user'));
-    
+    const user = JSON.parse(localStorage.getItem('user'));
     // Access the username
-    const username = delManager ? delManager.username : null;
+    const username = user ? user.username : null;
 
     return (
         <div>
