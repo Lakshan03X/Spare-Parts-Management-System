@@ -1,64 +1,68 @@
-#survey-container {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+/* Container for the entire survey view */
+.survey-container {
+  max-width: 800px;
+  margin: 0 auto; /* Center the content */
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
-#form-title {
-  text-align: center;
-  font-size: 2em;
-  color: #333;
+/* Style each survey block */
+.survey-block {
   margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-#survey-form {
+/* Style the username and email */
+.survey-user-info {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+/* Style for question labels */
+.survey-question {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Option container to align input and labels */
+.option-container {
   display: flex;
-  flex-direction: column;
-}
-
-label {
-  font-size: 1.1em;
+  align-items: center;
   margin-bottom: 5px;
-  color: #555;
 }
 
-input[type="text"],
-input[type="email"] {
-  padding: 10px;
-  font-size: 1em;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+/* Input fields */
+.option-container input[type="radio"],
+.option-container input[type="text"] {
+  margin-right: 10px;
   width: 100%;
-  box-sizing: border-box;
+  padding: 5px;
+  border: 1px solid #ccc;
 }
 
-input[type="text"]:read-only,
-input[type="email"]:read-only {
-  background-color: #e9e9e9;
+#abcinput {
+  margin-right: 10px;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 500;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus {
-  outline: none;
-  border-color: #007bff;
+/* General label for options */
+.option-container label {
+  font-size: 16px;
 }
 
-#submit-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1.1em;
-  transition: background-color 0.3s ease;
-}
-
-#submit-btn:hover {
-  background-color: #0056b3;
+.survey-footer {
+  margin-top: 20px;
 }
