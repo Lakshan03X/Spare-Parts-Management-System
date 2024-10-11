@@ -44,6 +44,10 @@ import HomeSurveyView from "./components/User_Home_Sec/Home_Survay/Home_survay_v
 import CustomerLogin from "./components/Account/customer/customerLogin";
 import CustomerSignUp from "./components/Account/customer/customerReg";
 
+
+//Combined Login
+import ManagersLogin from "./components/Account/managersLogin";
+
 function App() {
   return (
     <div className="main">
@@ -101,6 +105,8 @@ function App() {
 
           <Route path="/home_survey" element={<HomeSurvey />} />
           <Route path="/home_survey/view_survey" element={<HomeSurveyView />} />
+
+          <Route path="/mLogin" element={<ManagersLogin />}/>
         </Routes>
       </Router>
     </div>
