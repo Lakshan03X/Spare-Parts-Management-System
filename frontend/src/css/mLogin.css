@@ -1,0 +1,40 @@
+.select-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 50px;
+    width: 90vw;
+}
+
+.account-types {
+    margin: 30px;
+    width: 200px;
+    border: 2px solid black;
+    background-color: rgb(187, 207, 207);
+    opacity: 1;
+transition: opacity 1s ease 0s;
+}
+
+.type-container {
+    display: flex;
+}
+
+.account-types:hover {
+    background-color: rgb(213, 223, 223);
+    opacity: 0.6;
+}
+
+.account-types-link {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    
+    
+}
+
+.account-type-img{
+    width: 100px;
+}
