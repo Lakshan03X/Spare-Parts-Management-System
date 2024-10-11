@@ -49,7 +49,7 @@ function App() {
     <div className="main">
       <Router>
         <Routes>
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/delManagerReg" element={<DelManagerSignUp />} />
           <Route path="/delManagerLogin" element={<DelManagerLogin />} />
           <Route path="/delPersonReg" element={<DelPersonSignUp />} />
@@ -96,12 +96,11 @@ function App() {
           <Route path="/survey/edit/:id" element={<UpdateSurvey />} />
 
           {/* Customer */}
-          <Route path="/customerLogin" element={<CustomerLogin/>} />
-          <Route path="/customerReg" element={<CustomerSignUp/>} />
+          <Route path="/customerLogin" element={<CustomerLogin />} />
+          <Route path="/customerReg" element={<CustomerSignUp />} />
 
           <Route path="/home_survey" element={<HomeSurvey />} />
           <Route path="/home_survey/view_survey" element={<HomeSurveyView />} />
-
         </Routes>
       </Router>
     </div>

@@ -12,11 +12,11 @@
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 350px;
   padding: 20px;
   text-align: center;
+  margin-right: 20px;
 }
 
 .card h2 {

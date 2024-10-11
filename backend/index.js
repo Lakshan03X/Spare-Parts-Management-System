@@ -546,6 +546,18 @@ app.get("/getSurveys", (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+app.get("/getToHomeSurveys", (req, res) => {
+  SurveyModel.find()
+    .then((surveys) => res.json(surveys))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+app.get("/getToHomeSurveysToView", (req, res) => {
+  SurveyModel.find()
+    .then((surveys) => res.json(surveys))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 app.get("/getSurveys/:id", (req, res) => {
   const { id } = req.params; // Get the ID from the request parameters
   SurveyModel.findById(id) // Use findById to get the specific survey
