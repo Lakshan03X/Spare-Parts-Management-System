@@ -1,0 +1,16 @@
+#main_table_fed{
+    display: flex;
+}
+
+#hh{
+    background-color: transparent;
+}
+
+#input_wrapperFed{
+    margin-top: 10px;
+    margin-left: 900px;
+}
+
+#main_table_fed{
+    width: auto;
+}

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Navbar from "./feedback_nav/feedback_nav";
+import "./fed_mg_dash.css";
 
 function fed_mg_dashboard() {
   const [feedbacks, setfeedbacks] = useState([]); // Original feedbacks
@@ -30,8 +32,9 @@ function fed_mg_dashboard() {
 
   return (
     <>
-      <div>
-        <header id="hh">
+    <Navbar/>
+    <h2 style={{textAlign:"center"}}>Feedback & Rating Management</h2>
+    <header id="hh">
           <div id="input_wrapperFed">
             <input
               type="search"
@@ -45,8 +48,8 @@ function fed_mg_dashboard() {
             </button>
           </div>
         </header>
-
-        <table>
+      <div id="main_table_fed">
+        <table id="tbl">
           <tr>
             <th>Name</th>
             <th>email</th>
