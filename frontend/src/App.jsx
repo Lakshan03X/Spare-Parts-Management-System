@@ -106,8 +106,9 @@ function App() {
 
           <Route path="/home_survey" element={<HomeSurvey />} />
           <Route path="/home_survey/view_survey/:id" element={<HomeSurveyView />} />
-
+          
           <Route path="/mLogin" element={<ManagersLogin />} />
+          <Route path="/fed_mg_dashboard" element={<FeddbackAdmin />}/>
         </Routes>
       </Router>
     </div>

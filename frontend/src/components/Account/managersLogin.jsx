@@ -43,11 +43,11 @@ function ManagersLogin() {
           </div>
 
           <div className="account-types">
-            <Link className="account-types-link" to="/supplierInv">
+            <Link className="account-types-link" to="/user_rept">
               <img
                 className="account-type-img"
                 src="./src/assets/images/account.png"
-                style={{ width: '150px' , height: "100px"}}
+                style={{ width: "150px", height: "100px" }}
                 alt=""
               />
               <span>User Manager</span>
@@ -55,7 +55,7 @@ function ManagersLogin() {
           </div>
 
           <div className="account-types">
-            <Link className="account-types-link" to="/supplierInv">
+            <Link className="account-types-link" to="/oder_dash">
               <img
                 className="account-type-img"
                 src="./src/assets/images/order.png"
@@ -66,7 +66,7 @@ function ManagersLogin() {
           </div>
 
           <div className="account-types">
-            <Link className="account-types-link" to="/supplierInv">
+            <Link className="account-types-link" to="/fed_mg_dashboard">
               <img
                 className="account-type-img"
                 src="./src/assets/images/feedback.png"
