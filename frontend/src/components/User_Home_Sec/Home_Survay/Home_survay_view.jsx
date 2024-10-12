@@ -3,6 +3,7 @@ import Homenav from "../Home_navbar";
 import Footer from "../Home_nav_footers/home_footer";
 import "./survey_view.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function HomeSurveyView() {
@@ -31,7 +32,7 @@ function HomeSurveyView() {
         {survey ? (
           <div className="survey-block">
             <div className="survey-user-info">
-              <h2>{survey.title}</h2>
+              <h2>{"Survey - " +survey.title}</h2>
               <br />
               <input
                 type="text"
@@ -63,6 +64,7 @@ function HomeSurveyView() {
                       <input
                         type="radio"
                         id={`option-${optionIndex}`}
+                        className="abcinput"
                         name={`question-${index}`}
                         value={option}
                       />
@@ -73,12 +75,17 @@ function HomeSurveyView() {
                 {questionObj.answerType === "text" && (
                   <input
                     type="text"
+                    className="abcinput"
+                    placeholder="Your answer here"
                     id={`question-${index}`}
                     name={`question-${index}`}
                   />
                 )}
               </div>
             ))}
+            <Link to="/home_survey" className="link">
+            <button id="submitbtn">submit</button>
+            </Link>
           </div>
         ) : (
           <p>No surveys available to display.</p>

@@ -17,8 +17,11 @@ transition: opacity 1s ease 0s;
 }
 
 .type-container {
-    display: flex;
-}
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 20px; /* Space between grid items */
+    width: 100%; /* Ensure the grid takes the full width of the parent */
+  }
 
 .account-types:hover {
     background-color: rgb(213, 223, 223);
