@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 import axios from "axios";
 import Navbar from "./feedback_nav/feedback_nav";
 import "./fed_mg_dash.css";
 
 function fed_mg_dashboard() {
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const [feedbacks, setfeedbacks] = useState([]); // Original feedbacks
   const [searchKey, setSearchKey] = useState(""); // Search key
   const [filteredfeedbacks, setFilteredfeedbacks] = useState([]); // Filtered feedbacks
+  const componentPDF = useRef();
 
   useEffect(() => {
     axios
@@ -24,32 +27,53 @@ function fed_mg_dashboard() {
       setFilteredfeedbacks(feedback);
     } else {
       const filteredData = feedbacks.filter((feedback) =>
-        feedback.fed_full_name.toLowerCase().includes(searchKey.toLowerCase())
+        feedback.fed_item_name.toLowerCase().includes(searchKey.toLowerCase())
       );
       setFilteredfeedbacks(filteredData);
     }
   };
 
+  const generatePDF = useReactToPrint({
+    content: () => componentPDF.current,
+    documentTitle: "Feedback Report",
+    onBeforeGetContent: () => {
+      setIsGeneratingPDF(true);
+      return Promise.resolve();
+    },
+    onAfterPrint: () => {
+      setIsGeneratingPDF(false);
+    },
+  });
+
   return (
     <>
-    <Navbar/>
-    <h2 style={{textAlign:"center"}}>Feedback & Rating Management</h2>
-    <header id="hh">
-          <div id="input_wrapperFed">
-            <input
-              type="search"
-              value={searchKey}
-              onChange={(e) => setSearchKey(e.target.value)} // Update search key
-              placeholder="Search here . . ."
-              id="search_bar1"
-            />
-            <button id="search_bar_btn1" onClick={handleSearch}>
-              Search &ensp; <i className="fa fa-search"></i>
-            </button>
-          </div>
-        </header>
+      <Navbar />
+      <h2 style={{ textAlign: "center" }}>Feedback & Rating Management</h2>
+      <header id="hh">
+        <div id="input_wrapperFed">
+          <input
+            type="search"
+            value={searchKey}
+            onChange={(e) => setSearchKey(e.target.value)} // Update search key
+            placeholder="Search here . . ."
+            id="search_bar1"
+          />
+          <button id="search_bar_btn1" onClick={handleSearch}>
+            Search &ensp; <i className="fa fa-search"></i>
+          </button>
+        </div>
+        <button
+          onClick={generatePDF}
+          disabled={isGeneratingPDF} // Disable button while generating PDF
+          className="pdf_btn"
+          id="pdf_btn"
+        >
+          {isGeneratingPDF ? "Generating PDF..." : "Generate Report"}
+          &ensp;<i className="fa fa-download"></i>
+        </button>
+      </header>
       <div id="main_table_fed">
-        <table id="tbl">
+        <table id="tbl" ref={componentPDF}>
           <tr>
             <th>Name</th>
             <th>email</th>

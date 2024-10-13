@@ -8,9 +8,18 @@
 
 #input_wrapperFed{
     margin-top: 10px;
-    margin-left: 900px;
+    margin-left: 800px;
 }
 
 #main_table_fed{
     width: auto;
+}
+
+#pdf_btn{
+    margin-left: 970px;
+}
+
+#tbl{
+    margin-left: 10px;
+    width: 1500px;
 }
