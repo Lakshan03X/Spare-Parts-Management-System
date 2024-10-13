@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-// import "../../../css/delManagerReg.css";
 
 function SupplierManagerLogin() {
   const [email, setEmail] = useState();
   const [password, setPass] = useState();
+  const [name, setName] = useState(); // State for storing the name
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -25,7 +25,7 @@ function SupplierManagerLogin() {
   
         // Check if login was successful based on the message
         if (result.data.message === "Success") {
-          // Navigate to the supplier inventory page
+          localStorage.setItem("user", JSON.stringify(userData)); // Store user data in local storage
           navigate("/supplierInv");
         } else {
           alert(result.data.error || "Invalid! Please check again."); // Show appropriate error
@@ -40,7 +40,6 @@ function SupplierManagerLogin() {
 
   return (
     <>
-      {/* this is left side */}
       <div className="main_container">
         <div className="left_side">
           <h1>
@@ -69,7 +68,7 @@ function SupplierManagerLogin() {
             />
             <button type="submit">LOGIN</button>
             <br />
-            <Link to="/SupRegister">Don't have an account : Register here</Link>
+            <Link to="/SupRegister">Don't have an account: Register here</Link>
           </form>
         </div>
       </div>
