@@ -18,7 +18,7 @@ const SurveyModel = require("./models/sur_mg_model/SurveyModel");
 const FeedbackModel = require("./models/feedback_mg_model/feedMgModel");
 const CustomerModel = require("./models/customer_model/customerModel");
 const delModel = require("./models/delivery_model/delivery_model");
-
+const SupManagerModel = require("./models/sup_mg_model/mg_Log_Model");
 app.use(express.json());
 app.use(cors());
 
@@ -26,6 +26,52 @@ app.use(cors());
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
 };
+//supplier login.................................
+app.post("/SupRegister", (req, res) => {
+  SupManagerModel.create(req.body)
+    .then((supManager) => {
+      const token = createToken(supManager._id);
+      res.json({ supManager, token });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(400).json({
+        error: "Failed to create the Supplier manager",
+        details: err.message,
+      });
+    });
+});
+
+app.post("/supLogin", (req, res) => {
+  const { email, password } = req.body;
+  SupManagerModel.findOne({ email: email })
+    .then((user) => {
+      if (user) {
+        if (user.password === password) {
+          const token = createToken(user._id);
+
+          // Send user data in the response
+          res.json({
+            message: "Success",
+            user: {
+              id: user._id,
+              username: user.name, // Include the username here
+              email: user.email,
+              token: token, // Optionally include a token if you use it for authentication
+            },
+          });
+        } else {
+          res.status(401).json({ error: "Incorrect Password" }); // Use status codes for errors
+        }
+      } else {
+        res.status(404).json({ error: "No record available" }); // Use status codes for errors
+      }
+    })
+    .catch((err) => {
+      console.error(err); // Log the error
+      res.status(500).json({ error: "Internal server error" }); // Handle unexpected errors
+    });
+});
 
 //DeliveryManager crud section ...................................................................
 app.post("/register", (req, res) => {
