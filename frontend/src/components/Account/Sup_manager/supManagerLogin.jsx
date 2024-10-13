@@ -10,16 +10,22 @@ function SupplierManagerLogin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
+    // Ensure that email and password are provided
+    if (!email || !password) {
+      alert("Email and password are required.");
+      return;
+    }
+  
     axios
       .post("http://localhost:8020/supLogin", { email, password })
       .then((result) => {
         const userData = result.data.user; // Access the user data from the response
         console.log(userData); // Log user data for debugging
-
+  
         // Check if login was successful based on the message
         if (result.data.message === "Success") {
-          localStorage.setItem("user", JSON.stringify(userData)); // Store user data in local storage
+          // Navigate to the supplier inventory page
           navigate("/supplierInv");
         } else {
           alert(result.data.error || "Invalid! Please check again."); // Show appropriate error
@@ -30,6 +36,7 @@ function SupplierManagerLogin() {
         alert("An error occurred during login. Please try again.");
       });
   };
+  
 
   return (
     <>
