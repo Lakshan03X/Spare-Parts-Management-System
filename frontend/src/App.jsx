@@ -51,7 +51,7 @@ import ManagersLogin from "./components/Account/managersLogin";
 
 import SupManagerLogin from "./components/Account/Sup_manager/supManagerLogin";
 import SupManagerSignUp from "./components/Account/Sup_manager/delManagerReg";
-
+import AddCard from "./components/User_Home_Sec/Home_Oders/home_oder_card";
 function App() {
   return (
     <div className="main">
@@ -112,7 +112,7 @@ function App() {
 
           <Route path="/home_survey" element={<HomeSurvey />} />
           <Route path="/home_survey/view_survey/:id" element={<HomeSurveyView />} />
-          
+          <Route path="/add_card_page" element={<AddCard />} />
           <Route path="/mLogin" element={<ManagersLogin />} />
           <Route path="/fed_mg_dashboard" element={<FeddbackAdmin />} />
           <Route path="/fed_mg_dashboard" element={<FeddbackAdmin />}/>

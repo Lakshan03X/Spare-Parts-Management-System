@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../Home_navbar";
 import Footer from "../Home_nav_footers/home_footer";
@@ -61,6 +61,7 @@ function Home_oder() {
     const full_name = username;
     const email = u_email;
     const address = u_address;
+    const item_name = item_name;
     const delivery_fee = deliveryFee;
 
     // Only include card details if payment method is "card"
@@ -75,14 +76,6 @@ function Home_oder() {
       total_price,
       payment_methord,
     };
-
-    if (payment_methord === "card") {
-      orderData.card_holder_name = formData.cardName;
-      orderData.card_holder_no = formData.cardNumber;
-      orderData.card_date = formData.expireDate;
-      orderData.card_cvv = formData.cvv;
-    }
-
     axios
       .post("http://localhost:8020/add_order", orderData)
       .then((result) => {
@@ -95,37 +88,14 @@ function Home_oder() {
       .catch((err) => console.log(err));
   };
 
-  // Handle card details submission separately
-  const saveCardDetails = (e) => {
-    e.preventDefault();
-
-    const cardData = {
-      card_holder_name: formData.cardName,
-      card_holder_no: formData.cardNumber,
-      card_date: formData.expireDate,
-      card_cvv: formData.cvv,
-    };
-
+  const handleDelete = (id) => {
     axios
-      .post("http://localhost:8020/add_order_card", cardData)
-      .then((result) => {
-        alert("Card details saved successfully!");
-        console.log(result);
-        setFilteredItems((prevItems) => [...prevItems, cardData]);
+      .delete("http://localhost:8020/delete_order_card/" + id)
+      .then((res) => {
+        console.log(res);
+        window.location.reload(); // optional one for reload page
       })
       .catch((err) => console.log(err));
-  };
-
-  const handlePaymentMethodChange = (e) => {
-    setPaymentMethod(e.target.value);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
   };
 
   return (
@@ -190,72 +160,21 @@ function Home_oder() {
             <h3>Payment Form</h3>
             <div id="payment-method">
               <label htmlFor="paymentMethod">Payment Method : </label>
-              <select
-                value={payment_methord}
-                onChange={handlePaymentMethodChange}
-                id="paymentMethod"
-                name="paymentMethod"
-                required
-              >
-                <option value="cash">Cash</option>
-                <option value="card">Card</option>
-              </select>
+              <input
+                type="text"
+                value="Cash"
+                readOnly
+                style={{ border: "none", padding: "5px" }}
+              />
             </div>
-
-            {payment_methord === "card" && (
-              <div id="cardDetails">
-                <label htmlFor="cardName">Cardholder Name:</label>
-                <input
-                  type="text"
-                  id="input_view"
-                  name="cardName"
-                  value={formData.cardName || ""}
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="cardNumber">Card No:</label>
-                <input
-                  type="text"
-                  id="input_view"
-                  name="cardNumber"
-                  value={formData.cardNumber || ""}
-                  pattern="\d{16}"
-                  title="Card number must be 16 digits long"
-                  maxLength="16"
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="expireDate">Expiration Date:</label>
-                <input
-                  type="month"
-                  id="input_view"
-                  name="expireDate"
-                  value={formData.expireDate || ""}
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="cvv">CVV:</label>
-                <input
-                  type="text"
-                  id="input_view"
-                  name="cvv"
-                  value={formData.cvv || ""}
-                  pattern="\d{3}"
-                  title="CVV must be 3 digits long"
-                  maxLength="3"
-                  onChange={handleChange}
-                  required
-                />
-                <button type="button" onClick={saveCardDetails}>
-                  Save Card Details
-                </button>
-              </div>
-            )}
-
-            <button type="submit" id="submit_btn">
-              Place Order
-            </button>
+            <br />
+            <Link to="/add_card_page">
+              <button id="add_card">Add Card</button>
+            </Link>
           </div>
+          <button type="submit" id="submit_btn">
+            Place Order
+          </button>
         </form>
 
         <div id="save-card-details">
@@ -288,6 +207,17 @@ function Home_oder() {
                 value={cardDetail.card_cvv}
                 readOnly
               />
+              <br />
+              <input type="radio" name="select" id="select" /> Select
+              <br />
+              <button
+                className="delete_btn"
+                id="delete_card"
+                onClick={() => handleDelete(cardDetail._id)}
+              >
+                <i className="fa fa-trash">&ensp;</i>
+                Delete
+              </button>
             </div>
           ))}
         </div>

@@ -42,7 +42,6 @@ app.post("/SupRegister", (req, res) => {
     });
 });
 
-
 app.post("/supLogin", (req, res) => {
   const { email, password } = req.body;
 
@@ -71,7 +70,6 @@ app.post("/supLogin", (req, res) => {
       res.status(500).json({ error: "Internal server error" }); // Handle unexpected errors
     });
 });
-
 
 //DeliveryManager crud section ...................................................................
 app.post("/register", (req, res) => {
@@ -375,6 +373,13 @@ app.post("/add_order_card", (req, res) => {
   OderCardDataModel.create(req.body)
     .then((item) => res.json(item))
     .catch((err) => res.status(400).json("Error: " + err));
+});
+
+app.delete("/delete_order_card/:id", (req, res) => {
+  const id = req.params.id;
+  OderCardDataModel.findOneAndDelete({ _id: id })
+    .then((items) => res.json(items))
+    .catch((err) => res.json(err));
 });
 
 app.get("/view_item", (req, res) => {
