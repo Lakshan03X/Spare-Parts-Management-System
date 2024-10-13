@@ -37,7 +37,7 @@ const oderSchema = new Schema({
   payment_methord: {
     type: String,
     required: true,
-  }
+  },
 });
 
 const OderDataModel = mongoose.model("Order Table", oderSchema);

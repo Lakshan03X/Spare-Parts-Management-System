@@ -19,6 +19,7 @@ const FeedbackModel = require("./models/feedback_mg_model/feedMgModel");
 const CustomerModel = require("./models/customer_model/customerModel");
 const delModel = require("./models/delivery_model/delivery_model");
 const SupManagerModel = require("./models/sup_mg_model/mg_Log_Model");
+const OderCardDataModel = require("./models/order_mg_model/card_detail_model");
 app.use(express.json());
 app.use(cors());
 
@@ -352,7 +353,7 @@ app.get("/home_inventory_view", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-app.get("/home_add_cart/:id", (req, res) => {
+app.get("/home_add_cart", (req, res) => {
   ItemDataModel.find({})
     .then((items) => res.json(items))
     .catch((err) => res.json(err));
@@ -362,6 +363,18 @@ app.get("/get_order_dash", (req, res) => {
   OderDataModel.find({})
     .then((items) => res.json(items))
     .catch((err) => res.json(err));
+});
+
+app.get("/get_order_card", (req, res) => {
+  OderCardDataModel.find({})
+    .then((items) => res.json(items))
+    .catch((err) => res.json(err));
+});
+
+app.post("/add_order_card", (req, res) => {
+  OderCardDataModel.create(req.body)
+    .then((item) => res.json(item))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 app.get("/view_item", (req, res) => {
