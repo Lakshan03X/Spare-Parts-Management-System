@@ -26,8 +26,7 @@ import "../../../css/delManagerLog.css";
           }
       
           try {
-              // Attempt to sign up the user
-              await signUp(email, password);
+              
       
               // Send the supplier manager data to the server
               const result = await axios.post('http://localhost:8020/SupRegister', { name, email, phone, password });
@@ -80,8 +79,8 @@ import "../../../css/delManagerLog.css";
                     name="delManagerPass"
                     onChange={(e) => setPass(e.target.value)}
                       />
-                    <button type="submit" disabled={isLoading} >Register</button>
-                    {error && <div>{error}</div>}
+                    <button type="submit"  >Register</button>
+                  
                 </form>
                 <Link to="/delManagerLogin">Login</Link>
             </div>
