@@ -6,6 +6,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 
 function SupRept() {
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const [items, setItems] = useState([]); // Original items
   const [searchKey, setSearchKey] = useState(""); // Search key
   const [filteredItems, setFilteredItems] = useState([]); // Filtered items
@@ -32,16 +33,23 @@ function SupRept() {
   };
 
   const generatePDF = useReactToPrint({
-    content: () => {
-      if (!componentPDF.current) {
-        console.error("componentPDF is not defined!"); // Log if the ref is not defined
-        return null;
-      }
-      return componentPDF.current; // Return the ref for printing
+    content: () => componentPDF.current,
+    documentTitle: "Total Item Report",
+    onBeforeGetContent: () => {
+      // Hide elements with 'no-print' class before generating the PDF
+      const elementsToHide = document.querySelectorAll(".no-print");
+      elementsToHide.forEach((el) => el.classList.add("hide"));
+
+      setIsGeneratingPDF(true);
+      return Promise.resolve();
     },
-    documentTitle: "Supplier Report",
-    onAfterPrint: () => alert("PDF generated successfully"),
-    onPrintError: (err) => console.error("PDF generation error:", err), // Added error logging
+    onAfterPrint: () => {
+      // Re-show elements with 'no-print' class after printing
+      const elementsToHide = document.querySelectorAll(".no-print");
+      elementsToHide.forEach((el) => el.classList.remove("hide"));
+
+      setIsGeneratingPDF(false);
+    },
   });
 
   // Search function
@@ -87,9 +95,15 @@ function SupRept() {
             </button>
           </div>
         </header>
-        <button onClick={generatePDF} className="pdf_btn">
-        Download Report &ensp; <i className="fa fa-download"></i>
-      </button>
+        <button
+          onClick={generatePDF}
+          disabled={isGeneratingPDF} // Disable button while generating PDF
+          className="pdf_btn"
+        >
+          {isGeneratingPDF ? "Generating PDF..." : "Generate Report"}
+          &ensp;<i className="fa fa-download"></i>
+        </button>
+
         <table className="report_table" ref={componentPDF}>
           <thead className="report_table_head">
             <tr className="report_table_tr">
@@ -101,7 +115,7 @@ function SupRept() {
               <th>Supplier ID</th>
               <th>Supplier Company</th>
               <th>Item Description</th>
-              <th>Actions</th>
+              <th className="no-print">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -115,7 +129,7 @@ function SupRept() {
                 <td>{item.supplier_id}</td>
                 <td>{item.supplier_company}</td>
                 <td>{item.item_description}</td>
-                <td>
+                <td className="no-print">
                   <Link to={`/item_update/${item._id}`}>
                     <button className="edit_btn">
                       <i className="fa fa-pencil-square">&ensp;</i>

@@ -3,7 +3,7 @@
   /* width: 100%; */
 }
 
-#head_rept{
+#head_rept {
   margin-left: 290px;
   background-color: transparent;
   color: black;
@@ -105,12 +105,12 @@ td {
   border-radius: 5px;
 }
 
-#h22{
+#h22 {
   position: absolute;
   margin-left: 200px;
   color: black;
 }
-#add_btn1{
+#add_btn1 {
   position: absolute;
   margin-left: 10px;
   padding: 8px;
@@ -131,4 +131,9 @@ td {
 
 #search_bar_btn1:hover {
   background-color: #0056b3; /* Darker shade on hover */
+}
+
+.hide {
+  display: none !important;
+  background-color: white;
 }

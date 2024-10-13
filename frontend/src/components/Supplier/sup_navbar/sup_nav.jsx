@@ -48,7 +48,7 @@ const Sidebar = () => {
           alt="User"
         />
         {username && <p>{username}</p>} {/* Display the username here */}
-        <button>Logout</button>
+        <button >Logout</button>
       </div>
     </div>
   );
