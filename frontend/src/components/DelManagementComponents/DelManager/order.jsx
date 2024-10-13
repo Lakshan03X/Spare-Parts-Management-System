@@ -15,7 +15,7 @@ function Orders() {
     const [dels, setDels] = useState([]); 
     const [searchKey, setSearchKey] = useState();
     const [filteredItems, setFilteredItems] = useState([]);
-    // const componentPDF = useRef();
+    
 
     const navigate = useNavigate();
 
@@ -28,6 +28,17 @@ function Orders() {
             })
             .catch(err => console.log(err));
     }, []);
+
+    const handleSearch = () => {
+        if (searchKey.trim() === "") {
+            setFilteredItems(dels);
+        } else {
+            const filteredData = dels.filter(dels => 
+                dels.email && dels.email.toLowerCase().includes(searchKey.toLowerCase())
+            );
+            setFilteredItems(filteredData);
+        }
+    };
 
     
 const handleDelivery = (order) => {
@@ -51,7 +62,7 @@ const handleDelivery = (order) => {
             <div className="order-area">
                 <h3 className="heading1">Incoming Orders</h3>
 
-                {/* <div className="search-bar">
+                <div className="search-bar">
                     <input type="text"
                      name="searchID" 
                      id="searchID" 
@@ -61,24 +72,22 @@ const handleDelivery = (order) => {
                      placeholder='Enter Email'
                      />
                      <i class="fa-solid fa-magnifying-glass i-color-blue" onClick={handleSearch}></i>
-                </div> */}
+                </div>
 
-                {/* <button onClick={generatePDF} className="pdf_btn">
-                    Download Report &ensp; <i className="fa fa-download"></i>
-                </button> */}
+                
 
                 <div className="order-area-layout">
                 <table className="report-table">
                     <thead className='report-table-head'>
                         <tr>
                             <th>Customer Name</th>
+                            <th>Customer Email</th>
                             <th>Item Name</th>
                             <th>Item Quantity</th>
                             <th>Address</th>
                             <th>Delivery Fee</th>
                             <th>Total Price</th>
                             <th>Status</th>
-                            <th>Action</th>
                          </tr>
                     </thead>
 
@@ -87,6 +96,7 @@ const handleDelivery = (order) => {
                             filteredItems.map((dels) => {
                                 return <tr>
                                     <td>{dels.full_name}</td>
+                                    <td>{dels.email}</td>
                                     <td>{dels.item_name}</td>
                                     <td>{dels.item_quantity}</td>
                                     <td>{dels.address}</td>

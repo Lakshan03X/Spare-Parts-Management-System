@@ -269,7 +269,6 @@ button {
 }
 
 table {
-    background-image: url('./src/assets/protruding-squares-green.svg');
     color:var(--dash-text-color);
 }
 

@@ -6,6 +6,7 @@ import {useNavigate, Link, useLocation} from 'react-router-dom'
 function DelPerson() {
     const [del, setDel] = useState([]); 
     const [filteredItems, setFilteredItems ] = useState([]);
+    const [searchKey, setSearchKey] = useState();
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -59,6 +60,17 @@ function DelPerson() {
 
     }
 
+    const handleSearch = () => {
+        if (searchKey.trim() === "") {
+            setFilteredItems(del);
+        } else {
+            const filteredData = del.filter(del => 
+                del.email && del.email.toLowerCase().includes(searchKey.toLowerCase())
+            );
+            setFilteredItems(filteredData);
+        }
+    };
+
     return (
         <div>
             <div className="dash-header">
@@ -72,6 +84,18 @@ function DelPerson() {
             
             <div className="order-area">
                 <h3 className="heading1">Assign Delivery</h3>
+
+                <div className="search-bar">
+                    <input type="text"
+                     name="searchID" 
+                     id="searchID" 
+                     value={searchKey}
+                     onChange={(e) => setSearchKey(e.target.value)} 
+                     className='search-input'
+                     placeholder='Enter Email'
+                     />
+                     <i class="fa-solid fa-magnifying-glass i-color-blue" onClick={handleSearch}></i>
+                </div>
 
                 <div className="order-area-layout">
                     <table className="report-table">
@@ -110,7 +134,6 @@ function DelPerson() {
                         </tbody>
                     </table>
 
-                    <img className="dash-img" src="./src/assets/dash-img.svg" alt="Dashboard" />
                 </div>
             </div>
         </div>
