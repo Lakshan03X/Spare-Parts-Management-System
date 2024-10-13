@@ -1,16 +1,8 @@
-
-
-
-
-
-
-
-
 import { useState } from "react";
 import { useNavigate , Link} from "react-router-dom";
 import axios from "axios";
-import "../../css/delManagerLog.css";
-import { useSignUp } from "../../hook/useSignUp";
+// import "../../css/delManagerLog.css";
+import { useSignUp } from "../../../hooks/useSupSignUp";
 
 
     function SupManagerSignUp() {
@@ -38,7 +30,7 @@ import { useSignUp } from "../../hook/useSignUp";
               await signUp(email, password);
   
               
-              const result = await axios.post('http://localhost:8020/register', { name, email, phone, password });
+              const result = await axios.post('http://localhost:8020/SupRegister', { name, email, phone, password });
               console.log(result);
               navigate('/supManagerLogin');
           } catch (err) {

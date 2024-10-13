@@ -49,12 +49,18 @@ import CustomerSignUp from "./components/Account/customer/customerReg";
 //Combined Login
 import ManagersLogin from "./components/Account/managersLogin";
 
+import SupManagerLogin from "./components/Account/Sup_manager/supManagerLogin";
+import SupManagerSignUp from "./components/Account/Sup_manager/delManagerReg";
+
 function App() {
   return (
     <div className="main">
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
+
+          <Route path="/supManagerReg" element={<SupManagerSignUp />} />
+          <Route path="/supManagerLogin" element={<SupManagerLogin />} />
           <Route path="/delManagerReg" element={<DelManagerSignUp />} />
           <Route path="/delManagerLogin" element={<DelManagerLogin />} />
           <Route path="/delPersonReg" element={<DelPersonSignUp />} />

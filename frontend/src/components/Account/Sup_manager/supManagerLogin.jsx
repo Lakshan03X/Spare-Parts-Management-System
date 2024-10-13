@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import "../../css/delManagerReg.css";
+// import "../../../css/delManagerReg.css";
 
 function SupplierManagerLogin() {
   const [email, setEmail] = useState();
@@ -12,26 +12,24 @@ function SupplierManagerLogin() {
     e.preventDefault();
 
     axios
-      .post("http://localhost:8020/login", { email, password })
+      .post("http://localhost:8020/supLogin", { email, password })
       .then((result) => {
-          const userData = result.data.user; // Access the user data from the response
-          console.log(userData); // Log user data for debugging
+        const userData = result.data.user; // Access the user data from the response
+        console.log(userData); // Log user data for debugging
 
-          // Check if login was successful based on the message
-          if (result.data.message === "Success") {
-              localStorage.setItem('user', JSON.stringify(userData)); // Store user data in local storage
-              navigate("/deliveryManager");
-          } else {
-              alert(result.data.error || "Invalid! Please check again."); // Show appropriate error
-          }
+        // Check if login was successful based on the message
+        if (result.data.message === "Success") {
+          localStorage.setItem("user", JSON.stringify(userData)); // Store user data in local storage
+          navigate("/supplierInv");
+        } else {
+          alert(result.data.error || "Invalid! Please check again."); // Show appropriate error
+        }
       })
       .catch((err) => {
-          console.log(err);
-          alert("An error occurred during login. Please try again.");
+        console.log(err);
+        alert("An error occurred during login. Please try again.");
       });
-};
-
-
+  };
 
   return (
     <>
@@ -64,9 +62,7 @@ function SupplierManagerLogin() {
             />
             <button type="submit">LOGIN</button>
             <br />
-            <Link to="/delManagerReg">
-              Don't have an account : Register here
-            </Link>
+            <Link to="/SupRegister">Don't have an account : Register here</Link>
           </form>
         </div>
       </div>
