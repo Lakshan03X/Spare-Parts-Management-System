@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "../sup_navbar/sup_nav.css";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+
+  const userData = JSON.parse(localStorage.getItem('user'));
+    const navigate = useNavigate()
+    const logOut = () => {
+        localStorage.clear()
+        navigate('/delManagerLogin') //aDD Navigation
+    }
+
   const [username, setUsername] = useState(""); // State for storing username
 
   useEffect(() => {
@@ -48,7 +56,7 @@ const Sidebar = () => {
           alt="User"
         />
         {username && <p>{username}</p>} {/* Display the username here */}
-        <button >Logout</button>
+        <button onClick={logOut}>Logout</button>
       </div>
     </div>
   );
