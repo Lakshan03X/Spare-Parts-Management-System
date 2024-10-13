@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import "../../../css/delManagerLog.css";
 
 function SupplierManagerLogin() {
   const [email, setEmail] = useState();

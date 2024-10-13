@@ -8,7 +8,7 @@ const Sidebar = () => {
     const navigate = useNavigate()
     const logOut = () => {
         localStorage.clear()
-        navigate('/delManagerLogin') //aDD Navigation
+        navigate('/mLogin') //aDD Navigation
     }
 
   const [username, setUsername] = useState(""); // State for storing username
@@ -55,8 +55,7 @@ const Sidebar = () => {
           className="user_img"
           alt="User"
         />
-        {username && <p>{username}</p>} {/* Display the username here */}
-        <button onClick={logOut}>Logout</button>
+        <button onClick={logOut}>{username && <p>{username}</p>} {/* Display the username here */} Logout</button>
       </div>
     </div>
   );
