@@ -12,7 +12,7 @@ import "../../../css/delManagerLog.css";
         const [phone, setPhone] = useState()
         const [password, setPass] = useState()
 
-        const {signUp, error, isLoading} = useSignUp()
+
 
         const navigate = useNavigate()
 
