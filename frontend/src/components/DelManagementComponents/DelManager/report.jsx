@@ -6,7 +6,8 @@
 import axios from 'axios'
 import  { useEffect, useState, useRef } from 'react'
 import {useNavigate, Link} from 'react-router-dom'
-import { useReactToPrint } from "react-to-print";
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
 
 function Report() {
 
@@ -56,18 +57,28 @@ function Report() {
             .catch(err => console.log(err));
     };
 
-    const generatePDF = useReactToPrint({
-        content: () => {
-          if (!componentPDF.current) {
-            console.error("componentPDF is not defined!"); // Log if the ref is not defined
-            return null;
-          }
-          return componentPDF.current; // Return the ref for printing
-        },
-        documentTitle: "Supplier Report",
-        onAfterPrint: () => alert("PDF generated successfully"),
-        onPrintError: (err) => console.error("PDF generation error:", err), // Added error logging
-      });
+    const generatePDF = () => {
+        const doc = new jsPDF();
+
+        // Table headers
+        const headers = [["Delivery Person Name", "Delivery Person Email", "Issue Description", "Status"]];
+
+        // Map data to table rows
+        const data = filteredItems.map(item => [
+            item.userName,
+            item.userEmail,
+            item.issue,
+            item.status
+        ]);
+
+        // Generate the table in the PDF
+        doc.autoTable({
+            head: headers,
+            body: data,
+        });
+
+        doc.save('report.pdf'); // Save the PDF
+    };
 
     return (
         <div>
