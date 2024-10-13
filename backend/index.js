@@ -44,20 +44,18 @@ app.post("/SupRegister", (req, res) => {
 
 app.post("/supLogin", (req, res) => {
   const { email, password } = req.body;
+
   SupManagerModel.findOne({ email: email })
     .then((user) => {
       if (user) {
         if (user.password === password) {
-          const token = createToken(user._id);
-
-          // Send user data in the response
+          // Send user data in the response without a token
           res.json({
             message: "Success",
             user: {
               id: user._id,
               username: user.name, // Include the username here
               email: user.email,
-              token: token, // Optionally include a token if you use it for authentication
             },
           });
         } else {
@@ -72,6 +70,7 @@ app.post("/supLogin", (req, res) => {
       res.status(500).json({ error: "Internal server error" }); // Handle unexpected errors
     });
 });
+
 
 //DeliveryManager crud section ...................................................................
 app.post("/register", (req, res) => {
