@@ -32,7 +32,7 @@ function ManagersLogin() {
           </div>
 
           <div className="account-types">
-            <Link className="account-types-link" to="/supplierInv">
+            <Link className="account-types-link" to="/supManagerReg">
               <img
                 className="account-type-img"
                 src="./src/assets/images/inv.png"
