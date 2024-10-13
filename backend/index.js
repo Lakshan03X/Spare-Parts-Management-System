@@ -30,8 +30,7 @@ const createToken = (_id) => {
 app.post("/SupRegister", (req, res) => {
   SupManagerModel.create(req.body)
     .then((supManager) => {
-      const token = createToken(supManager._id);
-      res.json({ supManager, token });
+      res.json({ supManager });
     })
     .catch((err) => {
       console.error(err);
@@ -41,6 +40,7 @@ app.post("/SupRegister", (req, res) => {
       });
     });
 });
+
 
 app.post("/supLogin", (req, res) => {
   const { email, password } = req.body;

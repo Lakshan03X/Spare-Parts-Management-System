@@ -1,8 +1,12 @@
+
+
+
+
 import { useState } from "react";
 import { useNavigate , Link} from "react-router-dom";
 import axios from "axios";
-// import "../../css/delManagerLog.css";
-import { useSignUp } from "../../../hooks/useSupSignUp";
+import "../../../css/delManagerLog.css";
+
 
 
     function SupManagerSignUp() {
@@ -18,26 +22,32 @@ import { useSignUp } from "../../../hooks/useSupSignUp";
 
         const handleSubmit = async (e) => {
           e.preventDefault();
-  
-          
+      
+          // Check if all fields are filled
           if (!name || !email || !phone || !password) {
               alert("All fields are required.");
               return;
           }
-  
+      
           try {
-              
+              // Attempt to sign up the user
               await signUp(email, password);
-  
-              
+      
+              // Send the supplier manager data to the server
               const result = await axios.post('http://localhost:8020/SupRegister', { name, email, phone, password });
+      
+              // Log the result (optional)
               console.log(result);
+      
+              // Navigate to the login page for supplier managers
               navigate('/supManagerLogin');
           } catch (err) {
+              // Log the error to the console
               console.log(err);
-              
+              alert("Failed to register. Please try again."); // Optionally inform the user about the error
           }
       };
+      
 
     return (
         <>
