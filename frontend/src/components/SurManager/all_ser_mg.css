@@ -66,3 +66,11 @@
 #addbtn {
   margin: 0;
 }
+
+#deletebtn{
+  width: 20%;
+}
+
+#editbtn{
+  width: 20%;
+}

@@ -68,7 +68,7 @@ const SurveyComponent = () => {
             <button className="survey-item-button">View</button>
           </Link>
           <Link to={`/survey_update/${survey._id}`}>
-            <button className="edit_btn">
+            <button className="edit_btn" id="editbtn">
               <i className="fa fa-pencil-square">&ensp;</i>
               Edit
             </button>
@@ -76,6 +76,7 @@ const SurveyComponent = () => {
           {/* <button className="survey-item-button">Delete</button> */}
           <button
             className="delete_btn"
+            id="deletebtn"
             onClick={() => handleDelete(survey._id)}
           >
             <i className="fa fa-trash">&ensp;</i>
