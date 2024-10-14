@@ -232,7 +232,6 @@ function Home_feedback() {
                       Edit
                     </button>
                   </Link>
-
                   <br />
                   <button
                     className="delete_btn"

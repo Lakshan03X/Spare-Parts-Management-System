@@ -87,3 +87,13 @@ h3 {
 #edit_card {
   width: 50%;
 }
+
+#cardDetails{
+  padding: 100px;
+  width: 800px;
+  margin: auto;
+}
+
+#savebtn{
+  margin: 0;
+}

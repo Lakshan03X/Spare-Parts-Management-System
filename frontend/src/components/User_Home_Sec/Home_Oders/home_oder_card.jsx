@@ -35,6 +35,7 @@ function home_oder_card() {
     <>
       <form onSubmit={saveCardDetails}>
         <div id="cardDetails">
+          <h1>Add Card Details</h1>
           <label htmlFor="cardName">Cardholder Name:</label>
           <input
             type="text"
@@ -77,7 +78,7 @@ function home_oder_card() {
             onChange={(e) => setCardCvv(e.target.value)}
             required
           />
-          <button type="submit">Save Card Details</button>{" "}
+          <button type="submit" className="add_btn" id="savebtn">Save Card Details</button>{" "}
           {/* Corrected button type */}
         </div>
       </form>

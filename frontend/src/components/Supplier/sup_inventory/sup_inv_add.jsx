@@ -26,7 +26,11 @@ function SupInvAdd() {
     if (!item_model) formErrors.item_model = "Item model is required";
     if (!item_price || isNaN(item_price) || item_price <= 0)
       formErrors.item_price = "Valid item price is required";
-    if (!item_weight) formErrors.item_weight = "Item weight is required";
+    if (!item_weight) {
+      formErrors.item_weight = "Item weight is required";
+    } else if (item_weight <= 0) {
+      formErrors.item_weight = "Item weight must be a positive number";
+    }
     if (!supplier_id) formErrors.supplier_id = "Supplier ID is required";
     if (!supplier_company)
       formErrors.supplier_company = "Supplier company is required";

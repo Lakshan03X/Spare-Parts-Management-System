@@ -50,6 +50,7 @@ function HomeOrderCardUpdate() {
         {" "}
         {/* Fixed form submission */}
         <div id="cardDetails">
+          <h1>Update Card Details</h1>
           <label htmlFor="cardName">Cardholder Name:</label>
           <input
             type="text"
@@ -92,7 +93,7 @@ function HomeOrderCardUpdate() {
             onChange={(e) => setcard_cvv(e.target.value)}
             required
           />
-          <button type="submit">Save Card Details</button>{" "}
+          <button type="submit" className="add_btn" id="savebtn">Save Card Details</button>{" "}
           {/* Fixed button type */}
         </div>
       </form>

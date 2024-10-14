@@ -486,7 +486,7 @@ app.post("/add_order", (req, res) => {
 //   }
 // });
 
-//usermanager section..................................................................
+//usermanager section...............................................................................
 app.get("/user_dash", (req, res) => {
   UserModel.find({})
     .then((users) => res.json(users))
@@ -529,6 +529,13 @@ app.delete("/deleteUser/:id", (req, res) => {
   UserModel.findOneAndDelete({ _id: id })
     .then((users) => res.json(users))
     .catch((err) => res.json(err));
+});
+
+app.post("/createUser", (req, res) => {
+  console.log(req.body); // Log the request body
+  UserModel.create(req.body)
+    .then((users) => res.json(users))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 //Feedback Section.......................................................................
@@ -581,13 +588,6 @@ app.put("/feedback_update/:id", (req, res) => {
 });
 
 //..end of feedback ......................................................................................
-
-app.post("/createUser", (req, res) => {
-  console.log(req.body); // Log the request body
-  UserModel.create(req.body)
-    .then((users) => res.json(users))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
 
 /*--------Survey Manager*/
 app.post("/surlogin", (req, res) => {

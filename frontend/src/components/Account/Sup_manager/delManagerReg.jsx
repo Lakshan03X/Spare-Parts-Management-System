@@ -85,8 +85,9 @@ function SupManagerSignUp() {
               onChange={(e) => setPass(e.target.value)}
             />
             <button type="submit">Register</button>
+            <Link to="/supManagerLogin" style={{textDecoration:"none"}}>Already have an account ? : Login here</Link>
           </form>
-          <Link to="/delManagerLogin">Login</Link>
+          
         </div>
       </div>
     </>

@@ -16,6 +16,7 @@ function sup_inv_update() {
   const [supplier_company, setsupplierCompany] = useState("");
   const [item_description, setitem_description] = useState("");
 
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   //getting id and setting new datas
@@ -36,30 +37,59 @@ function sup_inv_update() {
       .catch((err) => console.log(err));
   }, [id]);
 
+  const validate = () => {
+    let formErrors = {};
+
+    if (!item_name) formErrors.item_name = "Item name is required";
+    if (!item_quantity || isNaN(item_quantity) || item_quantity <= 0)
+      formErrors.item_quantity = "Valid item quantity is required";
+    if (!item_model) formErrors.item_model = "Item model is required";
+    if (!item_price || isNaN(item_price) || item_price <= 0)
+      formErrors.item_price = "Valid item price is required";
+    if (!item_weight) {
+      formErrors.item_weight = "Item weight is required";
+    } else if (item_weight <= 0) {
+      formErrors.item_weight = "Item weight must be a positive number";
+    }
+    if (!supplier_id) formErrors.supplier_id = "Supplier ID is required";
+    if (!supplier_company)
+      formErrors.supplier_company = "Supplier company is required";
+    if (!item_description)
+      formErrors.item_description = "Item description is required";
+
+    return formErrors;
+  };
+
   // updating new data to data base
   const Update = (e) => {
     e.preventDefault();
-    axios
-      .put("http://localhost:8020/item_update/" + id, {
-        item_name,
-        item_quantity,
-        item_model,
-        item_price,
-        item_weight,
-        supplier_id,
-        supplier_company,
-        item_description,
-      })
-      .then((result) => {
-        console.log(result);
-        setTimeout(() => {
-          alert("updated");
-          navigate("/supplierInv"); // Navigate to the homepage after adding the user
-        }, 500); // Show success notification
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const formErrors = validate();
+    if (Object.keys(formErrors).length === 0) {
+      axios
+        .put("http://localhost:8020/item_update/" + id, {
+          item_name,
+          item_quantity,
+          item_model,
+          item_price,
+          item_weight,
+          supplier_id,
+          supplier_company,
+          item_description,
+        })
+        .then((result) => {
+          console.log(result);
+          setTimeout(() => {
+            alert("updated");
+            navigate("/supplierInv"); // Navigate to the homepage after adding the user
+          }, 500); // Show success notification
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      // Set errors to display validation messages
+      setErrors(formErrors);
+    }
   };
 
   return (
@@ -81,6 +111,7 @@ function sup_inv_update() {
               value={item_name}
               onChange={(e) => setitemName(e.target.value)}
             />
+            {errors.item_name && <p className="error">{errors.item_name}</p>}
 
             <label htmlFor="itemQty" className="item_add_form_lable">
               Item Quantity
@@ -91,6 +122,9 @@ function sup_inv_update() {
               value={item_quantity}
               onChange={(e) => setitemQty(e.target.value)}
             />
+            {errors.item_quantity && (
+              <p className="error">{errors.item_quantity}</p>
+            )}
 
             <label htmlFor="itemModel" className="item_add_form_lable">
               Item Model
@@ -101,6 +135,7 @@ function sup_inv_update() {
               value={item_model}
               onChange={(e) => setitemModel(e.target.value)}
             />
+            {errors.item_model && <p className="error">{errors.item_model}</p>}
 
             <label htmlFor="itemPrice" className="item_add_form_lable">
               Item Price
@@ -111,6 +146,7 @@ function sup_inv_update() {
               value={item_price}
               onChange={(e) => setitemPrice(e.target.value)}
             />
+            {errors.item_price && <p className="error">{errors.item_price}</p>}
           </div>
           <div class="right-column">
             <label htmlFor="itemWeight" className="item_add_form_lable">
@@ -122,6 +158,9 @@ function sup_inv_update() {
               value={item_weight}
               onChange={(e) => setitemWeight(e.target.value)}
             />
+            {errors.item_weight && (
+              <p className="error">{errors.item_weight}</p>
+            )}
 
             <label htmlFor="supplierID" className="item_add_form_lable">
               Supplier ID
@@ -132,6 +171,9 @@ function sup_inv_update() {
               value={supplier_id}
               onChange={(e) => setsupplierId(e.target.value)}
             />
+            {errors.supplier_id && (
+              <p className="error">{errors.supplier_id}</p>
+            )}
 
             <label htmlFor="suplierCompany" className="item_add_form_lable">
               Supplier Company
