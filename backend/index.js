@@ -676,6 +676,32 @@ app.get("/getqnstoHome/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+//submit survey
+app.post('/submitSurvey/:id', async (req, res) => {
+  const surveyId = req.params.id;
+  const { cus_email, Q1ans, Q2ans, Q3ans, Q4ans, Q5ans } = req.body;
+
+  try {
+    const surveyAnswer = new SurveyansModel({
+      sur_id: surveyId,
+      cus_email,
+      Q1ans,
+      Q2ans,
+      Q3ans,
+      Q4ans,
+      Q5ans,
+    });
+
+    await surveyAnswer.save();
+
+    res.status(201).json({ message: 'Survey submitted successfully' });
+  } catch (error) {
+    console.error('Error submitting survey:', error);
+    res.status(500).json({ message: 'Server Error', error: error.message });
+  }
+});
+
+
 app.get("/view_quations/:id", (req, res) => {
   const id = req.params.id;
   QuationModel.findById({ _id: id })

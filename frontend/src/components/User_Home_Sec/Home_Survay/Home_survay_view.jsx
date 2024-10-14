@@ -23,13 +23,18 @@ function HomeSurveyView() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8020/getqnstoHome/` + id)
-      .then((result) => {
-        console.log("Survey data:", result.data);
-        setSurvey(result.data);
-      })
-      .catch((err) => console.error("API Error:", err));
+    // Make an Axios request to retrieve survey data
+    const fetchSurveyData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8020/getqnstoHome/${id}`);
+        console.log("Survey data:", response.data);
+        setSurvey(response.data); // Set the survey data
+      } catch (error) {
+        console.error("API Error:", error);
+      }
+    };
+
+    fetchSurveyData(); // Call the function to fetch data
   }, [id]);
 
   const handleChange = (e) => {
@@ -39,15 +44,28 @@ function HomeSurveyView() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission, e.g., send answers to the backend
-    console.log("User Answers:", answers);
-    // You can use axios.post to submit the answers
-    // axios.post('http://localhost:8020/api/submitSurvey', { surveyId: id, answers })
-    //   .then(response => { /* Handle success */ })
-    //   .catch(error => { /* Handle error */ });
+    // Prepare data to be submitted
+    const submissionData = {
+      cus_email: u_email,
+      Q1ans: answers.Q1,
+      Q2ans: answers.Q2,
+      Q3ans: answers.Q3,
+      Q4ans: answers.Q4,
+      Q5ans: answers.Q5,
+    };
+  
+    try {
+      const response = await axios.post(`http://localhost:8020/submitSurvey/${id}`, submissionData);
+      console.log("Submission successful:", response.data);
+      navigate('/'); // Example: navigate to a success page
+    } catch (error) {
+      console.error("Submission Error:", error);
+    }
   };
+  
+  
 
   return (
     <>
