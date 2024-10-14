@@ -30,6 +30,16 @@ const SurveyComponent = () => {
     }
   };
 
+  const handleDelete = (id) => {
+    axios
+      .delete("http://localhost:8020/delete_serveyss/" + id)
+      .then((res) => {
+        console.log(res);
+        window.location.reload(); // optional one for reload page
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <>
       <Navbar />
@@ -58,7 +68,14 @@ const SurveyComponent = () => {
             <button className="survey-item-button">View</button>
           </Link>
           <button className="survey-item-button">Edit</button>
-          <button className="survey-item-button">Delete</button>
+          {/* <button className="survey-item-button">Delete</button> */}
+          <button
+            className="delete_btn"
+            onClick={() => handleDelete(survey._id)}
+          >
+            <i className="fa fa-trash">&ensp;</i>
+            Delete
+          </button>
         </div>
       ))}
     </>
