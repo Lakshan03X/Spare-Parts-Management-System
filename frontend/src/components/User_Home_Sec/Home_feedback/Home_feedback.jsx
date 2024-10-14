@@ -92,6 +92,7 @@ function Home_feedback() {
                     type="text"
                     id="input"
                     onChange={(e) => setfed_item_name(e.target.value)}
+                    required
                   />
                 </label>
                 <label htmlFor="">
@@ -100,6 +101,7 @@ function Home_feedback() {
                     type="text"
                     id="input"
                     onChange={(e) => setfed_item_id(e.target.value)}
+                    required
                   />
                 </label>
 
@@ -111,6 +113,7 @@ function Home_feedback() {
                     name="rating"
                     value="5"
                     onChange={(e) => setfed_rating(e.target.value)}
+                    required
                   />
                   <label for="star5" title="5 stars">
                     ★
@@ -166,6 +169,7 @@ function Home_feedback() {
                     type="text"
                     id="input"
                     onChange={(e) => setfed_feedback(e.target.value)}
+                    required
                   />
                 </label>
                 <button id="submit_button" type="submit">

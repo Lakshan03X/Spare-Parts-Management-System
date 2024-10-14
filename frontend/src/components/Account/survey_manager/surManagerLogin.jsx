@@ -20,7 +20,7 @@ function SurManagerLogin() {
         // Check if login was successful based on the message
         if (result.data.message === "Success") {
           localStorage.setItem("user", JSON.stringify(userData)); // Store user data in local storage
-          navigate("/surManager");
+          navigate("/surManagerDash");
         } else {
           alert(result.data.error || "Invalid! Please check again."); // Show appropriate error
         }
