@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import Navbar from "./navbar";
 
 const SurveyComponent = () => {
-  const [survey, setSurvey] = useState();
-
+  const [surveys, setSurvey] = useState([]);
+  const [searchKey, setSearchKey] = useState(""); // Search key
   const [filteredItems, setFilteredItems] = useState([]); // Filtered items
 
   useEffect(() => {
@@ -18,10 +18,34 @@ const SurveyComponent = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleSearch = () => {
+    if (searchKey.trim() === "") {
+      // If the search key is empty, reset to original items
+      setFilteredItems(surveys);
+    } else {
+      const filteredData = surveys.filter((survey) =>
+        survey.title.toLowerCase().includes(searchKey.toLowerCase())
+      );
+      setFilteredItems(filteredData); // Use the filtered data
+    }
+  };
+
   return (
     <>
       <Navbar />
       <h1>Survey Manager</h1>
+      <div id="input_wrapperFed">
+        <input
+          type="search"
+          value={searchKey}
+          onChange={(e) => setSearchKey(e.target.value)} // Update search key
+          placeholder="Search here . . ."
+          id="search_bar1"
+        />
+        <button id="search_bar_btn1" onClick={handleSearch}>
+          Search &ensp; <i className="fa fa-search"></i>
+        </button>
+      </div>
       <Link to="/addSurvey">
         <button className="add_btn" id="addbtn">
           Add Survey
