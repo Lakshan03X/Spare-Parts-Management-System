@@ -212,6 +212,15 @@ app.post("/addDelivery", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+
+app.get("/getDel/:id", (req, res) => {
+  const id = req.params.id;
+  delModel
+    .findById(id)  // Pass the id directly
+    .then((del) => res.json(del))
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
 //Read Deliveries
 app.get("/readDeliveries", (req, res) => {
   delModel
@@ -225,21 +234,31 @@ app.put("/updateDelivery/:deliveryId", (req, res) => {
   const id = req.params.deliveryId;
 
   delModel
-    .findByIdAndUpdate(
-      id,
-      {
-        delivery_status: req.body.delivery_status,
-      },
-      { new: true }
-    )
-    .then((updatedReport) => {
-      if (!updatedReport) {
-        return res.status(404).json({ message: "Delivery not found" });
-      }
-      res.json(updatedReport);
-    })
-    .catch((err) => res.status(500).json({ error: err.message }));
+      .findByIdAndUpdate(
+          id,
+          {
+              cus_name: req.body.cus_name,
+              cus_email: req.body.cus_email,
+              cus_address: req.body.cus_address,
+              cus_phone: req.body.cus_phone,
+              delP_name: req.body.delP_name,
+              delP_email: req.body.delP_email,
+              item_name: req.body.item_name,
+              item_quantity: req.body.item_quantity,
+              total_price: req.body.total_price,
+              delivery_status: req.body.delivery_status,
+          },
+          { new: true }
+      )
+      .then((updatedDelivery) => {
+          if (!updatedDelivery) {
+              return res.status(404).json({ message: "Delivery not found" });
+          }
+          res.json(updatedDelivery);
+      })
+      .catch((err) => res.status(500).json({ error: err.message }));
 });
+
 
 //Delete Asigned Deliveries
 app.delete("/delDelete/:id", (req, res) => {

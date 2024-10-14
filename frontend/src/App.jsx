@@ -7,6 +7,7 @@ import DelPersonSignUp from "./components/Account/delPersonReg";
 import DelPersonLogin from "./components/Account/delPersonLogin";
 import DeliveryPersonDashboard from "./components/DelManagementComponents/DeLPerson/deliveryPersonDashboard";
 import DelReportUpdate from "./components/DelManagementComponents/DeLPerson/report_util/delReportUpdate";
+import DelUpdate from "./components/DelManagementComponents/DelManager/order_util/delUpdate";
 
 //importing supplier components
 import SupplierInventory from "./components/Supplier/sup_inventory/sup_inv";
@@ -53,6 +54,7 @@ import SupManagerLogin from "./components/Account/Sup_manager/supManagerLogin";
 import SupManagerSignUp from "./components/Account/Sup_manager/delManagerReg";
 import AddCard from "./components/User_Home_Sec/Home_Oders/home_oder_card";
 import UpdateCard from "./components/User_Home_Sec/Home_Oders/home_oder_card_update";
+
 function App() {
   return (
     <div className="main">
@@ -74,6 +76,8 @@ function App() {
             element={<DeliveryPersonDashboard />}
           />
           <Route path="/delReportUpdate/:id" element={<DelReportUpdate />} />
+          <Route path="/updateDelivery/:id" element={<DelUpdate/>}/>
+
           {/* this is supplier router paths */}
           <Route path="/supplierInv" element={<SupplierInventory />} />
           <Route path="/view_item/:id" element={<ViewItems />} />
