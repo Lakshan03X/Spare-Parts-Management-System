@@ -54,6 +54,7 @@ function HomeOrderCardUpdate() {
             id="input_view"
             name="cardName"
             value={card_holder_name}
+            pattern="[a-zA-Z]"
             onChange={(e) => setcard_holder_name(e.target.value)}
             required
           />

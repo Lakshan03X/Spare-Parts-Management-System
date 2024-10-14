@@ -149,7 +149,7 @@ function Home_oder() {
               onChange={(e) => setQuantity(Number(e.target.value))}
               id="input_view"
               placeholder="Enter quantity"
-              min="1"
+              min="0"
               required
             />
             <input
@@ -188,6 +188,7 @@ function Home_oder() {
                 type="text"
                 placeholder="Card Holder Name"
                 value={cardDetail.card_holder_name}
+                pattern="[a-zA-Z]"
                 readOnly
               />
               <br />
