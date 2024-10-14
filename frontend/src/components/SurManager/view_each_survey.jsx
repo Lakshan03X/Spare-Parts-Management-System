@@ -13,10 +13,14 @@ function ViewEachSurvey() {
   const [ans, setans] = useState([]); // Original items
   const [filteredans, setFilteredans] = useState([]); // Filtered items
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  // Access the username
+  const username = user ? user.username : null;
+  const u_email = user ? user.email : null;
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8020/view_quations`)
+      .get(`http://localhost:8020/view_quations/${id}`)
       .then((response) => {
         setSurvey(response.data); // Store the survey data
         setLoading(false); // Set loading to false when data is fetched
@@ -25,7 +29,7 @@ function ViewEachSurvey() {
         console.error("Error fetching survey:", error);
         setLoading(false); // Stop loading even if there’s an error
       });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     axios
@@ -51,8 +55,8 @@ function ViewEachSurvey() {
     // Set title for the report
     doc.text("Survey Report", 10, 10);
     doc.text(`Survey Title: ${survey.title}`, 10, 20);
-    doc.text(`Name: `, 10, 30); // Assuming you'll fill this out later
-    doc.text(`E-Mail: `, 10, 40); // Assuming you'll fill this out later
+    doc.text(`Name: ${username}`, 10, 30); // Assuming you'll fill this out later
+    doc.text(`E-Mail: ${u_email}`, 10, 40); // Assuming you'll fill this out later
 
     // Add survey questions and answers
     doc.text(`Question 01: ${survey.Q1}`, 10, 50);
@@ -76,9 +80,6 @@ function ViewEachSurvey() {
     navigate(-1); // Navigate back to the previous page
   };
 
-  const filteredReports = survey.filter(survey => survey.userEmail === loggedUserName);
-
-
   return (
     <>
       <button className="btn" onClick={generateReport}>
@@ -87,27 +88,28 @@ function ViewEachSurvey() {
       <button className="btn" onClick={back}>
         go Back
       </button>
-        <div className="survey-container">
-          <h1 className="survey-title">Survey Title - {survey.title}</h1>
+      <div className="survey-container">
+        <h1 className="survey-title">Survey Title - {survey.title}</h1>
 
-          <p className="survey-question">Name - </p>
-          <p className="survey-question">E-Mail - </p>
+        <p className="survey-question">Name - {username}</p>
+        <p className="survey-question">E-Mail - {u_email} </p>
+        <br />
 
-          <p className="survey-question">Question 01 - {survey.Q1} ?</p>
-          <input type="text" className="survey-ans" readOnly />
+        <p className="survey-question">Question 01 - {survey.Q1} ?</p>
+        <input type="text" value="aa" className="survey-ans" readOnly />
 
-          <p className="survey-question">Question 02 - {survey.Q2} ?</p>
-          <input type="text" value="ans" className="survey-ans" readOnly />
+        <p className="survey-question">Question 02 - {survey.Q2} ?</p>
+        <input type="text" value="ans" className="survey-ans" readOnly />
 
-          <p className="survey-question">Question 03 - {survey.Q3} ?</p>
-          <input type="text" value="ans" className="survey-ans" readOnly />
+        <p className="survey-question">Question 03 - {survey.Q3} ?</p>
+        <input type="text" value="ans" className="survey-ans" readOnly />
 
-          <p className="survey-question">Question 04 - {survey.Q4} ?</p>
-          <input type="text" value="ans" className="survey-ans" readOnly />
+        <p className="survey-question">Question 04 - {survey.Q4} ?</p>
+        <input type="text" value="ans" className="survey-ans" readOnly />
 
-          <p className="survey-question">Question 05 - {survey.Q5} ?</p>
-          <input type="text" value="ans" className="survey-ans" readOnly />
-        </div>
+        <p className="survey-question">Question 05 - {survey.Q5} ?</p>
+        <input type="text" value="ans" className="survey-ans" readOnly />
+      </div>
     </>
   );
 }
