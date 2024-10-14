@@ -52,11 +52,11 @@ function Track() {
                     <a href=""><i className="fa-solid fa-user icon-size profile-bg"></i></a>
                 </div>
                 <div>
-                    <h1 className="heading1">Orders</h1>
+                    <h1 className="heading1">Deliveries</h1>
                 </div>
                 
                 <div className="order-area">
-                    <h3 className="heading1">Incoming Orders</h3>
+                    <h3 className="heading1">Mark Progress</h3>
 
                     <div className="order-area-layout">
                         <div className="table-container">

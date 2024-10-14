@@ -106,7 +106,7 @@ const handleDelivery = (order) => {
                                     <button 
                                             className='delIssuebtn'
                                             onClick={() => handleDelivery(dels)}
-                                            // disabled={dels.delivery_status === 'Handed Over'}
+                                            
                                         >
                                             Assign
                                         </button>

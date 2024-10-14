@@ -168,7 +168,7 @@ app.post("/delPersonLogin", (req, res) => {
     });
 });
 
-//Read Deliveries
+//Read Orders
 app.get("/readDel", (req, res) => {
   OderDataModel.find()
     .then((dels) => res.json(dels))
@@ -247,9 +247,9 @@ app.delete("/delDelete/:id", (req, res) => {
     .findByIdAndDelete(id)
     .then((deletedDel) => {
       if (!deletedDel) {
-        return res.status(404).json({ message: "Report not found" });
+        return res.status(404).json({ message: "Delivery not found" });
       }
-      res.json({ message: "Report deleted successfully" });
+      res.json({ message: "Delivery deleted successfully" });
     })
     .catch((err) => res.status(500).json({ error: err.message }));
 });

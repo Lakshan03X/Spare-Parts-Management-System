@@ -14,10 +14,12 @@ function Dashboard() {
     // Access the username
     const username = user ? user.username : null;
 
+    
+
     return (
         <div>
             <div className="dash-header">
-            <div>Hi , {username}</div>
+            <div>Hi  {username}</div>
                 <a href=""><i class="fa-regular fa-bell icon-size"></i></a>
                 <a href=""><i class="fa-solid fa-user icon-size profile-bg"></i> </a>
             </div>
