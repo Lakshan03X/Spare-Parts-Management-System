@@ -67,7 +67,12 @@ const SurveyComponent = () => {
           <Link to={`/view_quations/${survey._id}`}>
             <button className="survey-item-button">View</button>
           </Link>
-          <button className="survey-item-button">Edit</button>
+          <Link to={`/survey_update/${survey._id}`}>
+            <button className="edit_btn">
+              <i className="fa fa-pencil-square">&ensp;</i>
+              Edit
+            </button>
+          </Link>
           {/* <button className="survey-item-button">Delete</button> */}
           <button
             className="delete_btn"

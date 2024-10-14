@@ -715,10 +715,33 @@ app.get("/view_quations/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+app.get("/get_quations/:id", (req, res) => {
+  const id = req.params.id;
+  QuationModel.findById({ _id: id })
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
 app.delete("/delete_serveyss/:id", (req, res) => {
   const id = req.params.id;
   QuationModel.findOneAndDelete({ _id: id })
     .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
+app.put("/survey_update/:id", (req, res) => {
+  const id = req.params.id;
+  QuationModel.findByIdAndUpdate(
+    { _id: id },
+    {
+      title: req.body.title,
+      Q1: req.body.Q1,
+      Q2: req.body.Q2,
+      Q3: req.body.Q3,
+      Q5: req.body.Q5,
+    }
+  )
+    .then((items) => res.json(items))
     .catch((err) => res.json(err));
 });
 //...........................................................

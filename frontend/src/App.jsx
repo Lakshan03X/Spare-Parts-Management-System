@@ -36,7 +36,7 @@ import SurManagerLogin from "./components/Account/survey_manager/surManagerLogin
 import SurManagerSignUp from "./components/Account/survey_manager/surManagerReg";
 import AddSurvey from "./components/SurManager/addServey";
 import SurveyView from "./components/SurManager/view_each_survey";
-// import UpdateSurvey from "./components/SurManager/updateServay";
+import UpdateSurvey from "./components/SurManager/update_servey";
 import HomeSurvey from "./components/User_Home_Sec/Home_Survay/Home_survay";
 import HomeSurveyView from "./components/User_Home_Sec/Home_Survay/Home_survay_view";
 
@@ -101,7 +101,7 @@ function App() {
           <Route path="/surManagerReg" element={<SurManagerSignUp />} />
           <Route path="/addSurvey" element={<AddSurvey />} />
           <Route path="/view_quations/:id" element={<SurveyView />} />
-          {/* <Route path="/survey/edit/:id" element={<UpdateSurvey />} /> */}
+          <Route path="/survey_update/:id" element={<UpdateSurvey />} />
           {/* Customer */}
           <Route path="/customerLogin" element={<CustomerLogin />} />
           <Route path="/customerReg" element={<CustomerSignUp />} />
