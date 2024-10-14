@@ -21,6 +21,7 @@ const CustomerModel = require("./models/customer_model/customerModel");
 const delModel = require("./models/delivery_model/delivery_model");
 const SupManagerModel = require("./models/sup_mg_model/mg_Log_Model");
 const OderCardDataModel = require("./models/order_mg_model/card_detail_model");
+const AnswerModel = require("./models/sur_mg_model/answerModel");
 app.use(express.json());
 app.use(cors());
 
@@ -669,6 +670,12 @@ app.get("/getqnstoHome", (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+app.get("/getanswers/:id", (req, res) => {
+  AnswerModel.find()
+    .then((surveys) => res.json(surveys))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 app.get("/getqnstoHome/:id", (req, res) => {
   const id = req.params.id;
   QuationModel.findById({ _id: id })
@@ -677,7 +684,7 @@ app.get("/getqnstoHome/:id", (req, res) => {
 });
 
 //submit survey
-app.post('/submitSurvey/:id', async (req, res) => {
+app.post("/submitSurvey/:id", async (req, res) => {
   const surveyId = req.params.id;
   const { cus_email, Q1ans, Q2ans, Q3ans, Q4ans, Q5ans } = req.body;
 
@@ -694,15 +701,14 @@ app.post('/submitSurvey/:id', async (req, res) => {
 
     await surveyAnswer.save();
 
-    res.status(201).json({ message: 'Survey submitted successfully' });
+    res.status(201).json({ message: "Survey submitted successfully" });
   } catch (error) {
-    console.error('Error submitting survey:', error);
-    res.status(500).json({ message: 'Server Error', error: error.message });
+    console.error("Error submitting survey:", error);
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
 });
 
-
-app.get("/view_quations/:id", (req, res) => {
+app.get("/view_quations", (req, res) => {
   const id = req.params.id;
   QuationModel.findById({ _id: id })
     .then((users) => res.json(users))
