@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import jsPDF from 'jspdf';
 
 function Track() {
@@ -43,6 +43,16 @@ function Track() {
         doc.text(`Assigned Orders: ${assignedOrders}`, 10, 40);
 
         doc.save('delivery_report.pdf');
+    };
+
+    const handleDelete = (id) => {
+        axios
+          .delete("http://localhost:8020/delDelete/" + id)
+          .then((res) => {
+            console.log(res);
+            window.location.reload();
+          })
+          .catch((err) => console.log(err));
     };
 
     return (
@@ -101,6 +111,13 @@ function Track() {
                                         <td>{dels.cus_address}</td>
                                         <td>Rs. {dels.total_price}</td>
                                         <td>{dels.delivery_status}</td>
+                                        <td>
+                                    
+                                            <Link onClick={() => handleDelete(dels._id)}>
+                                                <i className="fa-solid fa-trash space i-color-red"></i>
+                                            </Link>
+                                        
+                                        </td>
                                     </tr>
                                 ))
                             }
