@@ -8,6 +8,7 @@ import DelPerson from "./delPersons";
 import Track from "./track";
 
 
+
 function DeliveryManagerDashboard() {
   return (
     <div id="main">
@@ -19,6 +20,7 @@ function DeliveryManagerDashboard() {
         <Route path="report" element={<Report />} />
         <Route path="delPerson" element={<DelPerson/>} />
         <Route path="track" element={<Track/>} />
+        
       </Routes>
     </div>
   );

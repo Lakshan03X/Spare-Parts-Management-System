@@ -20,7 +20,7 @@ function DelReportUpdate() {
 
     useEffect(() => {
         axios
-          .get("http://localhost:8020/getDelReport/" + id)
+          .get("http://localhost:8020/getDel/" + id)
           .then((result) => {
             console.log(result);
             setUserName(result.data.userName),

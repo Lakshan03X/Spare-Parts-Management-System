@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import jsPDF from 'jspdf';
 
 function Track() {
+    
     const [dels, setDels] = useState([]); 
     const [searchKey, setSearchKey] = useState('');
     const [filteredItems, setFilteredItems] = useState([]);
@@ -113,6 +114,13 @@ function Track() {
                                         <td>{dels.delivery_status}</td>
                                         <td>
                                     
+                    
+                                            {dels.delivery_status !== "Completed" && (
+                                            <Link to={`/updateDelivery/${dels._id}`}>
+                                                <i className="fa-solid fa-pen i-color-green"></i>
+                                            </Link>
+                                            )}
+                                        
                                             <Link onClick={() => handleDelete(dels._id)}>
                                                 <i className="fa-solid fa-trash space i-color-red"></i>
                                             </Link>
