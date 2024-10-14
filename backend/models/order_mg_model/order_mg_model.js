@@ -34,7 +34,7 @@ const oderSchema = new Schema({
     type: String,
     required: true,
   },
-  payment_methord: {
+  payment_method: {
     type: String,
     required: true,
   },

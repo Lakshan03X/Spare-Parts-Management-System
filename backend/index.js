@@ -382,6 +382,28 @@ app.delete("/delete_order_card/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+app.get("/get_card_d/:id", (req, res) => {
+  const id = req.params.id;
+  OderCardDataModel.findById({ _id: id })
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
+app.put("/card_update/:id", (req, res) => {
+  const id = req.params.id;
+  OderCardDataModel.findByIdAndUpdate(
+    { _id: id },
+    {
+      card_holder_name: req.body.card_holder_name,
+      card_holder_no: req.body.card_holder_no,
+      card_date: req.body.card_date,
+      card_cvv: req.body.card_cvv,
+    }
+  )
+    .then((items) => res.json(items))
+    .catch((err) => res.json(err));
+});
+
 app.get("/view_item", (req, res) => {
   ItemDataModel.find({})
     .then((items) => res.json(items))
@@ -439,6 +461,7 @@ app.post("/item_create", (req, res) => {
 });
 
 app.post("/add_order", (req, res) => {
+  console.log("Request Body:", req.body); // Log the request body
   OderDataModel.create(req.body)
     .then((item) => res.json(item))
     .catch((err) => res.status(400).json("Error: " + err));

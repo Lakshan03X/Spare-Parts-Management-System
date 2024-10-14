@@ -20,14 +20,8 @@ function Home_oder() {
   const [filteredItems, setFilteredItems] = useState([]); // Filtered items
   const [cards, setcards] = useState([]); // Original items
   const [total_price, settotal_price] = useState(0);
-  const [payment_methord, setPaymentMethod] = useState("cash");
-
-  const [formData, setFormData] = useState({
-    cardName: "",
-    cardNumber: "",
-    expireDate: "",
-    cvv: "",
-  });
+  const [paymentMethod, setPaymentMethod] = useState("cash");
+  const [selectedCard, setSelectedCard] = useState(null); // To track the selected card
 
   useEffect(() => {
     const totalPrice = item_price * item_quantity + deliveryFee;
@@ -36,7 +30,7 @@ function Home_oder() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8020/get_item/" + id)
+      .get(`http://localhost:8020/get_item/${id}`)
       .then((result) => {
         setitemName(result.data.item_name);
         setitemPrice(result.data.item_price);
@@ -61,10 +55,8 @@ function Home_oder() {
     const full_name = username;
     const email = u_email;
     const address = u_address;
-    const item_name = item_name;
     const delivery_fee = deliveryFee;
 
-    // Only include card details if payment method is "card"
     const orderData = {
       full_name,
       email,
@@ -74,28 +66,57 @@ function Home_oder() {
       delivery_fee,
       item_quantity,
       total_price,
-      payment_methord,
+      paymentMethod,
     };
+
+    // Include card details only if payment method is 'card'
+    if (paymentMethod === "card" && selectedCard) {
+      orderData.card_holder_name = selectedCard.card_holder_name;
+      orderData.card_holder_no = selectedCard.card_holder_no;
+      orderData.card_date = selectedCard.card_date;
+      orderData.card_cvv = selectedCard.card_cvv;
+    }
+
+    // Log the orderData object before sending to verify its contents
+    console.log("Order Data:", orderData);
+
     axios
       .post("http://localhost:8020/add_order", orderData)
       .then((result) => {
         alert("Order added successfully!");
-        console.log(result);
         setTimeout(() => {
           navigate("/home_inventory");
         }, 2000);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log("AxiosError:", err); // Log the error details
+      });
   };
 
-  const handleDelete = (id) => {
+  const handleCardSelect = (card) => {
+    if (selectedCard && selectedCard._id === card._id) {
+      // If the same card is unchecked, reset to cash
+      setSelectedCard(null);
+      setPaymentMethod("cash");
+    } else {
+      // If a new card is selected, update the selected card
+      setSelectedCard(card);
+      setPaymentMethod("card");
+    }
+  };
+
+  // Handle card deletion
+  const handleDelete = (cardId) => {
     axios
-      .delete("http://localhost:8020/delete_order_card/" + id)
-      .then((res) => {
-        console.log(res);
-        window.location.reload(); // optional one for reload page
+      .delete(`http://localhost:8020/delete_card/${cardId}`)
+      .then(() => {
+        alert("Card deleted successfully.");
+        // Update filteredItems after deletion
+        setFilteredItems((prevItems) =>
+          prevItems.filter((item) => item._id !== cardId)
+        );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("Delete error:", err));
   };
 
   return (
@@ -143,7 +164,7 @@ function Home_oder() {
             />
             <input
               type="number"
-              onChange={(e) => setQuantity(e.target.value)}
+              onChange={(e) => setQuantity(Number(e.target.value))} // Ensure it's a number
               id="input_view"
               placeholder="Enter quantity"
               required
@@ -162,7 +183,7 @@ function Home_oder() {
               <label htmlFor="paymentMethod">Payment Method : </label>
               <input
                 type="text"
-                value="Cash"
+                value={paymentMethod === "cash" ? "Cash" : "Card"}
                 readOnly
                 style={{ border: "none", padding: "5px" }}
               />
@@ -208,8 +229,22 @@ function Home_oder() {
                 readOnly
               />
               <br />
-              <input type="radio" name="select" id="select" /> Select
+              <input
+                type="checkbox"
+                name="select"
+                id="select"
+                value="card"
+                checked={selectedCard && selectedCard._id === cardDetail._id}
+                onChange={() => handleCardSelect(cardDetail)}
+              />{" "}
+              Select
               <br />
+              <Link to={`/card_update/${cardDetail._id}`}>
+                <button className="edit_btn" id="edit_card">
+                  <i className="fa fa-pencil-square">&ensp;</i>
+                  Edit
+                </button>
+              </Link>
               <button
                 className="delete_btn"
                 id="delete_card"

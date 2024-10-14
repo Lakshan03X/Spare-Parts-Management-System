@@ -25,7 +25,7 @@ function home_oder_card() {
         alert("Card details saved successfully!");
         console.log(result);
         const cardId = result.data._id;
-        navigate("/home_inventory");
+        navigate(-1);
         // navigate(`/home_order/${cardId}`);
       })
       .catch((err) => console.log(err));

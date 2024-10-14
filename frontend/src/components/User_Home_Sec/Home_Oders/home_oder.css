@@ -58,19 +58,19 @@ h3 {
   background-color: #0056b3;
 }
 
-#flex_box{
+#flex_box {
   display: flex;
   justify-content: space-between;
 }
 
-#card_details{
+#card_details {
   padding: 20px;
   background-color: #f3ebeb;
   margin: 20px;
   border-radius: 10px;
 }
 
-#add_card{
+#add_card {
   width: 50%;
   padding: 5px;
   background-color: #007bff;
@@ -80,6 +80,10 @@ h3 {
   cursor: pointer;
 }
 
-#delete_card{
+#delete_card {
+  width: 50%;
+}
+
+#edit_card {
   width: 50%;
 }

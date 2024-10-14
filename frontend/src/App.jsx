@@ -52,6 +52,7 @@ import ManagersLogin from "./components/Account/managersLogin";
 import SupManagerLogin from "./components/Account/Sup_manager/supManagerLogin";
 import SupManagerSignUp from "./components/Account/Sup_manager/delManagerReg";
 import AddCard from "./components/User_Home_Sec/Home_Oders/home_oder_card";
+import UpdateCard from "./components/User_Home_Sec/Home_Oders/home_oder_card_update"
 function App() {
   return (
     <div className="main">
@@ -91,6 +92,8 @@ function App() {
           <Route path="/home_aboutUs" element={<Home_AboutUs />} />
           <Route path="/home_contact" element={<Home_Contact />} />
           <Route path="/home_feedback" element={<Home_feedback />} />
+          <Route path="/card_update/:id" element={<UpdateCard />} />
+
           {/* //user manager */}
           <Route path="/createUser" element={<AddUser />} />
           <Route path="/user_rept" element={<UserReport />} />
