@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Track() {
+    
     const [dels, setDels] = useState([]); 
     const [userName, setUserName] = useState();
     const [userEmail, setUserEmail] = useState();
@@ -13,7 +14,9 @@ function Track() {
     const [filteredItems, setFilteredItems] = useState([]);
 
     const user = JSON.parse(localStorage.getItem('user'));
+    const username = user ? user.username : null;
     const navigate = useNavigate();
+
 
     useEffect(() => {
         axios.get('http://localhost:8020/readDeliveries')
@@ -46,11 +49,11 @@ function Track() {
     return (
         <>
             <div>
-                <div className="dash-header">
-                    <button className="btn">+ New Order</button>
-                    <a href=""><i className="fa-regular fa-bell icon-size"></i></a>
-                    <a href=""><i className="fa-solid fa-user icon-size profile-bg"></i></a>
-                </div>
+            <div className="dash-header">
+                <div>Hi , {username}</div>
+                <a href=""><i className="fa-regular fa-bell icon-size"></i></a>
+                <a href=""><i className="fa-solid fa-user icon-size profile-bg"></i></a>
+            </div>
                 <div>
                     <h1 className="heading1">Deliveries</h1>
                 </div>
