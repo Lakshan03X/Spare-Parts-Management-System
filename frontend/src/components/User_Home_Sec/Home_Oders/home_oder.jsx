@@ -14,14 +14,14 @@ function Home_oder() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [item_name, setitemName] = useState("");
-  const [item_price, setitemPrice] = useState(1);
+  const [item_price, setitemPrice] = useState(0); // Set initial price to 0
   const [item_quantity, setQuantity] = useState(1);
   const deliveryFee = 10;
-  const [filteredItems, setFilteredItems] = useState([]); // Filtered items
-  const [cards, setcards] = useState([]); // Original items
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [cards, setcards] = useState([]);
   const [total_price, settotal_price] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("cash");
-  const [selectedCard, setSelectedCard] = useState(null); // To track the selected card
+  const [selectedCard, setSelectedCard] = useState(null);
 
   useEffect(() => {
     const totalPrice = item_price * item_quantity + deliveryFee;
@@ -33,7 +33,7 @@ function Home_oder() {
       .get(`http://localhost:8020/get_item/${id}`)
       .then((result) => {
         setitemName(result.data.item_name);
-        setitemPrice(result.data.item_price);
+        setitemPrice(Number(result.data.item_price)); // Ensure price is a number
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -42,13 +42,12 @@ function Home_oder() {
     axios
       .get("http://localhost:8020/get_order_card")
       .then((result) => {
-        setcards(result.data); // Store original data
-        setFilteredItems(result.data); // Initialize filteredItems with the same data
+        setcards(result.data);
+        setFilteredItems(result.data);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  // Handle order submission
   const Submit = (e) => {
     e.preventDefault();
 
@@ -62,26 +61,15 @@ function Home_oder() {
       email,
       address,
       item_name,
-      item_price,
-      delivery_fee,
-      item_quantity,
-      total_price,
-      paymentMethod,
-    }; 
-
-    // Include card details only if payment method is 'card'
-    if (paymentMethod === "card" && selectedCard) {
-      orderData.card_holder_name = selectedCard.card_holder_name;
-      orderData.card_holder_no = selectedCard.card_holder_no;
-      orderData.card_date = selectedCard.card_date;
-      orderData.card_cvv = selectedCard.card_cvv;
-    }
-
-    // Log the orderData object before sending to verify its contents
-    console.log("Order Data:", orderData);
+      item_price: item_price.toString(), // Convert to string for storage
+      delivery_fee: delivery_fee.toString(),
+      item_quantity: item_quantity.toString(),
+      total_price: total_price.toString(),
+      payment_method: paymentMethod,
+    };
 
     axios
-      .post("http://localhost:8020/add_order", orderData)
+      .post("http://localhost:8020/add_order", orderData) // Include orderData
       .then((result) => {
         alert("Order added successfully!");
         setTimeout(() => {
@@ -89,34 +77,28 @@ function Home_oder() {
         }, 2000);
       })
       .catch((err) => {
-        console.log("AxiosError:", err); // Log the error details
+        console.log("AxiosError:", err);
       });
   };
 
   const handleCardSelect = (card) => {
     if (selectedCard && selectedCard._id === card._id) {
-      // If the same card is unchecked, reset to cash
       setSelectedCard(null);
       setPaymentMethod("cash");
     } else {
-      // If a new card is selected, update the selected card
       setSelectedCard(card);
       setPaymentMethod("card");
     }
   };
 
-  // Handle card deletion
-  const handleDelete = (cardId) => {
+  const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:8020/delete_card/${cardId}`)
-      .then(() => {
-        alert("Card deleted successfully.");
-        // Update filteredItems after deletion
-        setFilteredItems((prevItems) =>
-          prevItems.filter((item) => item._id !== cardId)
-        );
+      .delete("http://localhost:8020/delete_order_card/" + id)
+      .then((res) => {
+        console.log(res);
+        setFilteredItems(filteredItems.filter((card) => card._id !== id)); // Update state to remove deleted card
       })
-      .catch((err) => console.log("Delete error:", err));
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -164,9 +146,10 @@ function Home_oder() {
             />
             <input
               type="number"
-              onChange={(e) => setQuantity(Number(e.target.value))} // Ensure it's a number
+              onChange={(e) => setQuantity(Number(e.target.value))}
               id="input_view"
               placeholder="Enter quantity"
+              min="1"
               required
             />
             <input

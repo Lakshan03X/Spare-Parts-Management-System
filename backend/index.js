@@ -467,6 +467,13 @@ app.post("/add_order", (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+// app.post("/add_order", (req, res) => {
+//   console.log("Request Body:", req.body); // Log the request body
+//   OderCardDataModel.create(req.body)
+//     .then((item) => res.json(item))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
 // //count methord
 // app.get("/count", async (req, res) => {
 //   try {
