@@ -67,7 +67,7 @@ function Home_oder() {
       item_quantity,
       total_price,
       paymentMethod,
-    };
+    }; 
 
     // Include card details only if payment method is 'card'
     if (paymentMethod === "card" && selectedCard) {
