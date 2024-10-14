@@ -3,7 +3,7 @@ import Homenav from "../Home_navbar";
 import Footer from "../Home_nav_footers/home_footer";
 import "./survey_view.css";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom"; // Consolidated imports
+import { useNavigate, useParams } from "react-router-dom";
 
 function HomeSurveyView() {
   const { id } = useParams(); // Get survey ID from the URL
@@ -11,57 +11,86 @@ function HomeSurveyView() {
   const username = user ? user.username : "Anonymous";
   const u_email = user ? user.email : "No Email Provided";
 
-  const [surveys, setSurveys] = useState([]); // Original items
-  const [filteredSurveys, setFilteredSurveys] = useState([]); // Filtered items
+  const [survey, setSurvey] = useState(null); // Single survey object
+  const [answers, setAnswers] = useState({
+    Q1: "",
+    Q2: "",
+    Q3: "",
+    Q4: "",
+    Q5: "",
+  }); // User's answers
+
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("http://localhost:8020/getqnstoHome/" + id)
+      .get(`http://localhost:8020/getqnstoHome/` + id)
       .then((result) => {
-        console.log("Survey data:", result.data); // Log the result
-        setSurveys(result.data);
-        setFilteredSurveys(result.data); // Set survey data
+        console.log("Survey data:", result.data);
+        setSurvey(result.data);
       })
       .catch((err) => console.error("API Error:", err));
   }, [id]);
+
+  const handleChange = (e) => {
+    setAnswers({
+      ...answers,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission, e.g., send answers to the backend
+    console.log("User Answers:", answers);
+    // You can use axios.post to submit the answers
+    // axios.post('http://localhost:8020/api/submitSurvey', { surveyId: id, answers })
+    //   .then(response => { /* Handle success */ })
+    //   .catch(error => { /* Handle error */ });
+  };
 
   return (
     <>
       <Homenav />
       <div className="survey-container">
-        {surveys.length > 0 ? ( // Check if surveys array has items
-          <form className="survey-block">
+        {survey ? (
+          <form className="survey-block" onSubmit={handleSubmit}>
             <div className="survey-user-info">
-              <h2>{"Survey - " + surveys[0]?.title}</h2>{" "}
-              {/* Assuming the title is in the first survey */}
+              <h2>Survey - {survey.title}</h2>
               <br />
-              <input type="text" value={"Name : " + username} readOnly />
+              <input
+                type="text"
+                value={`Name : ${username}`}
+                readOnly
+              />
               <br />
-              <input type="text" value={"Email : " + u_email} readOnly />
+              <input
+                type="text"
+                value={`Email : ${u_email}`}
+                readOnly
+              />
               <br />
-              {filteredSurveys.map(
-                (
-                  survey,
-                  index // Map over filteredSurveys
-                ) => (
-                  <div key={index}>
-                    <h3>Question - {survey.Q1}.</h3>
-                    <input type="text" placeholder="Answer 1" />
-                    <input type="text" placeholder="Answer 2" />
-                    <input type="text" placeholder="Answer 3" />
-                    <input type="text" placeholder="Answer 4" />
-                    <input type="text" placeholder="Answer 5" />
-                  </div>
-                )
-              )}
+              {/* Render each question */}
+              {Object.keys(answers).map((key, index) => (
+                <div key={index}>
+                  <h3>Question {index + 1}: {survey[key]}</h3>
+                  <input
+                    type="text"
+                    name={key}
+                    placeholder={`Answer ${index + 1}`}
+                    value={answers[key]}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              ))}
             </div>
             <button type="submit" id="submitbtn">
               Submit
             </button>
           </form>
         ) : (
-          <p>No surveys available to display.</p>
+          <p>Loading survey...</p>
         )}
       </div>
       <Footer />
