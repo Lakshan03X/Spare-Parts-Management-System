@@ -2,13 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import NavbarOder from "../oder_nav/navbar";
 import "../oder_dash/order_dash.css";
-import { useReactToPrint } from "react-to-print";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 function OderDash() {
   const [orders, setOrders] = useState([]); // Original items
   const [searchKey, setSearchKey] = useState(""); // Search key
   const [filteredOders, setFilteredOrders] = useState([]); // Filtered items
-  const componentPDF = useRef();
 
   useEffect(() => {
     axios
@@ -31,18 +31,42 @@ function OderDash() {
       .catch((err) => console.log(err));
   };
 
-  const generatePDF = useReactToPrint({
-    content: () => {
-      if (!componentPDF.current) {
-        console.error("componentPDF is not defined!"); // Log if the ref is not defined
-        return null;
-      }
-      return componentPDF.current; // Return the ref for printing
-    },
-    documentTitle: "Supplier Report",
-    onAfterPrint: () => alert("PDF generated successfully"),
-    onPrintError: (err) => console.error("PDF generation error:", err), // Added error logging
-  });
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    doc.text("Order History", 10, 10);
+    // Table headers
+    const headers = [
+      [
+        "Full Name",
+        "Item Name",
+        "Item Price",
+        "Delivery Fee",
+        "Item Quantity",
+        "Total Price",
+        "Payment Method",
+      ],
+    ];
+
+    // Map data to table rows
+    const data = filteredOders.map((order) => [
+      order.full_name, // Change this to order.delivery_person_name or similar
+      order.item_name,
+      order.item_price,
+      order.delivery_fee,
+      order.item_quantity,
+      order.total_price,
+      order.payment_method,
+    ]);
+
+    // Generate the table in the PDF
+    doc.autoTable({
+      head: headers,
+      body: data,
+    });
+
+    doc.save("report.pdf"); // Save the PDF
+  };
 
   // Search function
   const handleSearch = () => {
@@ -91,7 +115,7 @@ function OderDash() {
         </button>
       </div>
       <div id="table_container">
-        <table ref={componentPDF}>
+        <table>
           <thead>
             <tr>
               <th>Full Name</th>

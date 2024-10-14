@@ -58,22 +58,16 @@ function HomeSurveyView() {
             <div className="survey-user-info">
               <h2>Survey - {survey.title}</h2>
               <br />
-              <input
-                type="text"
-                value={`Name : ${username}`}
-                readOnly
-              />
+              <input type="text" value={`Name : ${username}`} readOnly />
               <br />
-              <input
-                type="text"
-                value={`Email : ${u_email}`}
-                readOnly
-              />
+              <input type="text" value={`Email : ${u_email}`} readOnly />
               <br />
               {/* Render each question */}
               {Object.keys(answers).map((key, index) => (
                 <div key={index}>
-                  <h3>Question {index + 1}: {survey[key]}</h3>
+                  <h3>
+                    Question {index + 1}: {survey[key]}
+                  </h3>
                   <input
                     type="text"
                     name={key}
