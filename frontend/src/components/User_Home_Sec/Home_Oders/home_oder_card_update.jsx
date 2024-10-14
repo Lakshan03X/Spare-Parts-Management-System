@@ -37,7 +37,7 @@ function HomeOrderCardUpdate() {
         setTimeout(() => {
           alert("Card details updated successfully");
           navigate(-1); // Navigate to the previous page
-        }, 500); 
+        }, 500);
       })
       .catch((err) => {
         console.log(err);
@@ -46,7 +46,9 @@ function HomeOrderCardUpdate() {
 
   return (
     <>
-      <form onSubmit={Update}> {/* Fixed form submission */}
+      <form onSubmit={Update}>
+        {" "}
+        {/* Fixed form submission */}
         <div id="cardDetails">
           <label htmlFor="cardName">Cardholder Name:</label>
           <input
@@ -54,7 +56,6 @@ function HomeOrderCardUpdate() {
             id="input_view"
             name="cardName"
             value={card_holder_name}
-            pattern="[a-zA-Z]"
             onChange={(e) => setcard_holder_name(e.target.value)}
             required
           />
@@ -91,7 +92,8 @@ function HomeOrderCardUpdate() {
             onChange={(e) => setcard_cvv(e.target.value)}
             required
           />
-          <button type="submit">Save Card Details</button> {/* Fixed button type */}
+          <button type="submit">Save Card Details</button>{" "}
+          {/* Fixed button type */}
         </div>
       </form>
     </>

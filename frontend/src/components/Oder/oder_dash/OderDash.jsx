@@ -75,7 +75,7 @@ function OderDash() {
       setFilteredOrders(orders);
     } else {
       const filteredData = orders.filter((order) =>
-        order.full_name.toLowerCase().includes(searchKey.toLowerCase())
+        order.item_name.toLowerCase().includes(searchKey.toLowerCase())
       );
       setFilteredOrders(filteredData);
     }
@@ -85,7 +85,7 @@ function OderDash() {
   const handleSuggestionClick = (suggestion) => {
     // Filter data based on the selected suggestion
     const filteredData = orders.filter((order) =>
-      order.full_name.toLowerCase().includes(suggestion.toLowerCase())
+      order.item_name.toLowerCase().includes(suggestion.toLowerCase())
     );
     setFilteredOrders(filteredData);
   };
