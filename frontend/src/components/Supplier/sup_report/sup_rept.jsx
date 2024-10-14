@@ -3,14 +3,14 @@ import Navbar from "../sup_navbar/sup_nav";
 import { Link } from "react-router-dom";
 import "./sup_rept.css";
 import React, { useEffect, useState, useRef } from "react";
-import { useReactToPrint } from "react-to-print";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 function SupRept() {
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const [items, setItems] = useState([]); // Original items
   const [searchKey, setSearchKey] = useState(""); // Search key
   const [filteredItems, setFilteredItems] = useState([]); // Filtered items
-  const componentPDF = useRef();
 
   useEffect(() => {
     axios
@@ -32,25 +32,44 @@ function SupRept() {
       .catch((err) => console.log(err));
   };
 
-  const generatePDF = useReactToPrint({
-    content: () => componentPDF.current,
-    documentTitle: "Total Item Report",
-    onBeforeGetContent: () => {
-      // Hide elements with 'no-print' class before generating the PDF
-      const elementsToHide = document.querySelectorAll(".no-print");
-      elementsToHide.forEach((el) => el.classList.add("hide"));
+  const generatePDF = () => {
+    const doc = new jsPDF();
 
-      setIsGeneratingPDF(true);
-      return Promise.resolve();
-    },
-    onAfterPrint: () => {
-      // Re-show elements with 'no-print' class after printing
-      const elementsToHide = document.querySelectorAll(".no-print");
-      elementsToHide.forEach((el) => el.classList.remove("hide"));
+    doc.text("Supplier Report", 10, 10);
+    // Table headers
+    const headers = [
+      [
+        "Item Name",
+        "Item Quantity",
+        "Item Model",
+        "Item Price",
+        "Item Weight",
+        "Supplier ID",
+        "Supplier Company",
+        "Item Description",
+      ],
+    ];
 
-      setIsGeneratingPDF(false);
-    },
-  });
+    // Map data to table rows
+    const data = filteredItems.map((item) => [
+      item.item_name, // Change this to order.delivery_person_name or similar
+      item.item_quantity,
+      item.item_model,
+      item.item_price,
+      item.item_weight,
+      item.supplier_id,
+      item.supplier_company,
+      item.item_description,
+    ]);
+
+    // Generate the table in the PDF
+    doc.autoTable({
+      head: headers,
+      body: data,
+    });
+
+    doc.save("Supplier report.pdf"); // Save the PDF
+  };
 
   // Search function
   const handleSearch = () => {
@@ -104,7 +123,7 @@ function SupRept() {
           &ensp;<i className="fa fa-download"></i>
         </button>
 
-        <table className="report_table" ref={componentPDF}>
+        <table className="report_table">
           <thead className="report_table_head">
             <tr className="report_table_tr">
               <th>Item Name</th>
