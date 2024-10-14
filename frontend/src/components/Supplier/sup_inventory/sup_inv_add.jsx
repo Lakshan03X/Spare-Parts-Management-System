@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 function SupInvAdd() {
   const [item_name, setItemName] = useState("");
@@ -59,7 +60,7 @@ function SupInvAdd() {
         })
         .then((result) => {
           console.log(result);
-          alert("Item added successfully");
+          toast.success("Item added successfully !", { autoClose: 3000 });
           setTimeout(() => {
             navigate("/supplierInv");
           }, 2000);
@@ -196,6 +197,7 @@ function SupInvAdd() {
           </div>
         </div>
       </form>
+      <ToastContainer />
     </>
   );
 }

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 function sup_inv_update() {
   //craete like variable to usesatates
@@ -78,10 +79,10 @@ function sup_inv_update() {
         })
         .then((result) => {
           console.log(result);
-          setTimeout(() => {
-            alert("updated");
+          toast.success("Updated !", { autoClose: 2500 });
+          setTimeout(() => {        
             navigate("/supplierInv"); // Navigate to the homepage after adding the user
-          }, 500); // Show success notification
+          }, 1500); // Show success notification
         })
         .catch((err) => {
           console.log(err);
@@ -198,6 +199,7 @@ function sup_inv_update() {
           </div>
         </div>
       </form>
+      <ToastContainer />
     </>
   );
 }
