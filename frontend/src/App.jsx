@@ -31,12 +31,12 @@ import UserUpdate from "./components/Account/user_manager/Update_user";
 //importing feedback components
 import FeedbackUpdate from "./components/User_Home_Sec/Home_feedback/home_feedback_update";
 //Survey Manager
-import SurMangerDashboard from "./components/SurManager/surManagerDashboard";
+import SurMangerDashboard from "./components/SurManager/surDashboard";
 import SurManagerLogin from "./components/Account/survey_manager/surManagerLogin";
 import SurManagerSignUp from "./components/Account/survey_manager/surManagerReg";
 import AddSurvey from "./components/SurManager/addServey";
-import SurveyView from "./components/SurManager/viewServey";
-import UpdateSurvey from "./components/SurManager/updateServay";
+import SurveyView from "./components/SurManager/view_each_survey";
+// import UpdateSurvey from "./components/SurManager/updateServay";
 import HomeSurvey from "./components/User_Home_Sec/Home_Survay/Home_survay";
 import HomeSurveyView from "./components/User_Home_Sec/Home_Survay/Home_survay_view";
 
@@ -52,14 +52,13 @@ import ManagersLogin from "./components/Account/managersLogin";
 import SupManagerLogin from "./components/Account/Sup_manager/supManagerLogin";
 import SupManagerSignUp from "./components/Account/Sup_manager/delManagerReg";
 import AddCard from "./components/User_Home_Sec/Home_Oders/home_oder_card";
-import UpdateCard from "./components/User_Home_Sec/Home_Oders/home_oder_card_update"
+import UpdateCard from "./components/User_Home_Sec/Home_Oders/home_oder_card_update";
 function App() {
   return (
     <div className="main">
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
-
           <Route path="/supManagerReg" element={<SupManagerSignUp />} />
           <Route path="/supManagerLogin" element={<SupManagerLogin />} />
           <Route path="/delManagerReg" element={<DelManagerSignUp />} />
@@ -74,9 +73,7 @@ function App() {
             path="/deliveryPerson/*"
             element={<DeliveryPersonDashboard />}
           />
-
           <Route path="/delReportUpdate/:id" element={<DelReportUpdate />} />
-
           {/* this is supplier router paths */}
           <Route path="/supplierInv" element={<SupplierInventory />} />
           <Route path="/view_item/:id" element={<ViewItems />} />
@@ -84,7 +81,6 @@ function App() {
           <Route path="/supplierReport" element={<SupplierReport />} />
           <Route path="/item_update/:id" element={<UpdateItem />} />
           <Route path="/supplierDashboard" element={<SupplierDashboard />} />
-
           <Route path="/oder_dash" element={<OderDash />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/home_inventory" element={<HomeInventory />} />
@@ -93,32 +89,31 @@ function App() {
           <Route path="/home_contact" element={<Home_Contact />} />
           <Route path="/home_feedback" element={<Home_feedback />} />
           <Route path="/card_update/:id" element={<UpdateCard />} />
-
           {/* //user manager */}
           <Route path="/createUser" element={<AddUser />} />
           <Route path="/user_rept" element={<UserReport />} />
           <Route path="/user_update/:id" element={<UserUpdate />} />
           {/* //feedback */}
           <Route path="/feedback_update/:id" element={<FeedbackUpdate />} />
-
           {/* Survet Manager */}
-          <Route path="/surManager/*" element={<SurMangerDashboard />} />
+          <Route path="/surManagerDash" element={<SurMangerDashboard />} />
           <Route path="/surManagerLogin" element={<SurManagerLogin />} />
           <Route path="/surManagerReg" element={<SurManagerSignUp />} />
           <Route path="/addSurvey" element={<AddSurvey />} />
-          <Route path="/survey/view/:id" element={<SurveyView />} />
-          <Route path="/survey/edit/:id" element={<UpdateSurvey />} />
-
+          <Route path="/view_quations/:id" element={<SurveyView />} />
+          {/* <Route path="/survey/edit/:id" element={<UpdateSurvey />} /> */}
           {/* Customer */}
           <Route path="/customerLogin" element={<CustomerLogin />} />
           <Route path="/customerReg" element={<CustomerSignUp />} />
-
           <Route path="/home_survey" element={<HomeSurvey />} />
-          <Route path="/home_survey/view_survey/:id" element={<HomeSurveyView />} />
+          <Route
+            path="/home_survey/view_survey/:id"
+            element={<HomeSurveyView />}
+          />
           <Route path="/add_card_page" element={<AddCard />} />
           <Route path="/mLogin" element={<ManagersLogin />} />
           <Route path="/fed_mg_dashboard" element={<FeddbackAdmin />} />
-          <Route path="/fed_mg_dashboard" element={<FeddbackAdmin />}/>
+          <Route path="/fed_mg_dashboard" element={<FeddbackAdmin />} />
         </Routes>
       </Router>
     </div>

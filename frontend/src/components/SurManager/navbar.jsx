@@ -1,28 +1,42 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import '../../css/survey/surNavbar.css'
-
-
+import { Link } from "react-router-dom";
+import "../../css/survey/surNavbar.css";
 
 function NavBar() {
-
-    return <>
-
-        <nav className="surNav">
-            <h1 className="nav-header">SPM</h1>
-
-            <ul className="nav-content">
-                <li><Link to="dashboard" className="nav-link">Dashboard</Link></li>
-                <li><Link to="surveys" className="nav-link">Surveys</Link></li>
-            </ul>
-
-            <a href="" className="nav-link">Logout</a>
-            
-        </nav>
-
+  return (
+    <>
+      <div id="sidebar">
+        <h2>The Racers Edge</h2>
+        <ul>
+          <Link to="dashboard" className="link">
+            <li>
+              <a href="#">Dashboard</a>
+            </li>
+          </Link>
+          <li>
+            <a href="#">Analysys</a>
+          </li>
+          <Link to="" className="link">
+            <li>
+              <a href="#">Surveys</a>
+            </li>
+          </Link>
+          <Link to="" className="link">
+            <li>
+              <a href="#">Reports</a>
+            </li>
+          </Link>
+        </ul>
+        <div className="logout">
+          <img
+            src="https://img.icons8.com/ios/50/000000/user"
+            className="user_img"
+          />
+          <button>Logout</button>
+        </div>
+      </div>
     </>
-
+  );
 }
 
-
-export default NavBar
+export default NavBar;

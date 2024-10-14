@@ -3,8 +3,7 @@ import Homenav from "../Home_navbar";
 import Footer from "../Home_nav_footers/home_footer";
 import "./survey_view.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom"; // Consolidated imports
 
 function HomeSurveyView() {
   const { id } = useParams(); // Get survey ID from the URL
@@ -12,15 +11,17 @@ function HomeSurveyView() {
   const username = user ? user.username : "Anonymous";
   const u_email = user ? user.email : "No Email Provided";
 
-  const [survey, setSurvey] = useState(null); // Store survey data
+  const [surveys, setSurveys] = useState([]); // Original items
+  const [filteredSurveys, setFilteredSurveys] = useState([]); // Filtered items
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the survey from the backend API
     axios
-      .get("http://localhost:8020/getToHomeSurveysToView/" + id)
+      .get("http://localhost:8020/getqnstoHome/" + id)
       .then((result) => {
         console.log("Survey data:", result.data); // Log the result
-        setSurvey(result.data); // Set survey data
+        setSurveys(result.data);
+        setFilteredSurveys(result.data); // Set survey data
       })
       .catch((err) => console.error("API Error:", err));
   }, [id]);
@@ -29,64 +30,36 @@ function HomeSurveyView() {
     <>
       <Homenav />
       <div className="survey-container">
-        {survey ? (
-          <div className="survey-block">
+        {surveys.length > 0 ? ( // Check if surveys array has items
+          <form className="survey-block">
             <div className="survey-user-info">
-              <h2>{"Survey - " +survey.title}</h2>
+              <h2>{"Survey - " + surveys[0]?.title}</h2>{" "}
+              {/* Assuming the title is in the first survey */}
               <br />
-              <input
-                type="text"
-                value={"Name : " + username}
-                id="abcinput"
-                readOnly
-              />
+              <input type="text" value={"Name : " + username} readOnly />
               <br />
-              <input
-                type="text"
-                value={"Email : " + u_email}
-                id="abcinput"
-                readOnly
-              />
+              <input type="text" value={"Email : " + u_email} readOnly />
               <br />
+              {filteredSurveys.map(
+                (
+                  survey,
+                  index // Map over filteredSurveys
+                ) => (
+                  <div key={index}>
+                    <h3>Question - {survey.Q1}.</h3>
+                    <input type="text" placeholder="Answer 1" />
+                    <input type="text" placeholder="Answer 2" />
+                    <input type="text" placeholder="Answer 3" />
+                    <input type="text" placeholder="Answer 4" />
+                    <input type="text" placeholder="Answer 5" />
+                  </div>
+                )
+              )}
             </div>
-
-            {survey.questions.map((questionObj, index) => (
-              <div key={questionObj._id}>
-                <label htmlFor={`question-${index}`} className="survey-question">
-                  {"Question : " + questionObj.question}?
-                </label>
-
-                {/* Render options for multiple-choice and input for text */}
-                {questionObj.answerType === "multiple-choice" &&
-                  questionObj.options &&
-                  questionObj.options.map((option, optionIndex) => (
-                    <div key={optionIndex} className="option-container">
-                      <input
-                        type="radio"
-                        id={`option-${optionIndex}`}
-                        className="abcinput"
-                        name={`question-${index}`}
-                        value={option}
-                      />
-                      <label htmlFor={`option-${optionIndex}`}>{option}</label>
-                    </div>
-                  ))}
-
-                {questionObj.answerType === "text" && (
-                  <input
-                    type="text"
-                    className="abcinput"
-                    placeholder="Your answer here"
-                    id={`question-${index}`}
-                    name={`question-${index}`}
-                  />
-                )}
-              </div>
-            ))}
-            <Link to="/home_survey" className="link">
-            <button id="submitbtn">submit</button>
-            </Link>
-          </div>
+            <button type="submit" id="submitbtn">
+              Submit
+            </button>
+          </form>
         ) : (
           <p>No surveys available to display.</p>
         )}

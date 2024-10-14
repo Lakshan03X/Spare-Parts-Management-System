@@ -14,7 +14,8 @@ const delReportModel = require("./models/delReportModel");
 const OderDataModel = require("./models/order_mg_model/order_mg_model");
 const UserModel = require("./models/user_mg_model/User_mg_model");
 const SurManagerModel = require("./models/sur_mg_model/surManagerModel");
-const SurveyModel = require("./models/sur_mg_model/SurveyModel");
+const SurveyansModel = require("./models/sur_mg_model/answerModel");
+const QuationModel = require("./models/sur_mg_model/SurveyModel");
 const FeedbackModel = require("./models/feedback_mg_model/feedMgModel");
 const CustomerModel = require("./models/customer_model/customerModel");
 const delModel = require("./models/delivery_model/delivery_model");
@@ -617,6 +618,21 @@ app.post("/surlogin", (req, res) => {
     });
 });
 
+app.post("/submitSurveyAnswers", async (req, res) => {
+  const { surveyId, username, email, answers } = req.body;
+
+  try {
+    // Log the submission or save it to the database
+    console.log("Received answers:", { surveyId, username, email, answers });
+
+    // Respond with success
+    res.status(200).json({ message: "Answers submitted successfully!" });
+  } catch (error) {
+    console.error("Error submitting answers:", error);
+    res.status(500).json({ message: "Error submitting answers", error });
+  }
+});
+
 app.post("/surManregister", (req, res) => {
   SurManagerModel.create(req.body)
     .then((surManager) => {
@@ -632,60 +648,97 @@ app.post("/surManregister", (req, res) => {
     });
 });
 
-app.post("/addSurvey", (req, res) => {
+//Surveyqns Crud ....................................
+
+app.post("/addqns", (req, res) => {
   console.log(req.body);
-  SurveyModel.create(req.body)
+  QuationModel.create(req.body)
     .then((survey) => res.json(survey))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-app.get("/getSurveys", (req, res) => {
-  SurveyModel.find()
+app.get("/getqns", (req, res) => {
+  QuationModel.find()
     .then((surveys) => res.json(surveys))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-app.get("/getToHomeSurveys", (req, res) => {
-  SurveyModel.find()
+app.get("/getqnstoHome", (req, res) => {
+  QuationModel.find()
     .then((surveys) => res.json(surveys))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-app.get("/getToHomeSurveysToView/:id", (req, res) => {
-  const { id } = req.params; // Get the ID from the request parameters
-  SurveyModel.findById(id) // Use findById to get the specific survey
-    .then((survey) => {
-      if (!survey) {
-        return res.status(404).json("Survey not found");
-      }
-      res.json(survey);
-    })
-    .catch((err) => res.status(400).json("Error: " + err));
+app.get("/getqnstoHome/:id", (req, res) => {
+  const id = req.params.id;
+  QuationModel.findById({ _id: id })
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
 });
 
-app.get("/getSurveys/:id", (req, res) => {
-  const { id } = req.params; // Get the ID from the request parameters
-  SurveyModel.findById(id) // Use findById to get the specific survey
-    .then((survey) => {
-      if (!survey) {
-        return res.status(404).json("Survey not found");
-      }
-      res.json(survey);
-    })
-    .catch((err) => res.status(400).json("Error: " + err));
+app.get("/view_quations/:id", (req, res) => {
+  const id = req.params.id;
+  QuationModel.findById({ _id: id })
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
 });
 
-app.delete("/surveys/:id", (req, res) => {
-  SurveyModel.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Survey deleted."))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+//...........................................................
 
-app.put("/updateSurvey/:id", (req, res) => {
-  SurveyModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then((updatedSurvey) => res.json(updatedSurvey))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+// app.post("/addSurvey", (req, res) => {
+//   console.log(req.body);
+//   SurveyModel.create(req.body)
+//     .then((survey) => res.json(survey))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
+// app.get("/getSurveys", (req, res) => {
+//   SurveyModel.find()
+//     .then((surveys) => res.json(surveys))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
+// app.get("/getToHomeSurveys", (req, res) => {
+//   SurveyModel.find()
+//     .then((surveys) => res.json(surveys))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
+// app.get("/getToHomeSurveysToView/:id", (req, res) => {
+//   const { id } = req.params; // Get the ID from the request parameters
+//   SurveyModel.findById(id) // Use findById to get the specific survey
+//     .then((survey) => {
+//       if (!survey) {
+//         return res.status(404).json("Survey not found");
+//       }
+//       res.json(survey);
+//     })
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
+// app.get("/getSurveys/:id", (req, res) => {
+//   const { id } = req.params; // Get the ID from the request parameters
+//   SurveyModel.findById(id) // Use findById to get the specific survey
+//     .then((survey) => {
+//       if (!survey) {
+//         return res.status(404).json("Survey not found");
+//       }
+//       res.json(survey);
+//     })
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
+// app.delete("/surveys/:id", (req, res) => {
+//   SurveyModel.findByIdAndDelete(req.params.id)
+//     .then(() => res.json("Survey deleted."))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
+// app.put("/updateSurvey/:id", (req, res) => {
+//   SurveyModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
+//     .then((updatedSurvey) => res.json(updatedSurvey))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
 
 //Customer
 app.post("/customerLogin", (req, res) => {
