@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useReactToPrint } from "react-to-print";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 import axios from "axios";
 import Navbar from "./feedback_nav/feedback_nav";
 import "./fed_mg_dash.css";
@@ -33,17 +34,40 @@ function fed_mg_dashboard() {
     }
   };
 
-  const generatePDF = useReactToPrint({
-    content: () => componentPDF.current,
-    documentTitle: "Feedback Report",
-    onBeforeGetContent: () => {
-      setIsGeneratingPDF(true);
-      return Promise.resolve();
-    },
-    onAfterPrint: () => {
-      setIsGeneratingPDF(false);
-    },
-  });
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    doc.text("Feedback History", 10, 10);
+    // Table headers
+    const headers = [
+      [
+        "Full Name",
+        "Email",
+        "Item Name",
+        "Item ID",
+        "Rating",
+        "Feedback Description",
+      ],
+    ];
+
+    // Map data to table rows
+    const data = filteredfeedbacks.map((feedback) => [
+      feedback.fed_full_name, // Change this to order.delivery_person_name or similar
+      feedback.fed_email,
+      feedback.fed_item_name,
+      feedback.fed_item_id,
+      feedback.fed_rating,
+      feedback.fed_feedback,
+    ]);
+
+    // Generate the table in the PDF
+    doc.autoTable({
+      head: headers,
+      body: data,
+    });
+
+    doc.save("Feedback History.pdf"); // Save the PDF
+  };
 
   return (
     <>
@@ -73,7 +97,7 @@ function fed_mg_dashboard() {
         </button>
       </header>
       <div id="main_table_fed">
-        <table id="tbl" ref={componentPDF}>
+        <table id="tbl">
           <tr>
             <th>Name</th>
             <th>email</th>
