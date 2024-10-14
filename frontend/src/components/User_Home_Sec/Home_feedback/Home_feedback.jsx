@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../Home_navbar";
 import Footer from "../Home_nav_footers/home_footer";
 import "./home_feedback.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Home_feedback() {
   // Get user data from local storage
@@ -25,27 +27,44 @@ function Home_feedback() {
 
   const navigate = useNavigate();
 
+  // Helper function to check if item name contains numbers
+  const containsNumbers = (str) => /\d/.test(str);
+
   const Submit = (e) => {
     e.preventDefault();
 
+    // Validation for item name and feedback length
+    if (containsNumbers(fed_item_name)) {
+      toast.error("Item name should not contain numbers.", { autoClose: 3000 });
+      return;
+    }
+
+    if (fed_feedback.length < 10) {
+      toast.error("Feedback should be at least 10 characters long.", {
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    // If validations pass, make API call
     axios
       .post("http://localhost:8020/addFeedback", {
         fed_full_name: username,
-        fed_email: u_email, // Ensure consistency with the schema
+        fed_email: u_email,
         fed_item_name,
         fed_item_id,
         fed_rating,
         fed_feedback,
       })
       .then((result) => {
-        console.log(result);
-        alert("Feedback added successfully!");
-        window.location.reload();
+        toast.success("Feedback added successfully!", { autoClose: 3000 });
         setTimeout(() => {
           navigate("/home_feedback");
+          window.location.reload();
         }, 1000); // Redirect after submission
       })
       .catch((err) => {
+        toast.error("Error adding feedback.", { autoClose: 3000 });
         console.log(err);
       });
   };
@@ -64,10 +83,13 @@ function Home_feedback() {
     axios
       .delete("http://localhost:8020/delete_feedback/" + id)
       .then((res) => {
-        console.log(res);
+        toast.success("Feedback deleted successfully!", { autoClose: 3000 });
         window.location.reload(); // Reload page after deletion
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error("Error deleting feedback.", { autoClose: 3000 });
+        console.log(err);
+      });
   };
 
   return (
@@ -115,7 +137,7 @@ function Home_feedback() {
                     onChange={(e) => setfed_rating(e.target.value)}
                     required
                   />
-                  <label for="star5" title="5 stars">
+                  <label htmlFor="star5" title="5 stars">
                     ★
                   </label>
 
@@ -126,7 +148,7 @@ function Home_feedback() {
                     value="4"
                     onChange={(e) => setfed_rating(e.target.value)}
                   />
-                  <label for="star4" title="4 stars">
+                  <label htmlFor="star4" title="4 stars">
                     ★
                   </label>
 
@@ -137,7 +159,7 @@ function Home_feedback() {
                     value="3"
                     onChange={(e) => setfed_rating(e.target.value)}
                   />
-                  <label for="star3" title="3 stars">
+                  <label htmlFor="star3" title="3 stars">
                     ★
                   </label>
 
@@ -148,7 +170,7 @@ function Home_feedback() {
                     value="2"
                     onChange={(e) => setfed_rating(e.target.value)}
                   />
-                  <label for="star2" title="2 stars">
+                  <label htmlFor="star2" title="2 stars">
                     ★
                   </label>
 
@@ -159,7 +181,7 @@ function Home_feedback() {
                     value="1"
                     onChange={(e) => setfed_rating(e.target.value)}
                   />
-                  <label for="star1" title="1 star">
+                  <label htmlFor="star1" title="1 star">
                     ★
                   </label>
                 </div>
@@ -169,6 +191,7 @@ function Home_feedback() {
                     type="text"
                     id="input"
                     onChange={(e) => setfed_feedback(e.target.value)}
+                    minLength="10"
                     required
                   />
                 </label>
@@ -249,6 +272,8 @@ function Home_feedback() {
       <br />
 
       <Footer />
+
+      <ToastContainer />
     </>
   );
 }
