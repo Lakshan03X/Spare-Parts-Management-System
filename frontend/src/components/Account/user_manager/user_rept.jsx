@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useReactToPrint } from "react-to-print";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./user_main.css";
@@ -31,12 +32,42 @@ function user_rept() {
       .catch((err) => console.log(err));
   };
 
-  const generatePDF = useReactToPrint({
-    content: () => componentPDF.current,
-    documentTitle: "user Report",
-    // onAfterPrint: () => alert("PDF generated successfully"),
-    onPrintError: (err) => console.error("PDF generation error:", err),
-  });
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    doc.text("User Report", 10, 10);
+    // Table headers
+    const headers = [
+      [
+        "Full Name",
+        "Email",
+        "Password",
+        "Age",
+        "Address",
+        "Contact No",
+        "User Type",
+      ],
+    ];
+
+    // Map data to table rows
+    const data = filteredItems.map((user) => [
+      user.name,
+      user.email,
+      user.password,
+      user.age,
+      user.address,
+      user.contact_no,
+      user.user_type,
+    ]);
+
+    // Generate the table in the PDF
+    doc.autoTable({
+      head: headers,
+      body: data,
+    });
+
+    doc.save("user_report.pdf"); // Save the PDF
+  };
 
   // Search function
   const handleSearch = () => {
@@ -90,7 +121,7 @@ function user_rept() {
               <button onClick={generatePDF} id="user_pdf_btn">
                 Download Report &ensp; <i className="fa fa-download"></i>
               </button>
-              <div ref={componentPDF}>
+              <div>
                 <table id="user_Table">
                   <thead>
                     <tr>
