@@ -60,19 +60,19 @@ function ViewEachSurvey() {
 
     // Add survey questions and answers
     doc.text(`Question 01: ${survey.Q1}`, 10, 50);
-    doc.text(`Answer: ans`, 10, 60); // Replace 'ans' with actual answer if available
+    doc.text(`Answer: abc`, 10, 60); // Replace 'ans' with actual answer if available
 
     doc.text(`Question 02: ${survey.Q2}`, 10, 70);
-    doc.text(`Answer: ans`, 10, 80); // Replace 'ans' with actual answer if available
+    doc.text(`Answer: abcd`, 10, 80); // Replace 'ans' with actual answer if available
 
     doc.text(`Question 03: ${survey.Q3}`, 10, 90);
-    doc.text(`Answer: ans`, 10, 100); // Replace 'ans' with actual answer if available
+    doc.text(`Answer: abcde`, 10, 100); // Replace 'ans' with actual answer if available
 
     doc.text(`Question 04: ${survey.Q4}`, 10, 110);
-    doc.text(`Answer: ans`, 10, 120); // Replace 'ans' with actual answer if available
+    doc.text(`Answer: abcde`, 10, 120); // Replace 'ans' with actual answer if available
 
     doc.text(`Question 05: ${survey.Q5}`, 10, 130);
-    doc.text(`Answer: ans`, 10, 140); // Replace 'ans' with actual answer if available
+    doc.text(`Answer: abcdef`, 10, 140); // Replace 'ans' with actual answer if available
 
     doc.save("survey_report.pdf");
   };
@@ -96,19 +96,19 @@ function ViewEachSurvey() {
         <br />
 
         <p className="survey-question">Question 01 - {survey.Q1} ?</p>
-        <input type="text" value="aa" className="survey-ans" readOnly />
+        <input type="text" value="abc" className="survey-ans" readOnly />
 
         <p className="survey-question">Question 02 - {survey.Q2} ?</p>
-        <input type="text" value="ans" className="survey-ans" readOnly />
+        <input type="text" value="abcd" className="survey-ans" readOnly />
 
         <p className="survey-question">Question 03 - {survey.Q3} ?</p>
-        <input type="text" value="ans" className="survey-ans" readOnly />
+        <input type="text" value="abcde" className="survey-ans" readOnly />
 
         <p className="survey-question">Question 04 - {survey.Q4} ?</p>
-        <input type="text" value="ans" className="survey-ans" readOnly />
+        <input type="text" value="abcdef" className="survey-ans" readOnly />
 
         <p className="survey-question">Question 05 - {survey.Q5} ?</p>
-        <input type="text" value="ans" className="survey-ans" readOnly />
+        <input type="text" value="abcdefg" className="survey-ans" readOnly />
       </div>
     </>
   );
