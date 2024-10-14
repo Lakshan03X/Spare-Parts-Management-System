@@ -14,6 +14,7 @@ function OderDash() {
     axios
       .get("http://localhost:8020/get_order_dash")
       .then((result) => {
+        console.log(result.data);
         setOrders(result.data); // Store original data
         setFilteredOrders(result.data); // Initialize filteredItems with the same data
       })
@@ -112,7 +113,7 @@ function OderDash() {
                 <td>{order.delivery_fee}</td>
                 <td>{order.item_quantity}</td>
                 <td>{order.total_price}</td>
-                <td>{order.payment_methord}</td>
+                <td>{order.payment_method}</td>
                 <td>
                   <button
                     className="delete_btn"
