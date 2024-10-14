@@ -28,7 +28,7 @@ function Deliveries() {
     }, []);
 
     useEffect(() => {
-        const filteredData = track.filter(del => del.delP_email === loggedUserName);
+        const filteredData = track.filter(del => del.delP_email === loggedUserName && del.delivery_status != "Completed");
         setFilteredDels(filteredData);
     }, [track, loggedUserName]);
 
