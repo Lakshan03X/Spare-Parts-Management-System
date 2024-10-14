@@ -1,21 +1,14 @@
-// models/Survey.js
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const SurveySchema = new Schema({
+const AnswerSchema = new Schema({
   title: { type: String, required: true },
-  questions: [
-    {
-      question: { type: String, required: true },
-      options: [{ type: String }],
-      answerType: {
-        type: String,
-        enum: ["text", "multiple-choice"],
-        required: true,
-      },
-    },
-  ],
-  createdAt: { type: Date, default: Date.now },
+  Q1: { type: String, required: true },
+  Q2: { type: String, required: true },
+  Q3: { type: String, required: true },
+  Q4: { type: String, required: true },
+  Q5: { type: String, required: true },
 });
 
-module.exports = mongoose.model("Survey", SurveySchema);
+const quationModel = mongoose.model("Survey Qns", AnswerSchema);
+module.exports = quationModel;

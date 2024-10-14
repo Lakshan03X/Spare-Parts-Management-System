@@ -1,46 +1,44 @@
-// components/SurDashboard.js
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import "../../css/survey/surDash.css";
-import SurveyView from "./viewServey";
+import Navbar from "./navbar";
 
-function SurDashboard() {
-  const [surveys, setSurveys] = useState([]); // State to hold all surveys
+const SurveyComponent = () => {
+  const [survey, setSurvey] = useState();
+
+  const [filteredItems, setFilteredItems] = useState([]); // Filtered items
 
   useEffect(() => {
-    const fetchSurveys = async () => {
-      try {
-        const response = await axios.get("http://localhost:8020/getSurveys"); // Adjust this endpoint as necessary
-        setSurveys(response.data); // Set the surveys data
-      } catch (error) {
-        console.error("There was an error fetching the surveys!", error);
-      }
-    };
-
-    fetchSurveys(); // Call the function to fetch surveys
+    axios
+      .get("http://localhost:8020/getqns")
+      .then((result) => {
+        setSurvey(result.data); // Store original data
+        setFilteredItems(result.data); // Initialize filteredItems with the same data
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
-    <div className="surDash">
-      {surveys.length === 0 ? (
-        <p>No surveys available</p>
-      ) : (
-        surveys.map((survey) => (
-          <div key={survey._id} className="surveys-mini">
-            <h3 className="sur-head">{survey.title}</h3>
-            &ensp;
-            <Link to={`/survey/view/${survey._id}`}>
-              <button className="button-40" role="button">
-                {" "}
-                View
-              </button>
-            </Link>
-          </div>
-        ))
-      )}
-    </div>
+    <>
+      <Navbar />
+      <h1>Survey Manager</h1>
+      <Link to="/addSurvey">
+        <button className="add_btn" id="addbtn">
+          Add Survey
+        </button>
+      </Link>
+      {filteredItems.map((survey, index) => (
+        <div className="survey-item" key={index}>
+          <h1 className="survey-item-title">{survey.title}</h1>
+          <Link to={`/view_quations/${survey._id}`}>
+            <button className="survey-item-button">View</button>
+          </Link>
+          <button className="survey-item-button">Edit</button>
+          <button className="survey-item-button">Delete</button>
+        </div>
+      ))}
+    </>
   );
-}
+};
 
-export default SurDashboard;
+export default SurveyComponent;

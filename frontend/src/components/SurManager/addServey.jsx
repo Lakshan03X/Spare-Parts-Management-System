@@ -1,60 +1,49 @@
-import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import '../../css/survey/addServey.css'
-import axios from 'axios';
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../../css/survey/addServey.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AddSurvey() {
-  const [title, setTitle] = useState('');
-  const [questions, setQuestions] = useState([{ question: '', answerType: 'text', options: [''] }]);
+  const [title, setTitle] = useState("");
+  const [Q1, setQ1] = useState("");
+  const [Q2, setQ2] = useState("");
+  const [Q3, setQ3] = useState("");
+  const [Q4, setQ4] = useState("");
+  const [Q5, setQ5] = useState("");
 
-  // Handle form input changes for questions
-  const handleQuestionChange = (index, field, value) => {
-    const newQuestions = [...questions];
-    newQuestions[index][field] = value;
-    setQuestions(newQuestions);
-  };
+  const navigate = useNavigate();
 
-  // Handle option change for multiple choice questions
-  const handleOptionChange = (questionIndex, optionIndex, value) => {
-    const newQuestions = [...questions];
-    newQuestions[questionIndex].options[optionIndex] = value;
-    setQuestions(newQuestions);
-  };
-
-  // Add a new question to the form
-  const addQuestion = () => {
-    setQuestions([...questions, { question: '', answerType: 'text', options: [''] }]);
-  };
-
-  // Add a new option to a multiple-choice question
-  const addOption = (index) => {
-    const newQuestions = [...questions];
-    newQuestions[index].options.push('');
-    setQuestions(newQuestions);
-  };
-
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title && questions.length > 0) {
-      axios.post('http://localhost:8020/addSurvey', { title, questions })
-        .then(result => {
-          toast("Survey Submitted Successfully!");
-          setTitle('');
-          setQuestions([{ question: '', answerType: 'text', options: [''] }]);
-        })
-        .catch(err => {
-          toast("Failed to Submit Survey");
-          console.log(err);
-        });
-    } else {
-      toast("Please fill in all fields!");
-    }
+    axios
+      .post("http://localhost:8020/addqns", {
+        title,
+        Q1,
+        Q2,
+        Q3,
+        Q4,
+        Q5,
+      })
+      .then((result) => {
+        console.log(result);
+        toast.success("Survey added successfully");
+        setTimeout(() => {
+          navigate("/surManagerDash");
+        }, 2000);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Failed to add survey");
+      });
   };
-
+  const back = () => {
+    navigate(-1)
+  }
   return (
-    <div className='addSur'>
+    <div className="addSur">
+      <button onClick={back}>Go Back</button>
       <h1>Create a Survey</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Survey Title</label>
@@ -68,57 +57,63 @@ function AddSurvey() {
           className="report-input"
         />
 
-        {questions.map((q, index) => (
-          <div key={index}>
-            <label>Question {index + 1}</label>
-            <input
-              type="text"
-              className="report-input"
-              value={q.question}
-              onChange={(e) => handleQuestionChange(index, 'question', e.target.value)}
-              required
-            />
+        <label htmlFor="q1ans">Question 01</label>
+        <input
+          type="text"
+          name="q1ans"
+          id="q1ans"
+          onChange={(e) => setQ1(e.target.value)}
+          required
+          className="report-input"
+        />
 
-            <label>Answer Type</label>
-            <select
-              className="report-input"
-              value={q.answerType}
-              onChange={(e) => handleQuestionChange(index, 'answerType', e.target.value)}
-            >
-              <option value="text">Text</option>
-              <option value="multiple-choice">Multiple Choice</option>
-            </select>
+        <label htmlFor="q2ans">Question 02</label>
+        <input
+          type="text"
+          name="q2ans"
+          id="q2ans"
+          onChange={(e) => setQ2(e.target.value)}
+          required
+          className="report-input"
+        />
 
-            {q.answerType === 'multiple-choice' && q.options.map((option, optionIndex) => (
-              <div key={optionIndex}>
-                <label>Option {optionIndex + 1}</label>
-                <input
-                  type="text"
-                  className="report-input"
-                  value={option}
-                  onChange={(e) => handleOptionChange(index, optionIndex, e.target.value)}
-                  required
-                />
-              </div>
-            ))}
+        <label htmlFor="q3ans">Question 03</label>
+        <input
+          type="text"
+          name="q3ans"
+          id="q3ans"
+          onChange={(e) => setQ3(e.target.value)}
+          required
+          className="report-input"
+        />
 
-            {q.answerType === 'multiple-choice' && (
-              <button type="button" onClick={() => addOption(index)}>
-                Add Option
-              </button>
-            )}
-          </div>
-        ))}
+        <label htmlFor="q4ans">Question 04</label>
+        <input
+          type="text"
+          name="q4ans"
+          id="q4ans"
+          onChange={(e) => setQ4(e.target.value)}
+          required
+          className="report-input"
+        />
 
-        <button type="button" onClick={addQuestion} className="report-sum-btn">
-          Add Question
+        <label htmlFor="q5ans">Question 05</label>
+        <input
+          type="text"
+          name="q5ans"
+          id="q5ans"
+          onChange={(e) => setQ5(e.target.value)}
+          required
+          className="report-input"
+        />
+
+        <button type="submit" className="report-sum-btn">
+          Submit Survey
         </button>
-
-        <button type="submit" className="report-sum-btn">Submit Survey</button>
       </form>
       <ToastContainer />
     </div>
   );
 }
 
-export default AddSurvey
+export default AddSurvey;

@@ -14,24 +14,22 @@ function SurManagerLogin() {
     axios
       .post("http://localhost:8020/surlogin", { email, password })
       .then((result) => {
-          const userData = result.data.user; // Access the user data from the response
-          console.log(userData); // Log user data for debugging
+        const userData = result.data.user; // Access the user data from the response
+        console.log(userData); // Log user data for debugging
 
-          // Check if login was successful based on the message
-          if (result.data.message === "Success") {
-              localStorage.setItem('user', JSON.stringify(userData)); // Store user data in local storage
-              navigate("/surveyManager");
-          } else {
-              alert(result.data.error || "Invalid! Please check again."); // Show appropriate error
-          }
+        // Check if login was successful based on the message
+        if (result.data.message === "Success") {
+          localStorage.setItem("user", JSON.stringify(userData)); // Store user data in local storage
+          navigate("/surManager");
+        } else {
+          alert(result.data.error || "Invalid! Please check again."); // Show appropriate error
+        }
       })
       .catch((err) => {
-          console.log(err);
-          alert("An error occurred during login. Please try again.");
+        console.log(err);
+        alert("An error occurred during login. Please try again.");
       });
-};
-
-
+  };
 
   return (
     <>

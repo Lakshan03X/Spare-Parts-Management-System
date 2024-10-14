@@ -48,11 +48,10 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.surveys:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+#add-bn{
+  margin-left: 0px;
+  margin-top: 10px;
 }
-
 /* Survey Title */
 .sur-head {
   font-size: 18px;
