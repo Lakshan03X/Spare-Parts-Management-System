@@ -7,7 +7,7 @@
 
 const mongoose = require('mongoose')
 
-
+// Schema
 const CustomerSchema = new mongoose.Schema({
     name: String,
     email: String,
