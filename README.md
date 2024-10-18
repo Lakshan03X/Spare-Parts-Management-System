@@ -2,7 +2,7 @@
 
 # Lakshan H.M.N - Leader
 
-# IT22299666 Athukorala C.J
+# Athukorala C.J
 
 # Sankadeepa W.D.I
 
