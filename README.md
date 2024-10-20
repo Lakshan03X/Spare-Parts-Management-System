@@ -1,6 +1,7 @@
 <h2>spare-part-management-system</h2>
 <hr>
-<p></p>
+<p>This is a project of the campus, I worked as a leader of this project and completed this project by taking requirements from the company called Raker Edge.</p>
+<h3>Group Members<h3>
 <ol>
   <li>Lakshan H.M.N - Leader</li>
   <li>Athukorala C.J</li>
